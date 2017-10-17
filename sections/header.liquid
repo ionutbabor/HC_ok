@@ -19,32 +19,32 @@
 
   <div class="container">
    <div class="row">
-   <div class="col-md-6">
-        <ul class="nav nav-pills">
-      {% for link in linklists[section.settings.header-top].links %}
-      {%- assign child_list_handle = link.title | handleize -%}
-      {% if menus[child_list_handle].links != blank %}
-      <li class="site-nav--has-submenu{% if link.active %} active{% endif %}">
-        <a href="{{ link.url }}" class="site-nav__link">
-          {{ link.title }}
-          {% include 'icon-arrow-down' %}
-        </a>
-        <ul class="site-nav__submenu">
-          {% for childlink in menus[child_list_handle].links %}
-          <li {% if childlink.active %}class="site-nav--active"{% endif %}>
-            <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
-          </li>
-          {% endfor %}
-        </ul>
-      </li>
-      {% else %}
-      <li {% if link.active %}class="active"{% endif %}>
-        <a href="{{ link.url }}" class="site-nav__link">{{ link.title }}</a>
-      </li>
-      {% endif %}
-      {% endfor %}
-    </ul>
-   </div>
+     <div class="col-md-6">
+      <ul class="nav nav-pills">
+        {% for link in linklists[section.settings.header-top].links %}
+        {%- assign child_list_handle = link.title | handleize -%}
+        {% if menus[child_list_handle].links != blank %}
+        <li class="site-nav--has-submenu{% if link.active %} active{% endif %}">
+          <a href="{{ link.url }}" class="site-nav__link">
+            {{ link.title }}
+            {% include 'icon-arrow-down' %}
+          </a>
+          <ul class="site-nav__submenu">
+            {% for childlink in menus[child_list_handle].links %}
+            <li {% if childlink.active %}class="site-nav--active"{% endif %}>
+              <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </li>
+        {% else %}
+        <li {% if link.active %}class="active"{% endif %}>
+          <a href="{{ link.url }}" class="site-nav__link">{{ link.title }}</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
   </div>
 </div>
 </div>
@@ -128,6 +128,156 @@
 
 </div><!-- row -->
 </div><!-- container -->
+
+
+<!-- mega menu -->
+<div class="container">
+  <nav class="navbar navbar-default">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">MegaMenu</a>
+    </div>
+
+
+    <div class="collapse navbar-collapse js-navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown mega-dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Collection <span class="caret"></span></a>
+
+          <ul class="dropdown-menu mega-dropdown-menu row">
+            <li class="col-sm-3">
+
+              <ul>
+                <li class="dropdown-header">Hot Sale</li>
+                <li><a href="#">Unique Features</a></li>
+                <li><a href="#">Image Responsive</a></li>
+                <li><a href="#">Auto Carousel</a></li>
+                <li><a href="#">Newsletter Form</a></li>
+                <li><a href="#">Four columns</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Bottoms</li>
+                <li><a href="#">Good Typography</a></li>
+              </ul>
+
+              <ul>
+                <li class="dropdown-header">Accessories</li>
+                <li><a href="#">Default Navbar</a></li>
+                <li><a href="#">Lovely Fonts</a></li>
+                <li><a href="#">Responsive Dropdown </a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Hats & Caps</li>
+             <!--    <form class="form" role="form">
+               <div class="form-group">
+                 <label class="sr-only" for="email">Email address</label>
+                 <input type="email" class="form-control" id="email" placeholder="Enter email">
+               </div>
+               <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+             </form> -->
+           </ul>
+
+           <!--    <ul>
+           <li class="dropdown-header">New in Stores</li> -->
+           <!-- begin carousel -->
+                <!-- <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                  <div class="carousel-inner">
+                    <div class="item active">
+                      <a href="#"><img src="http://placehold.it/254x150/3498db/f5f5f5/&text=New+Collection" class="img-responsive" alt="product 1"></a>
+                      <h4><small>Summer dress floral prints</small></h4>
+                      <button class="btn btn-primary" type="button">49,99 €</button>
+                      <button href="#" class="btn btn-default" type="button"><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</button>
+                    </div>
+                    End Item
+                    <div class="item">
+                      <a href="#"><img src="http://placehold.it/254x150/ef5e55/f5f5f5/&text=New+Collection" class="img-responsive" alt="product 2"></a>
+                      <h4><small>Gold sandals with shiny touch</small></h4>
+                      <button class="btn btn-primary" type="button">9,99 €</button>
+                      <button href="#" class="btn btn-default" type="button"><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</button>
+                    </div>
+                    End Item
+                    <div class="item">
+                      <a href="#"><img src="http://placehold.it/254x150/2ecc71/f5f5f5/&text=New+Collection" class="img-responsive" alt="product 3"></a>
+                      <h4><small>Denin jacket stamped</small></h4>
+                      <button class="btn btn-primary" type="button">49,99 €</button>
+                      <button href="#" class="btn btn-default" type="button"><span class="glyphicon glyphicon-heart"></span> Add to Wishlist</button>
+                    </div>
+                    End Item
+                  </div>
+                  End Carousel Inner
+                </div> -->
+                <!-- /.carousel -->
+               <!--  <li class="divider"></li>
+               <li><a href="#">View all Collection <span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li> 
+              </ul>
+            -->
+          </li>
+          <li class="col-sm-3">
+            <ul>
+              <li class="dropdown-header">Outerear & Jackets</li>
+              <li><a href="#">Unique Features</a></li>
+              <li><a href="#">Image Responsive</a></li>
+              <li><a href="#">Auto Carousel</a></li>
+              <li><a href="#">Newsletter Form</a></li>
+              <li><a href="#">Four columns</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Tops</li>
+              <li><a href="#">Good Typography</a></li>
+            </ul>
+          </li>
+          <li class="col-sm-3">
+            <ul>
+              <li class="dropdown-header">Jackets</li>
+              <li><a href="#">Easy to customize</a></li>
+              <li><a href="#">Glyphicons</a></li>
+              <li><a href="#">Pull Right Elements</a></li>
+              <li class="divider"></li>
+              <li class="dropdown-header">Pants</li>
+              <li><a href="#">Coloured Headers</a></li>
+              <li><a href="#">Primary Buttons & Default</a></li>
+              <li><a href="#">Calls to action</a></li>
+            </ul>
+          </li>
+          <li class="col-sm-3">
+
+
+            <div class="row">
+              <div id="small-img" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center">
+                <ul>
+                  <li>
+                    <a href="#" class="thumbnail">
+                    <img src="http://placehold.it/150x100" class="img-responsive inline-block" alt="Responsive image" />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="thumbnail">
+                    <img src="http://placehold.it/150x100" class="img-responsive inline-block" alt="Responsive image" />
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" class="thumbnail">
+                    <img src="http://placehold.it/150x100" class="img-responsive inline-block" alt="Responsive image" />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+
+          </li>
+        </ul>
+
+      </li>
+    </ul>
+
+  </div>
+  <!-- /.nav-collapse -->
+</nav>
+</div>
+<!-- end mega menu -->
 </header>
 
 <div data-section-id="{{ section.id }}" data-section-type="header-section">
@@ -135,33 +285,36 @@
 </header>{% endcomment %}
 
 
+
+
+
 <nav role="navigation">
   <div class="container">
-    <ul class="nav nav-pills">
+    <ul class="nav nav-tabs">
       {% for link in linklists[section.settings.main_linklist].links %}
       {%- assign child_list_handle = link.title | handleize -%}
       {% if menus[child_list_handle].links != blank %}
-      <li class="site-nav--has-submenu{% if link.active %} site-nav--active{% endif %}">
-        <a href="{{ link.url }}" class="site-nav__link">
-          {{ link.title }}
-          {% include 'icon-arrow-down' %}
-        </a>
-        <ul class="site-nav__submenu">
-          {% for childlink in menus[child_list_handle].links %}
-          <li {% if childlink.active %}class="site-nav--active"{% endif %}>
-            <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
-          </li>
-          {% endfor %}
-        </ul>
-      </li>
-      {% else %}
-      <li {% if link.active %}class="site-nav--active"{% endif %}>
-        <a href="{{ link.url }}" class="site-nav__link">{{ link.title }}</a>
-      </li>
-      {% endif %}
-      {% endfor %}
-    </ul>
-  </div><!-- container -->
+      <li role="presentation" class="dropdown">
+       <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+        {{ link.title }}
+        <span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+        {% for childlink in menus[child_list_handle].links %}
+        <li {% if childlink.active %}class="site-nav--active"{% endif %}>
+          <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </li>
+    {% else %}
+    <li {% if link.active %}class="site-nav--active"{% endif %}>
+      <a href="{{ link.url }}" class="site-nav__link">{{ link.title }}</a>
+    </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</div><!-- container -->
 </nav>
 
 </div>
@@ -205,3 +358,12 @@
 
 }
 {% endschema %}
+
+
+{% javascript %}
+jQuery(document).on('click', '.mega-dropdown', function(e) {
+e.stopPropagation()
+})
+{% endjavascript %}
+
+
