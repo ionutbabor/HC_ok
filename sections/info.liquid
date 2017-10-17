@@ -1,0 +1,49 @@
+<div class="bottom-section">
+<div class="container">
+  <div class="row">
+
+    {% for block in section.blocks %}
+    {% case block.type %}
+    {% when 'content' %}
+
+    <div class="col-md-2 col-sm-4 col-xs-6">
+      <div class="thumbnail">
+        <img src="{{ block.settings.icon-img | img_url: '110X110' }}">
+        <h3 class="icon-title">{{ block.settings.icon-title }}</h3>
+        <p>{{ block.settings.icon-description }}</p>
+      </div>
+    </div>
+    {% endcase %}
+    {% endfor %}
+
+  </div>
+</div>
+</div>
+{% schema %}
+{
+  "blocks": [
+  {
+    "type": "content",
+    "name": "Icon and title",
+    "settings": [
+    {
+      "id": "icon-img",
+      "type": "image_picker",
+      "label": "Icon Image:"
+    },  
+    {
+      "id": "icon-title",
+      "type": "text",
+      "label": "Title:"
+    },  
+    {
+      "id": "icon-description",
+      "type": "text",
+      "label": "Description:"
+    }
+    ]
+  }
+  ]
+}
+
+{% endschema %}

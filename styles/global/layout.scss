@@ -1,0 +1,19 @@
+/*================ General layout styles ================*/
+body,
+html {
+  background-color: $color-body;
+}
+.container{
+	width: 1200px;
+}
+.collection-list{
+	 background-color: $default-color;
+	 margin-bottom: 30px;
+}
+
+/*.page-width {
+  @include clearfix();
+  max-width: $width-site;
+  padding: 0 $gutter;
+  margin: 0 auto;
+}*/

@@ -1,0 +1,293 @@
+{% comment %}{% if section.settings.title != blank %}
+<h2>{{ section.settings.title | escape }}</h2>
+{% endif %}
+<div class="row">
+  {% for block in section.blocks limit: section.blocks.size %}
+  <div class="col-md-4">
+    <div {{ block.shopify_attributes }}>
+      {%- assign collection = collections[block.settings.collection] -%}
+
+      <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
+        {% if collection.image != blank %}
+        {{ collection | img_url: '480x480' | img_tag: collection.title }}
+        {% elsif collection.products.first != blank %}
+        {{ collection.products.first | img_url: '480x480' | img_tag: collection.title }}
+        {% elsif collection == empty %}
+        {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+        {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+        {% endif %}
+
+        <p>
+          {% if collection == empty %}
+          {{ 'homepage.onboarding.collection_title' | t }}
+          {% else %}
+          {{ collection.title }}
+          {% endif %}
+        </p>
+      </a>
+    </div>
+  </div>
+  {% endfor %}
+</div>{% endcomment %}
+
+
+<div class="collection-list">
+<div class="row">
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-3">
+        {% if section.settings.title != blank %}
+        <h2>{{ section.settings.title | escape }}</h2>
+        {% endif %}
+        {% assign footer_linklist = section.settings.category_link %}
+        {% if linklists[footer_linklist].links.size > 0 %}
+        <ul>
+          {% for link in linklists[footer_linklist].links %}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+
+      </div>
+      <div class="col-md-9">
+
+      </div>
+    </div>
+    
+    
+  </div>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-9">
+
+      {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'collection' %}
+      <div {{ block.shopify_attributes }}>
+        {%- assign collection = collections[block.settings.left-collection] -%}
+
+        <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
+          {% if collection.image != blank %}
+          {{ collection | img_url: '480x480' | img_tag: collection.title , 'img-responsive' }}
+          {% elsif collection.products.first != blank %}
+          {{ collection.products.first | img_url: '480x480' | img_tag: collection.title ,'img-responsive' }}
+          {% elsif collection == empty %}
+          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+          {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+          {% endif %}
+
+          <p>
+            {% if collection == empty %}
+            {{ 'homepage.onboarding.collection_title' | t }}
+            {% else %}
+            {{ collection.title }}
+            {% endif %}
+          </p>
+        </a>
+      </div>
+
+      {% endcase %}
+      {% endfor %}
+    </div>
+    <div class="col-md-3">
+      {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'collection' %}
+      <div {{ block.shopify_attributes }}>
+        {%- assign collection = collections[block.settings.right-collection] -%}
+
+        <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
+          {% if collection.image != blank %}
+          {{ collection | img_url: '480x480' | img_tag: collection.title , 'img-responsive' }}
+          {% elsif collection.products.first != blank %}
+          {{ collection.products.first | img_url: '480x480' | img_tag: collection.title , 'img-responsive'}}
+          {% elsif collection == empty %}
+          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+          {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+          {% endif %}
+
+          <p>
+            {% if collection == empty %}
+            {{ 'homepage.onboarding.collection_title' | t }}
+            {% else %}
+            {{ collection.title }}
+            {% endif %}
+          </p>
+        </a>
+      </div>
+      
+      {% endcase %}
+      {% endfor %}
+
+    </div>
+      
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'collection' %}
+      <div {{ block.shopify_attributes }}>
+        {%- assign collection = collections[block.settings.bottom-left-collection] -%}
+
+        <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
+          {% if collection.image != blank %}
+          {{ collection | img_url: '480x480' | img_tag: collection.title , 'img-responsive' }}
+          {% elsif collection.products.first != blank %}
+          {{ collection.products.first | img_url: '480x480' | img_tag: collection.title , 'img-responsive'}}
+          {% elsif collection == empty %}
+          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+          {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+          {% endif %}
+
+          <p>
+            {% if collection == empty %}
+            {{ 'homepage.onboarding.collection_title' | t }}
+            {% else %}
+            {{ collection.title }}
+            {% endif %}
+          </p>
+        </a>
+      </div>
+      
+      {% endcase %}
+      {% endfor %}
+        
+      </div>
+      <div class="col-md-4">
+        {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'collection' %}
+      <div {{ block.shopify_attributes }}>
+        {%- assign collection = collections[block.settings.bottom-middle-collection] -%}
+
+        <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
+          {% if collection.image != blank %}
+          {{ collection | img_url: '480x480' | img_tag: collection.title , 'img-responsive' }}
+          {% elsif collection.products.first != blank %}
+          {{ collection.products.first | img_url: '480x480' | img_tag: collection.title , 'img-responsive'}}
+          {% elsif collection == empty %}
+          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+          {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+          {% endif %}
+
+          <p>
+            {% if collection == empty %}
+            {{ 'homepage.onboarding.collection_title' | t }}
+            {% else %}
+            {{ collection.title }}
+            {% endif %}
+          </p>
+        </a>
+      </div>
+      
+      {% endcase %}
+      {% endfor %}
+        
+      </div>
+      <div class="col-md-4">
+        {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'collection' %}
+      <div {{ block.shopify_attributes }}>
+        {%- assign collection = collections[block.settings.bottom-right-collection] -%}
+
+        <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
+          {% if collection.image != blank %}
+          {{ collection | img_url: '480x480' | img_tag: collection.title , 'img-responsive' }}
+          {% elsif collection.products.first != blank %}
+          {{ collection.products.first | img_url: '480x480' | img_tag: collection.title , 'img-responsive'}}
+          {% elsif collection == empty %}
+          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+          {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+          {% endif %}
+
+          <p>
+            {% if collection == empty %}
+            {{ 'homepage.onboarding.collection_title' | t }}
+            {% else %}
+            {{ collection.title }}
+            {% endif %}
+          </p>
+        </a>
+      </div>
+      
+      {% endcase %}
+      {% endfor %}
+        
+      </div>
+    </div>
+    
+    
+  </div>
+
+</div>
+</div>
+
+{% if section.blocks.size == 0 %}
+{% include 'no-blocks' %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Collection list",
+  "max_blocks": 1,
+  "settings": [
+  {
+    "type": "text",
+    "id": "title",
+    "label": "Heading",
+    "default": "Collection list"
+  },
+  {
+    "type": "link_list",
+    "id": "category_link",
+    "label": "Category menu"
+  }
+  ],
+  "blocks": [
+  {
+    "type": "collection",
+    "name": "Collection",
+    "settings": [
+    {
+      "label": "Left Collection",
+      "id": "left-collection",
+      "type": "collection"
+    },
+    {
+      "label": "Right Collection",
+      "id": "right-collection",
+      "type": "collection"
+    },
+    {
+      "label": "Bottom Left Collection",
+      "id": "bottom-left-collection",
+      "type": "collection"
+    },
+    {
+      "label": "Bottom Middle Collection",
+      "id": "bottom-middle-collection",
+      "type": "collection"
+    },
+    {
+      "label": "Bottom Right Collection",
+      "id": "bottom-right-collection",
+      "type": "collection"
+    }
+    ]
+  }
+  ],
+  "presets": [
+  {
+    "name": "Collection list",
+    "category": "Collection",
+    "blocks": [
+    {
+      "type": "collection"
+    }
+    ]
+  }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,66 @@
+/*================ Color Variables ================*/
+$color-primary: {{ settings.color_primary }};
+
+// Text colors
+$color-body-text: {{ settings.color_body_text }};
+$color-top-header-text:{{ settings.top-header-text-color }};
+
+// Backgrounds
+$default-color: #fff;
+$color-body:{{ settings.body-bkg-color }};
+$color-top-header: {{ settings.top-header-bkg-color }};
+$color-header: {{ settings.header-bkg-color }};
+$color-footer: {{ settings.footer-bkg-color }};
+$color-copyright-footer: {{ settings.footer-copyright-bkg }};
+$color-copyright-text: {{ settings.footer-copyright-text }};
+// Border colors
+$color-border: {{ settings.border-color }};
+
+// Button colors
+$color-button: {{ settings.button-color }};
+$color-text-btn: {{ settings.button-text-color }};
+
+// Helper colors for form error states
+$color-disabled: #000;
+$color-disabled-border: #000;
+$color-error: #000;
+$color-error-bg: #000;
+$color-success: #000;
+$color-success-bg: #000;
+
+/*================ Typography Variables ================*/
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+$font-stack-header: 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-weight-header: $font-weight-bold;
+
+$font-stack-body: 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-size-base: {{ settings.type_base_size }};
+
+/*============================================================================
+  Grid Breakpoints and Class Names
+    - Do not change the variable names
+==============================================================================*/
+/*$grid-medium: 750px;
+$grid-large: 990px;
+$grid-widescreen: 1400px;
+$grid-gutter: 30px;
+
+$small: 'small';
+$medium: 'medium';
+$medium-down: 'medium-down';
+$medium-up: 'medium-up';
+$large: 'large';
+$large-down: 'large-down';
+$large-up: 'large-up';
+$widescreen: 'widescreen';*/
+
+
+
+/*================ Z-Index ================*/
+$z-index-dropdown: 2;
+$z-index-skip-to-content: 10000; // really high to be safe of app markup
+
+/*================ SVG ================*/
+$svg-select-icon: #{'{{ "ico-select.svg" | asset_url }}'};

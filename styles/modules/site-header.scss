@@ -1,0 +1,14 @@
+/*================ Site Header ================*/
+header{
+	.top-header{
+		background-color: $color-top-header;
+		color: $color-top-header-text;
+	}
+	background-color: $color-header;
+	.site-logo {
+		display: block;
+		img {
+			display: block;
+		}
+	}
+}

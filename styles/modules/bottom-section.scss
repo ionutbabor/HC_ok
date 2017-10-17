@@ -1,0 +1,12 @@
+/*================ Site Bottom Section ================*/
+.bottom-section{
+	background-color: $color-header;
+	.thumbnail{
+		text-align: center;
+		border-color: $color-border;
+		border-radius: 0;
+		border-bottom: 1px solid #fff;
+	}
+	border-bottom: 1px solid $color-border;
+}
+	

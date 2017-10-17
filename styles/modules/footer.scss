@@ -1,0 +1,11 @@
+/*================ Site Footer ================*/
+footer{
+	background-color: $color-footer;
+	.copyright-footer{
+		background-color: $color-copyright-footer;
+		color: $color-copyright-text;
+		a{
+			color: $color-copyright-text;
+		}
+	}
+}
