@@ -15,3 +15,17 @@ html {
   padding: 0 $gutter;
   margin: 0 auto;
 }*/
+
+
+/*font import and stacking*/
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600');
+$first: 'Poppins', sans-serif;
+$size : 14px;
+
+@mixin font($family: $first, $weight: 300, $style: normal, $size: $size, $color: $white) {
+	font-family: $family;
+	font-weight: $weight;
+	font-style: $style;
+	font-size: $size;
+	color: $color;
+}

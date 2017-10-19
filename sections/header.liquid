@@ -1,7 +1,7 @@
 <style>
-{% if section.settings.logo != blank %}
+{% if settings.logo != blank %}
 .site-header__logo-image {
-  max-width: {{ section.settings.logo_max_width }}px;
+  max-width: {{ settings.logo_max_width }}px;
 }
 {% endif %}
 </style>
@@ -12,7 +12,7 @@
     <div class="container-fluid">
       <div class="row">
        <div id="banner">
-        <img class="img-responsive" src="{{ section.settings.top-banner | img_url: 'master' }}" alt="{{ section.settings.logo.alt | default: shop.name }}">
+        <img class="img-responsive" src="{{ settings.top-banner | img_url: 'master' }}" alt="{{ settings.logo.alt | default: shop.name }}">
       </div>
     </div>
   </div>
@@ -21,7 +21,7 @@
    <div class="row">
      <div class="col-md-6">
       <ul class="nav nav-pills">
-        {% for link in linklists[section.settings.header-top].links %}
+        {% for link in linklists[settings.header-top].links %}
         {%- assign child_list_handle = link.title | handleize -%}
         {% if menus[child_list_handle].links != blank %}
         <li class="site-nav--has-submenu{% if link.active %} active{% endif %}">
@@ -54,12 +54,12 @@
       {% else %}
       <div class="h1" itemscope itemtype="http://schema.org/Organization">
         {% endif %}
-        <a href="/" itemprop="url" class="site-logo{% if section.settings.logo != blank %} site-header__logo-image{% endif %}">
-          {% if section.settings.logo != blank %}
-          {% capture image_size %}{{ section.settings.logo_max_width }}x{% endcapture %}
-          <img src="{{ section.settings.logo | img_url: image_size }}"
-          srcset="{{ section.settings.logo | img_url: image_size }} 1x, {{ section.settings.logo | img_url: image_size, scale: 2 }} 2x"
-          alt="{{ section.settings.logo.alt | default: shop.name }}"
+        <a href="/" itemprop="url" class="site-logo{% if settings.logo != blank %} site-header__logo-image{% endif %}">
+          {% if settings.logo != blank %}
+          {% capture image_size %}{{ settings.logo_max_width }}x{% endcapture %}
+          <img src="{{ settings.logo | img_url: image_size }}"
+          srcset="{{ settings.logo | img_url: image_size }} 1x, {{ settings.logo | img_url: image_size, scale: 2 }} 2x"
+          alt="{{ settings.logo.alt | default: shop.name }}"
           itemprop="logo">
           {% else %}
           {{ shop.name }}
@@ -131,6 +131,14 @@
 
 
 
+
+
+
+
+
+
+
+
 <!-- mega menu -->
 <div class="container">
   <nav class="navbar navbar-default">
@@ -141,145 +149,123 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">MegaMenu</a>
     </div>
 
 
     <div class="collapse navbar-collapse js-navbar-collapse">
+
+
+
+
+
+
+
+
+
       <ul class="nav navbar-nav">
-        <li class="dropdown mega-dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Collection <span class="caret"></span></a>
 
-          <ul class="dropdown-menu mega-dropdown-menu row">
-            <li class="col-sm-3">
-
-        
-                    
-                     {% for block in section.blocks %}
-
-<ul>
-                     {% for link in linklists[ block.settings.link ].links %}
-                     {% assign child_list_handle = link.title | handle %}
-                     {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
-                     <li class="dropdown-header">
-                      <a href="{{ link.url }}" class="dropdown-toggle" data-toggle="dropdown">{{ link.title }}</a>
-                      <li class="dropdown-menu multi-level">
-                        {% for child_link in linklists[child_list_handle].links %}
-                        {% assign grand_child_list_handle = child_link.title | handle %}      
-                        {% if linklists[grand_child_list_handle] and linklists[grand_child_list_handle].links.size > 0 %}      
-                        <li class="dropdown-submenu">
-                         <a href="{{ child_link.url }}" class="dropdown-toggle" data-toggle="dropdown">{{ child_link.title }}<b class="caret"></b></a>
-                         </li>
-                         <li class="dropdown-menu">
-                          {% for grand_child_link in linklists[grand_child_list_handle].links %}  
-                          <li>
-                            {{ grand_child_link.title | link_to: grand_child_link.url }}
-                          </li>
-                          {% endfor %}
-                        </li>
-                      
-                      {% else %}
-                      <li>
-                        {{ child_link.title | link_to: child_link.url }}
-                      </li>
-                      {% endif %}
-                      {% endfor %}
-                    </li>
-                  </li>
-                  {% else %}
-                  <li class="{% if link.active %}active{% endif %}">
-                   <a href="{{ link.url }}">{{ link.title }}</a>
-                 </li>
-                 {% endif %}
-                 {% endfor %}
-</ul>
-
-                 {% endfor %}
-</li>
-               
-   <!--             <ul>
-    <li class="dropdown-header">Hot Sale</li>
-    <li><a href="#">Unique Features</a></li>
-    <li><a href="#">Image Responsive</a></li>
-    <li><a href="#">Auto Carousel</a></li>
-    <li><a href="#">Newsletter Form</a></li>
-    <li><a href="#">Four columns</a></li>
-    <li class="divider"></li>
-    <li class="dropdown-header">Bottoms</li>
-    <li><a href="#">Good Typography</a></li>
-                 </ul>
-   
-                 <ul>
-    <li class="dropdown-header">Accessories</li>
-    <li><a href="#">Default Navbar</a></li>
-    <li><a href="#">Lovely Fonts</a></li>
-    <li><a href="#">Responsive Dropdown </a></li>
-    <li class="divider"></li>
-    <li class="dropdown-header">Hats & Caps</li>
-              </ul> -->
-
-           
-      
-          <li class="col-sm-3">
-            <ul>
-              <li class="dropdown-header">Outerear & Jackets</li>
-              <li><a href="#">Unique Features</a></li>
-              <li><a href="#">Image Responsive</a></li>
-              <li><a href="#">Auto Carousel</a></li>
-              <li><a href="#">Newsletter Form</a></li>
-              <li><a href="#">Four columns</a></li>
-              <li class="divider"></li>
-              <li class="dropdown-header">Tops</li>
-              <li><a href="#">Good Typography</a></li>
-            </ul>
-          </li>
-          <li class="col-sm-3">
-            <ul>
-              <li class="dropdown-header">Jackets</li>
-              <li><a href="#">Easy to customize</a></li>
-              <li><a href="#">Glyphicons</a></li>
-              <li><a href="#">Pull Right Elements</a></li>
-              <li class="divider"></li>
-              <li class="dropdown-header">Pants</li>
-              <li><a href="#">Coloured Headers</a></li>
-              <li><a href="#">Primary Buttons & Default</a></li>
-              <li><a href="#">Calls to action</a></li>
-            </ul>
-          </li>
-          <li class="col-sm-3">
+    
 
 
-            <div class="row">
-              <div id="small-img" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center">
-                <ul>
-                  <li>
-                    <a href="#" class="thumbnail">
-                      <img src="http://placehold.it/150x100" class="img-responsive inline-block" alt="Responsive image" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="thumbnail">
-                      <img src="http://placehold.it/150x100" class="img-responsive inline-block" alt="Responsive image" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" class="thumbnail">
-                      <img src="http://placehold.it/150x100" class="img-responsive inline-block" alt="Responsive image" />
-                    </a>
-                  </li>
-                </ul>
-              </div>
+
+       <li class="dropdown mega-dropdown">
+
+
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{section.settings.title}}  </a> 
+
+
+
+        <ul class="dropdown-menu dropdown-menu-open  mega-dropdown-menu row">
+
+         {% for block in section.blocks %}
+
+         {% if block.settings.link != blank %}
+         <li class="col-sm-3">
+           <ul>
+             {% for link in linklists[ block.settings.link ].links %}
+             {% assign child_list_handle = link.title | handle %}
+             {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
+          {% comment %}
+                <a href="{{ link.url }}" class="dropdown-toggle" data-toggle="dropdown">{{ link.title }}</a>
+                {% endcomment %}
+                {% for child_link in linklists[child_list_handle].links %}
+                {% assign grand_child_list_handle = child_link.title | handle %}      
+                {% if linklists[grand_child_list_handle] and linklists[grand_child_list_handle].links.size > 0 %}      
+                <li class="dropdown-header">
+                 <a href="{{ child_link.url }}" class="dropdown-toggle" data-toggle="dropdown">{{ child_link.title }}</a>
+               </li>
+               <li class="dropdown-menu">
+                {% for grand_child_link in linklists[grand_child_list_handle].links %}  
+                <li>
+                  {{ grand_child_link.title | link_to: grand_child_link.url }}
+                </li>
+                {% endfor %}
+              </li>
+
+              {% else %}
+              <li>
+                {{ child_link.title | link_to: child_link.url }}
+              </li>
+              {% endif %}
+              {% endfor %}
+
+
+              {% else %}
+              <li class="{% if link.active %}active{% endif %}">
+               <a href="{{ link.url }}">{{ link.title }}</a>
+             </li>
+             {% endif %}
+             {% endfor %}
+           </ul>
+         </li>
+         {% endif %}
+         {% endfor %}
+
+
+
+
+
+
+
+         <li class="col-sm-3">
+
+
+          <div class="row">
+            <div id="small-img" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center">
+              <ul>
+                <li>
+                  <a href="#" class="thumbnail">
+                    <img src="http://placehold.it/150x100" class="img-responsive inline-block" alt="Responsive image" />
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="thumbnail">
+                    <img src="http://placehold.it/150x100" class="img-responsive inline-block" alt="Responsive image" />
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="thumbnail">
+                    <img src="http://placehold.it/150x100" class="img-responsive inline-block" alt="Responsive image" />
+                  </a>
+                </li>
+              </ul>
             </div>
+          </div>
 
 
-          </li>
-        </ul>
+        </li>
+      </ul>
 
-      </li>
-    </ul>
+    </li>
 
-  </div>
-  <!-- /.nav-collapse -->
+
+   
+    
+
+  </ul>
+
+</div>
+<!-- /.nav-collapse -->
 </nav>
 </div>
 <!-- end mega menu -->
@@ -293,101 +279,61 @@
 
 
 
-<nav role="navigation">
-  <div class="container">
-    <ul class="nav nav-tabs">
-      {% for link in linklists[section.settings.main_linklist].links %}
-      {%- assign child_list_handle = link.title | handleize -%}
-      {% if menus[child_list_handle].links != blank %}
-      <li role="presentation" class="dropdown">
-       <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-        {{ link.title }}
-        <span class="caret"></span>
-      </a>
-      <ul class="dropdown-menu">
-        {% for childlink in menus[child_list_handle].links %}
-        <li {% if childlink.active %}class="site-nav--active"{% endif %}>
-          <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
-        </li>
-        {% endfor %}
-      </ul>
-    </li>
-    {% else %}
-    <li {% if link.active %}class="site-nav--active"{% endif %}>
-      <a href="{{ link.url }}" class="site-nav__link">{{ link.title }}</a>
-    </li>
-    {% endif %}
-    {% endfor %}
-  </ul>
-</div><!-- container -->
-</nav>
+
 
 </div>
 {% schema %}
 {
-  "name": "Header",
+  "name": "Menu Item",
   "settings": [
   {
-
-  "type": "image_picker",
-  "id": "logo",
-  "label": "Logo image"
-},
-{
-  "type": "range",
-  "id": "logo_max_width",
-  "min": 50,
-  "max": 450,
-  "step": 10,
-  "unit": "px",
-  "label": "Custom logo width",
-  "default": 250
-},
-{
-  "type": "link_list",
-  "id": "main_linklist",
-  "label": "Menu",
-  "default": "main-menu"
-},
-{
-  "type": "image_picker",
-  "id": "top-banner",
-  "label": "Top Banner"
-},
-{
-  "type": "link_list",
-  "id": "header-top",
-  "label": "Menu"
+  "type": "text",
+  "id": "title",
+  "label": "Menu Item",
+  "default": "Women’s Clothing"
 }
 ],
 "blocks": [
 {
   "type": "select",
-  "name": "Add MegaMenu",
+  "name": "MegaMenu Fields",
   "settings": [
   {
   "id": "link",
   "type": "link_list",
   "label": "Menu"
-},
-{
-  "id": "linktext",
-  "type": "text",
-  "label": "Button text",
-  "default": "Click here"
 }
 ]
 }
-]
+],
+  "presets": [
+  {
+    "name": "Menu Item",
+    "category": "MegaMenu Fields ",
+
+    "blocks": [
+    {
+      "type": "select"
+    }
+    ]
+  }
+  ]
 
 }
 {% endschema %}
 
 
 {% javascript %}
-jQuery(document).on('click', '.mega-dropdown', function(e) {
-e.stopPropagation()
-})
+$(".dropdown").hover(            
+function() {
+$('.dropdown-menu-open', this).not('.in .dropdown-menu').stop(true,true).slideDown("400");
+$(this).toggleClass('open');        
+},
+function() {
+$('.dropdown-menu-open', this).not('.in .dropdown-menu').stop(true,true).slideUp("400");
+$(this).toggleClass('open');       
+}
+);
 {% endjavascript %}
 
 
