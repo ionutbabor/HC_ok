@@ -19,7 +19,9 @@ html {
 
 /*font import and stacking*/
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
 $first: 'Poppins', sans-serif;
+$second: 'Roboto', sans-serif;
 $size : 14px;
 
 @mixin font($family: $first, $weight: 300, $style: normal, $size: $size, $color: $white) {

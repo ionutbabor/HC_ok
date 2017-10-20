@@ -74,19 +74,25 @@
 
   <div class="col-md-7">
 
+
+
+
+
+
     <form action="/search" method="get" role="search">
       <label for="Search" class="hidden">
         {{ 'general.search.placeholder' | t }}
       </label>
+        <button type="submit" class="btn">
+        {% include 'icon-search' %}
+        <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
+      </button>
       <input type="search"
       name="q"
       id="Search"
       value="{{ search.terms | escape }}"
       placeholder="{{ 'general.search.placeholder' | t }}">
-      <button type="submit" class="btn">
-        {% include 'icon-search' %}
-        <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
-      </button>
+    
     </form>
 
   </div><!-- col-md-8 -->
@@ -127,18 +133,6 @@
 </div><!-- container -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- mega menu -->
 <div class="container">
   <nav class="navbar navbar-default">
@@ -155,186 +149,16 @@
     <div class="collapse navbar-collapse js-navbar-collapse">
 
 
-
-
-
-
-
-
-
       <ul class="nav navbar-nav">
-
-    
-
-
-
-       <li class="dropdown mega-dropdown">
-
-
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{section.settings.title}}  </a> 
-
-
-
-        <ul class="dropdown-menu dropdown-menu-open  mega-dropdown-menu row">
-
-         {% for block in section.blocks %}
-
-         {% if block.settings.link != blank %}
-         <li class="col-sm-3">
-           <ul>
-             {% for link in linklists[ block.settings.link ].links %}
-             {% assign child_list_handle = link.title | handle %}
-             {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
-          {% comment %}
-                <a href="{{ link.url }}" class="dropdown-toggle" data-toggle="dropdown">{{ link.title }}</a>
-                {% endcomment %}
-                {% for child_link in linklists[child_list_handle].links %}
-                {% assign grand_child_list_handle = child_link.title | handle %}      
-                {% if linklists[grand_child_list_handle] and linklists[grand_child_list_handle].links.size > 0 %}      
-                <li class="dropdown-header">
-                 <a href="{{ child_link.url }}" class="dropdown-toggle" data-toggle="dropdown">{{ child_link.title }}</a>
-               </li>
-               <li class="dropdown-menu">
-                {% for grand_child_link in linklists[grand_child_list_handle].links %}  
-                <li>
-                  {{ grand_child_link.title | link_to: grand_child_link.url }}
-                </li>
-                {% endfor %}
-              </li>
-
-              {% else %}
-              <li>
-                {{ child_link.title | link_to: child_link.url }}
-              </li>
-              {% endif %}
-              {% endfor %}
-
-
-              {% else %}
-              <li class="{% if link.active %}active{% endif %}">
-               <a href="{{ link.url }}">{{ link.title }}</a>
-             </li>
-             {% endif %}
-             {% endfor %}
-           </ul>
-         </li>
-         {% endif %}
-         {% endfor %}
-
-
-
-
-
-
-
-         <li class="col-sm-3">
-
-
-          <div class="row">
-            <div id="small-img" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center">
-              <ul>
-                <li>
-                  <a href="#" class="thumbnail">
-                    <img src="http://placehold.it/150x100" class="img-responsive inline-block" alt="Responsive image" />
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="thumbnail">
-                    <img src="http://placehold.it/150x100" class="img-responsive inline-block" alt="Responsive image" />
-                  </a>
-                </li>
-                <li>
-                  <a href="#" class="thumbnail">
-                    <img src="http://placehold.it/150x100" class="img-responsive inline-block" alt="Responsive image" />
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-
-        </li>
+        {% section 'mega-menu' %}
       </ul>
 
-    </li>
-
-
-   
-    
-
-  </ul>
-
-</div>
-<!-- /.nav-collapse -->
-</nav>
+    </div>
+    <!-- /.nav-collapse -->
+  </nav>
 </div>
 <!-- end mega menu -->
 </header>
-
-<div data-section-id="{{ section.id }}" data-section-type="header-section">
-  {% comment %}<header role="banner">
-</header>{% endcomment %}
-
-
-
-
-
-
-
-</div>
-{% schema %}
-{
-  "name": "Menu Item",
-  "settings": [
-  {
-  "type": "text",
-  "id": "title",
-  "label": "Menu Item",
-  "default": "Women’s Clothing"
-}
-],
-"blocks": [
-{
-  "type": "select",
-  "name": "MegaMenu Fields",
-  "settings": [
-  {
-  "id": "link",
-  "type": "link_list",
-  "label": "Menu"
-}
-]
-}
-],
-  "presets": [
-  {
-    "name": "Menu Item",
-    "category": "MegaMenu Fields ",
-
-    "blocks": [
-    {
-      "type": "select"
-    }
-    ]
-  }
-  ]
-
-}
-{% endschema %}
-
-
-{% javascript %}
-$(".dropdown").hover(            
-function() {
-$('.dropdown-menu-open', this).not('.in .dropdown-menu').stop(true,true).slideDown("400");
-$(this).toggleClass('open');        
-},
-function() {
-$('.dropdown-menu-open', this).not('.in .dropdown-menu').stop(true,true).slideUp("400");
-$(this).toggleClass('open');       
-}
-);
-{% endjavascript %}
 
 
 

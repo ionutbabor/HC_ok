@@ -67,8 +67,8 @@
 
   {% comment %}<a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>{% endcomment %}
 
-  {% section 'header' %} 
 
+{% include 'header' %}
 
   <main role="main" id="MainContent">
     <div class="container">
@@ -78,6 +78,36 @@
 
 {% section 'info' %}
 {% section 'footer' %}
+
+
+
+
+{{ 'jquery.js' | asset_url | script_tag }}
+{{ 'jquery.lettering.js' | asset_url | script_tag }}
+<script type="text/javascript">
+  
+// $( document ).ready(function() {
+// var html = [],    
+// $list = $('.mega-dropdown');
+
+// html.push('<li>');
+// $list.find('div').each(function() {
+//     html.push('<li>' + $(this).text() + '</li>');
+// });
+// html.push('</li>');
+// $list.replaceWith(html.join(''));
+
+
+//  });
+
+$('.navbar-nav').prepend($('.dropdown .mega-dropdown'));
+$("#main-menu li>a ").lettering('words');
+
+      
+  
+
+</script>
+
 
 </body>
 </html>
