@@ -7,51 +7,52 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="{{ settings.color_primary }}">
   <link rel="canonical" href="{{ canonical_url }}">
-
-
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
   {% if settings.favicon != blank %}
-    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+  <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
   {% endif %}
 
   {% capture seo_title %}
-    {{ page_title }}
-    {% if current_tags %}
-      {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
-    {% endif %}
-    {% if current_page != 1 %}
-      &ndash; {{ 'general.meta.page' | t: page: current_page }}
-    {% endif %}
-    {% unless page_title contains shop.name %}
-      &ndash; {{ shop.name }}
-    {% endunless %}
+  {{ page_title }}
+  {% if current_tags %}
+  {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+  {% endif %}
+  {% if current_page != 1 %}
+  &ndash; {{ 'general.meta.page' | t: page: current_page }}
+  {% endif %}
+  {% unless page_title contains shop.name %}
+  &ndash; {{ shop.name }}
+  {% endunless %}
   {% endcapture %}
   <title>{{ seo_title }}</title>
 
   {% if page_description %}
-    <meta name="description" content="{{ page_description | escape }}">
+  <meta name="description" content="{{ page_description | escape }}">
   {% endif %}
 
   {% include 'social-meta-tags' %}
 
   {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+      {{ 'nice-select.css' | asset_url | stylesheet_tag }}
 
   <script>
-    document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+  document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
 
-    window.theme = {
-      strings: {
-        addToCart: {{ 'products.product.add_to_cart' | t | json }},
-        soldOut: {{ 'products.product.sold_out' | t | json }},
-        unavailable: {{ 'products.product.unavailable' | t | json }}
-      },
-      moneyFormat: {{ shop.money_format | json }}
-    };
+  window.theme = {
+    strings: {
+      addToCart: {{ 'products.product.add_to_cart' | t | json }},
+      soldOut: {{ 'products.product.sold_out' | t | json }},
+      unavailable: {{ 'products.product.unavailable' | t | json }}
+    },
+    moneyFormat: {{ shop.money_format | json }}
+  };
   </script>
 
   {% if template.directory == 'customers' %}
-    <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script><!--<![endif]-->
-    <!--[if lte IE 9]><script src="{{ 'shopify_common.js' | shopify_asset_url }}"></script><![endif]-->
+  <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script><!--<![endif]-->
+  <!--[if lte IE 9]><script src="{{ 'shopify_common.js' | shopify_asset_url }}"></script><![endif]-->
   {% endif %}
 
   <!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script><!--<![endif]-->
@@ -68,7 +69,7 @@
   {% comment %}<a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>{% endcomment %}
 
 
-{% include 'header' %}
+  {% include 'header' %}
 
   <main role="main" id="MainContent">
     <div class="container">
@@ -76,37 +77,19 @@
     </div>
   </main>
 
-{% section 'info' %}
-{% section 'footer' %}
+  {% section 'info' %}
+  {% section 'footer' %}
 
 
 
 
-{{ 'jquery.js' | asset_url | script_tag }}
-{{ 'jquery.lettering.js' | asset_url | script_tag }}
-<script type="text/javascript">
-  
-// $( document ).ready(function() {
-// var html = [],    
-// $list = $('.mega-dropdown');
+  {{ 'jquery.js' | asset_url | script_tag }}
 
-// html.push('<li>');
-// $list.find('div').each(function() {
-//     html.push('<li>' + $(this).text() + '</li>');
-// });
-// html.push('</li>');
-// $list.replaceWith(html.join(''));
+ 
+{% include 'currencies' %}
 
+ {{ 'jquery.nice-select.js' | asset_url | script_tag }}
 
-//  });
-
-$('.navbar-nav').prepend($('.dropdown .mega-dropdown'));
-$("#main-menu li>a ").lettering('words');
-
-      
-  
-
-</script>
 
 
 </body>

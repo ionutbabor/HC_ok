@@ -1,12 +1,12 @@
 /*================ General layout styles ================*/
 body,
 html {
-  background-color: $color-body;
+	background-color: $color-body;
 }
 
 .collection-list{
-	 background-color: $default-color;
-	 margin-bottom: 30px;
+	background-color: $default-color;
+	margin-bottom: 30px;
 }
 
 /*.page-width {
@@ -14,20 +14,123 @@ html {
   max-width: $width-site;
   padding: 0 $gutter;
   margin: 0 auto;
-}*/
+  }*/
 
 
-/*font import and stacking*/
-@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600');
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
-$first: 'Poppins', sans-serif;
-$second: 'Roboto', sans-serif;
-$size : 14px;
+  /*font import and stacking*/
+  @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600');
+  @import url('https://fonts.googleapis.com/css?family=Roboto:400,700');
+  $first: 'Poppins', sans-serif;
+  $second: 'Roboto', sans-serif;
+  $size : 14px;
 
-@mixin font($family: $first, $weight: 300, $style: normal, $size: $size, $color: $white) {
-	font-family: $family;
-	font-weight: $weight;
-	font-style: $style;
-	font-size: $size;
-	color: $color;
+  @mixin font($family: $first, $weight: 300, $style: normal, $size: $size, $color: $white) {
+  	font-family: $family;
+  	font-weight: $weight;
+  	font-style: $style;
+  	font-size: $size;
+  	color: $color;
+  }
+
+  /*homepage*/
+  .slider{
+
+    .flexslider{
+      background: transparent;
+      border: none;
+      margin: 0;
+      .sliders{
+        height: 400px;
+        .main{
+         background-repeat: no-repeat;
+         background-size: 100%;
+         height: 100%;
+         border-radius: 4px;
+         .content{
+          padding: 50px;
+          h2,h3,h4{
+            @include font($first, 600, $size:36px, $color:#000000); 
+          }
+          h3{
+           font-size: 24px;
+           font-weight: 400;
+           margin-bottom: 30px;
+           color: #333333;
+         }
+         h4{
+          background: #000000;
+          padding: 10px 15px;
+          display: inline-block;
+          margin: 0;
+          border-radius: 30px;
+          font-size: inherit;
+          a{
+           font-size: 14px;
+           color: #fff;
+           text-transform: uppercase;
+           margin-bottom: 35px;
+           &:hover{
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+}
+.flex-control-nav{
+  bottom: 20px;
+  li a{
+    background: transparent;
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.9);
+  }
+}
+
+.col-md-3{
+  padding-left: 0;
+
+  .banners{
+    margin-top: 10px;
+    /*	padding: 10px;*/
+    .main{
+     background-repeat: no-repeat;
+     /* background-size: 100%;*/
+     height: 100%;
+     border-radius: 4px;
+   }
+   .content{
+    padding: 25px 20px 0;	
+    h2,h3,h4{
+     @include font($first, 600, $size:18px, $color:#fff);	
+   }
+   h3{
+     font-size: 15px;
+     font-weight: 400;
+     margin-bottom: 30px;
+   }
+   h4{
+    padding-bottom: 30px;
+    margin-bottom: 0;
+    a{
+     font-size: 13px;
+     color: #84c98b;
+     text-transform: uppercase;
+     margin-bottom: 35px;
+     &:hover{
+      text-decoration: none;
+    }
+  }
+}
+}
+&:first-child{
+  margin-top: 0;
+}
+&:last-child{
+  h2,h3,h4 a{
+    color: #503720;
+  }
+}
+}
+}
 }

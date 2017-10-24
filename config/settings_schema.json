@@ -1,261 +1,306 @@
 [
 {
-  "name": "theme_info",
-  "theme_name": "HightCreate",
-  "theme_version": "1.0",
-  "theme_author": "BlackBelt",
-  "theme_documentation_url": "https://blackbeltcommerce.com",
-  "theme_support_url": "https://blackbeltcommerce.com"
-  },
+"name": "theme_info",
+"theme_name": "HightCreate",
+"theme_version": "1.0",
+"theme_author": "BlackBelt",
+"theme_documentation_url": "https://blackbeltcommerce.com",
+"theme_support_url": "https://blackbeltcommerce.com"
+},
 
 
-  {
-    "name": "Header Options",
-    "settings": [
-    {
+{
+"name": "Header Options",
+"settings": [
+{
 
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Logo image"
-      },
-      {
-        "type": "range",
-        "id": "logo_max_width",
-        "min": 50,
-        "max": 450,
-        "step": 10,
-        "unit": "px",
-        "label": "Custom logo width",
-        "default": 250
-        },
-        {
-          "type": "link_list",
-          "id": "main_linklist",
-          "label": "Menu",
-          "default": "main-menu"
-          },
-          {
-            "type": "image_picker",
-            "id": "top-banner",
-            "label": "Top Banner"
-            },
-            {
-              "type": "link_list",
-              "id": "header-top",
-              "label": "Menu"
-            }
-            ]
-            },
+"type": "image_picker",
+"id": "logo",
+"label": "Logo image"
+},
+{
+"type": "range",
+"id": "logo_max_width",
+"min": 50,
+"max": 450,
+"step": 10,
+"unit": "px",
+"label": "Custom logo width",
+"default": 250
+},
+{
+"type": "link_list",
+"id": "main_linklist",
+"label": "Menu",
+"default": "main-menu"
+},
+{
+"type": "image_picker",
+"id": "top-banner",
+"label": "Top Banner"
+},
+{
+"type": "link_list",
+"id": "header-top",
+"label": "Menu"
+}
+]
+},
 
-            {
-              "name": "Typography",
-              "settings": [
-              {
-                "type": "select",
-                "id": "type_base_size",
-                "label": "Base size",
-                "default": "16px",
-                "options": [
-                {
-                  "value": "14px",
-                  "label": "14px"
-                  },
-                  {
-                    "value": "15px",
-                    "label": "15px"
-                    },
-                    {
-                      "value": "16px",
-                      "label": "16px"
-                      },
-                      {
-                        "value": "17px",
-                        "label": "17px"
-                      }
-                      ]
-                    }
-                    ]
-                    },
-                    {
-                      "name": "Colors",
-                      "settings": [
-                      {
-                        "type": "header",
-                        "content": "General colors"
-                        },
-                        {
-                          "type": "color",
-                          "id": "color_primary",
-                          "label": "Primary color",
-                          "default": "#000",
-                          "info": "Used for text links, and primary buttons"
-                          },
-                          {
-                            "type": "color",
-                            "id": "color_body_text",
-                            "label": "Text color",
-                            "default": "#000",
-                            "info": "Color used for content and paragraph text"
-                            },
-                            {
-                              "type": "color",
-                              "id": "top-header-bkg-color",
-                              "label": "Top header background-color",
-                              "default": "#000"
-                              },
-                              {
-                                "type": "color",
-                                "id": "top-header-text-color",
-                                "label": "Top header text color",
-                                "default": "#000"
-                                },
-                                {
-                                  "type": "color",
-                                  "id": "header-bkg-color",
-                                  "label": "Header background-color",
-                                  "default": "#fff"
-                                  },
-                                  {
-                                    "type": "color",
-                                    "id": "body-bkg-color",
-                                    "label": "Body background-color",
-                                    "default": "#fff"
-                                    },
-                                    {
-                                      "type": "color",
-                                      "id": "footer-bkg-color",
-                                      "label": "Footer background-color",
-                                      "default": "#fff"
-                                      },
-                                      {
-                                        "type": "color",
-                                        "id": "footer-copyright-bkg",
-                                        "label": "Footer copyright background-color",
-                                        "default": "#fff"
-                                        },
-                                        {
-                                          "type": "color",
-                                          "id": "footer-copyright-text",
-                                          "label": "Footer copyright text-color",
-                                          "default": "#fff"
-                                          },
-                                          {
-                                            "type": "color",
-                                            "id": "border-color",
-                                            "label": "Border color",
-                                            "default": "#fff"
-                                            },
-                                            {
-                                              "type": "color",
-                                              "id": "button-color",
-                                              "label": "Button background-color",
-                                              "default": "#fff"
-                                              },
-                                              {
-                                                "type": "color",
-                                                "id": "button-text-color",
-                                                "label": "Button text color",
-                                                "default": "#fff"
-                                              }
-                                              ]
-                                              },
-                                              {
-                                                "name": "Social media",
-                                                "settings": [
-                                                {
-                                                  "type": "header",
-                                                  "content": "Social sharing options"
-                                                  },
-                                                  {
-                                                    "type": "checkbox",
-                                                    "id": "social_sharing_blog",
-                                                    "label": "Enable sharing for blog articles",
-                                                    "default": true
-                                                    },
-                                                    {
-                                                      "type": "checkbox",
-                                                      "id": "share_facebook",
-                                                      "label": "Share on Facebook",
-                                                      "default": true
-                                                      },
-                                                      {
-                                                        "type": "checkbox",
-                                                        "id": "share_twitter",
-                                                        "label": "Tweet on Twitter",
-                                                        "default": true
-                                                        },
-                                                        {
-                                                          "type": "checkbox",
-                                                          "id": "share_pinterest",
-                                                          "label": "Pin on Pinterest",
-                                                          "default": true
-                                                          },
-                                                          {
-                                                            "type": "header",
-                                                            "content": "Sharing links"
-                                                            },
-                                                            {
-                                                              "type": "text",
-                                                              "id": "social_twitter_link",
-                                                              "label": "Twitter link"
-                                                              },
-                                                              {
-                                                                "type": "text",
-                                                                "id": "social_facebook_link",
-                                                                "label": "Facebook link"
-                                                                },
-                                                                {
-                                                                  "type": "text",
-                                                                  "id": "social_pinterest_link",
-                                                                  "label": "Pinterest link"
-                                                                  },
-                                                                  {
-                                                                    "type": "text",
-                                                                    "id": "social_instagram_link",
-                                                                    "label": "Instagram link"
-                                                                    },
-                                                                    {
-                                                                      "type": "text",
-                                                                      "id": "social_snapchat_link",
-                                                                      "label": "Snapchat link"
-                                                                      },
-                                                                      {
-                                                                        "type": "text",
-                                                                        "id": "social_tumblr_link",
-                                                                        "label": "Tumblr link"
-                                                                        },
-                                                                        {
-                                                                          "type": "text",
-                                                                          "id": "social_youtube_link",
-                                                                          "label": "Youtube link"
-                                                                          },
-                                                                          {
-                                                                            "type": "text",
-                                                                            "id": "social_vimeo_link",
-                                                                            "label": "Vimeo link"
-                                                                          }
-                                                                          ]
-                                                                          },
-                                                                          {
-                                                                            "name": "Cart",
-                                                                            "settings": [
-                                                                            {
-                                                                              "type": "checkbox",
-                                                                              "id": "cart_notes_enable",
-                                                                              "label": "Enable cart notes",
-                                                                              "default": true
-                                                                            }
-                                                                            ]
-                                                                            },
-                                                                            {
-                                                                              "name": "Favicon",
-                                                                              "settings": [
-                                                                              {
-                                                                                "type": "image_picker",
-                                                                                "id": "favicon",
-                                                                                "label": "Favicon image",
-                                                                                "info": "Will be scaled down to 32 x 32px"
-                                                                              }
-                                                                              ]
-                                                                            }
-                                                                            ]
+{
+"name": "Typography",
+"settings": [
+{
+"type": "select",
+"id": "type_base_size",
+"label": "Base size",
+"default": "16px",
+"options": [
+{
+"value": "14px",
+"label": "14px"
+},
+{
+"value": "15px",
+"label": "15px"
+},
+{
+"value": "16px",
+"label": "16px"
+},
+{
+"value": "17px",
+"label": "17px"
+}
+]
+}
+]
+},
+{
+"name": "Colors",
+"settings": [
+{
+"type": "header",
+"content": "General colors"
+},
+{
+"type": "color",
+"id": "color_primary",
+"label": "Primary color",
+"default": "#000",
+"info": "Used for text links, and primary buttons"
+},
+{
+"type": "color",
+"id": "color_body_text",
+"label": "Text color",
+"default": "#000",
+"info": "Color used for content and paragraph text"
+},
+{
+"type": "color",
+"id": "top-header-bkg-color",
+"label": "Top header background-color",
+"default": "#000"
+},
+{
+"type": "color",
+"id": "top-header-text-color",
+"label": "Top header text color",
+"default": "#000"
+},
+{
+"type": "color",
+"id": "header-bkg-color",
+"label": "Header background-color",
+"default": "#fff"
+},
+{
+"type": "color",
+"id": "body-bkg-color",
+"label": "Body background-color",
+"default": "#fff"
+},
+{
+"type": "color",
+"id": "footer-bkg-color",
+"label": "Footer background-color",
+"default": "#fff"
+},
+{
+"type": "color",
+"id": "footer-copyright-bkg",
+"label": "Footer copyright background-color",
+"default": "#fff"
+},
+{
+"type": "color",
+"id": "footer-copyright-text",
+"label": "Footer copyright text-color",
+"default": "#fff"
+},
+{
+"type": "color",
+"id": "border-color",
+"label": "Border color",
+"default": "#fff"
+},
+{
+"type": "color",
+"id": "button-color",
+"label": "Button background-color",
+"default": "#fff"
+},
+{
+"type": "color",
+"id": "button-text-color",
+"label": "Button text color",
+"default": "#fff"
+}
+]
+},
+{
+"name": "Social media",
+"settings": [
+{
+"type": "header",
+"content": "Social sharing options"
+},
+{
+"type": "checkbox",
+"id": "social_sharing_blog",
+"label": "Enable sharing for blog articles",
+"default": true
+},
+{
+"type": "checkbox",
+"id": "share_facebook",
+"label": "Share on Facebook",
+"default": true
+},
+{
+"type": "checkbox",
+"id": "share_twitter",
+"label": "Tweet on Twitter",
+"default": true
+},
+{
+"type": "checkbox",
+"id": "share_pinterest",
+"label": "Pin on Pinterest",
+"default": true
+},
+{
+"type": "header",
+"content": "Sharing links"
+},
+{
+"type": "text",
+"id": "social_twitter_link",
+"label": "Twitter link"
+},
+{
+"type": "text",
+"id": "social_facebook_link",
+"label": "Facebook link"
+},
+{
+"type": "text",
+"id": "social_pinterest_link",
+"label": "Pinterest link"
+},
+{
+"type": "text",
+"id": "social_instagram_link",
+"label": "Instagram link"
+},
+{
+"type": "text",
+"id": "social_snapchat_link",
+"label": "Snapchat link"
+},
+{
+"type": "text",
+"id": "social_tumblr_link",
+"label": "Tumblr link"
+},
+{
+"type": "text",
+"id": "social_youtube_link",
+"label": "Youtube link"
+},
+{
+"type": "text",
+"id": "social_vimeo_link",
+"label": "Vimeo link"
+}
+]
+},
+{
+"name": "Cart",
+"settings": [
+{
+"type": "checkbox",
+"id": "cart_notes_enable",
+"label": "Enable cart notes",
+"default": true
+}
+]
+},
+{
+"name": "Favicon",
+"settings": [
+{
+"type": "image_picker",
+"id": "favicon",
+"label": "Favicon image",
+"info": "Will be scaled down to 32 x 32px"
+}
+]
+},
+{
+"name": "Currency",
+"settings": [
+{
+"type": "paragraph",
+"content": "To offer multiple currencies on your online store, you must first [edit your store's currency formatting]({{ site.url }}/manual/using-themes/troubleshooting/help-script-find-money-formats)."
+},
+{
+"type": "checkbox",
+"id": "show_multiple_currencies",
+"label": "Enable currency conversion",
+"default": true,
+"info": "Even though prices are displayed in different currencies, orders will still be processed in your store's currency."
+},
+{
+"type": "select",
+"id": "currency_format",
+"label": "Format",
+"options": [
+{
+"value": "money_format",
+"label": "Without currency ($10.00)"
+},
+{
+"value": "money_with_currency_format",
+"label": "With currency ($10.00 CAD)"
+}
+],
+"default": "money_with_currency_format"
+},
+{
+"type": "text",
+"id": "supported_currencies",
+"label": "Supported currencies",
+"default": "INR GBP CAD USD AUD EUR JPY",
+"info": "Use the country's ISO [currency code](http://www.xe.com/iso4217.php). Separate your currency codes with a space."
+},
+{
+"type": "text",
+"id": "default_currency",
+"label": "Default currency",
+"default": "USD"
+}
+]
+}
+]

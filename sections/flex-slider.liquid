@@ -1,0 +1,127 @@
+
+<div class="row">
+  <div class="col-md-9">
+
+    <div class="flexslider">
+      <ul class="slides">
+       {% for block in section.blocks %}
+
+       {% case block.type %}
+       {% when 'content' %}
+
+       {% if block.settings.img != blank %}
+
+       <li>
+        <div class="sliders">
+          <div class="main" style="background-image:url({{ block.settings.img | img_url: 'original' }})">
+
+            <div class="content">
+             <h2>{{block.settings.title}}</h2>
+             <h3>{{block.settings.description}}</h3>
+             <h4><a href="{{block.settings.title}}"> Shop Now</a></h4>
+           </div>
+
+         </div>
+       </div>
+
+     </li>
+
+     {% endif %}
+     {% endcase %}  
+     {% endfor %}
+   </ul>
+ </div>
+
+</div><!-- col-md-9 -->
+<div class="col-md-3">
+  {% for block in section.blocks %}
+  {% case block.type %}
+  {% when 'block-2' %}
+
+  <div class="banners">
+    <div class="main" style="background-image:url({{ block.settings.img | img_url: 'original' }})">
+      <div class="content">
+        <h2>{{block.settings.title}}</h2>
+        <h3>{{block.settings.subtitle}}</h3>
+        <h4> 
+          <a href="{{block.settings.page}}"> Shop Now <i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+        </h4>
+      </div>
+    </div>
+  </div>
+
+  {% endcase %}  
+  {% endfor %}
+
+
+</div>
+
+</div>
+
+
+{% schema %}
+{
+ "name": "FlexSlider",
+ "class": "slider",
+
+ "blocks": [
+ {
+ "type": "content",
+ "name": "FlexSlider",
+ "settings": [
+ {
+ "id": "img",
+ "type": "image_picker",
+ "label": "Image:"
+},  
+{
+ "id": "title",
+ "type": "text",
+ "label": "Title:"
+},  
+{
+  "id": "description",
+  "type": "textarea",
+  "label": "Description:"
+},
+{
+ "id": "page",
+ "type": "text",
+ "label": "Url:"
+}
+]
+},
+{
+  "type": "block-2",
+  "name": "Banners ",
+  "settings": [
+  {
+  "id": "img",
+  "type": "image_picker",
+  "label": "Image:"
+},
+{
+  "type": "text",
+  "id": "title",
+  "label": "Title"
+},
+{
+  "type": "text",
+  "id": "subtitle",
+  "label": "Subtitle"
+}
+
+]
+}
+],
+"presets": [
+{
+  "name": "Slider",
+  "category": "Content"
+}
+]
+
+}
+{% endschema %}
+
+{{ 'flexslider.css' | asset_url | stylesheet_tag }}

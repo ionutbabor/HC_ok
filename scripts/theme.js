@@ -12,6 +12,10 @@ window.theme = window.theme || {};
 // =require slate/variants.js
 // =require bootstrap.min.js
 
+// =require flexslider/jquery.flexslider-min.js
+// =require lettering/jquery.lettering.js
+
+
 /*================ Sections ================*/
 // =require sections/product.js
 
@@ -19,9 +23,16 @@ window.theme = window.theme || {};
 // =require templates/customers-addresses.js
 // =require templates/customers-login.js
 
+
+
+
 $(document).ready(function() {
   var sections = new slate.Sections();
   sections.register('product', theme.Product);
+
+/*begin main menu*/
+$('.navbar-nav').prepend($('.dropdown .mega-dropdown'));
+/*end main menu*/
 
   // Common a11y fixes
   slate.a11y.pageLinkFocus($(window.location.hash));
@@ -29,6 +40,8 @@ $(document).ready(function() {
   $('.in-page-link').on('click', function(evt) {
     slate.a11y.pageLinkFocus($(evt.currentTarget.hash));
   });
+
+
 
   // Wrap videos in div to force responsive layout.
   slate.rte.wrapTable();
@@ -39,3 +52,17 @@ $(document).ready(function() {
     document.documentElement.className = document.documentElement.className.replace('supports-no-cookies', 'supports-cookies');
   }
 });
+
+
+/*begin flexslider*/
+$('.flexslider').flexslider({
+  animation: "slide"
+});
+/*end flexslider*/
+
+/*begin lettering*/
+$("#main-menu li>a ").lettering('words');
+  /*end lettering*/
+
+
+
