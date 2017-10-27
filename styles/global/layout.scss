@@ -134,3 +134,164 @@ html {
 }
 }
 }
+
+
+.carousel-slider{
+  border-radius: 4px;
+  margin-top: 25px;
+  background: #fff;
+  border-top: 3px solid #84c98b;
+  position: relative;
+  .main{
+   padding: 15px 20px;
+   border-bottom: 1px solid #eeeeee;
+   .time-counter{
+     @include font($first, 600, $size:16px, $color:#000000); 
+   }
+   h4{
+     @include font($first, 600, $size:20px, $color:#000000); 
+     margin: 0;
+     a{
+       @include font($first, 400, $size:13px, $color:#333333); 
+       &:hover{
+        text-decoration:none;
+      }
+    }
+  }
+}
+.nav-stacked{
+  display: inline-block;
+  position: absolute;
+  left: -127px;
+  li{
+    background: #666666;
+    text-align: right;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px ;
+    a{
+     @include font($first, 400, $size:13px, $color:#fff); 
+     padding: 7px 15px;
+   }
+   > a{
+     border-top-left-radius: 20px ;
+     border-bottom-left-radius: 20px ;
+     &:hover, 
+     &:focus{
+      background-color: #666666;
+      color: #84c98b;
+    }
+  }
+}
+.active{
+
+ background: #666666;
+ a{
+  background: #666666;
+  color: #84c98b;
+  &:hover,
+  &:focus{
+    background-color: #666666;
+  }
+}
+}
+li+li{
+  margin-top: 3px;
+}
+}
+.box{
+ padding: 20px 5px;
+ .flexslider{
+  border: none;
+  margin: 0;
+  background: transparent;
+  border-radius: 0;
+  .slides{
+    li{
+      .border{
+       border: 1px solid #ccc;
+       margin: 0 20px;
+       .sliders{
+        height: 180px;
+        padding: 20px;
+        .main-slider{
+         background-repeat: no-repeat;
+         background-size: contain;
+         height: 100%;
+         border-radius: 4px;
+         display: block;
+         background-position: center center;
+       }
+     }
+   }
+   .figcaption{
+    margin: 0 20px;
+    .name_wrapper{
+      @include font($first, 400, $size:13px, $color:#000000); 
+      line-height: 20px;
+      height: 40px;
+    }
+    .price_wrapper{
+     @include font($first, 600, $size:16px, $color:#000000); 
+     .compare-at{
+       @include font($second, 400, $size:13px, $color:#999999); 
+       text-decoration: line-through;
+     }
+   }
+   a{
+    &:hover{
+      text-decoration: none;
+    }
+  } 
+}
+}
+}
+}
+}
+}
+.black{
+  border-top: 0;
+  .main{
+    background: #333333;
+    h4{
+      color: #fff;
+      a{
+        color: #fff;
+        padding: 10px 15px;
+        display: inline-block;
+        border-radius: 30px;
+        background-color: #84c98b;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .box{
+   .carousel-two-items .slides li{
+    .figcaption .name_wrapper{
+      height: auto;
+      width: 80%;
+      float: left;
+      @include font($first, 600, $size:18px, $color:#333333); 
+    }
+
+    .figcaption .price_wrapper{
+      width: 20%;
+      text-align: right;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .border{
+      border: none;
+      .sliders{
+        height: 280px;
+        padding: 0;
+        .main-slider{
+          background-size: cover;
+          background-position: initial;
+        }
+      }
+    } 
+  } 
+}
+}

@@ -1,0 +1,89 @@
+{% for block in section.blocks %}
+
+{%- assign collection = collections[block.settings.collection] -%}
+{%- assign grid_width_large = block.settings.program -%}
+
+{% case block.type %}
+
+{% when 'program' %}
+
+<div class="carousel-slider black">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="main">
+        <div class="row">
+          <div class="col-md-6">
+            <h4>{{ block.settings.collection | upcase | replace: '-', ' '}}   </h4>
+          </div> 
+          <div class="col-md-6">
+            <div class="pull-right">
+              <h4><a href="collections/{{ block.settings.collection}}">Shop Now</a></h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% if block.settings.program == 'planB' %} 
+      <div class="box">
+       <div class="carousel2 flexslider">
+         <ul class="slides">
+           {% for product in collection.products %}
+           {% include 'product-grid-item' %}
+           {% endfor %}
+         </ul>
+       </div>
+     </div>
+
+     {% elsif block.settings.program == 'planA' %}
+     <div class="box">
+       <div class="carousel-two-items flexslider">
+         <ul class="slides">
+           {% for product in collection.products %}
+           {% include 'product-grid-item' %}
+           {% endfor %}
+         </ul>
+       </div>
+     </div>
+     {% endif %}
+
+   </div>
+ </div>
+</div>
+
+{% endcase %}
+{% endfor %}
+
+
+{% schema %}
+{
+  "blocks": [
+  {
+  "type": "program",
+  "name": "Program Selector",
+
+  "settings": [
+  {
+  "id": "collection",
+  "type": "collection",
+  "label": "Select a Collection"
+},
+{
+  "id": "program",
+  "type": "radio",
+  "label": "Choose a program",
+  "options": [
+  {"value": "planA", "label": "2 items per row"},
+  {"value": "planB", "label": "4 items per row"}
+  ]
+}
+]
+}
+],
+"presets": [
+{
+  "name": "Collection Carousel",
+  "category": "Slider"
+}
+]
+}
+{% endschema %}

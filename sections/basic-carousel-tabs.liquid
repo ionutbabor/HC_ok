@@ -1,0 +1,109 @@
+{%- assign collection = collections[section.settings.collection] -%}
+{%- assign collection2 = collections[section.settings.collection2] -%}
+<div class="carousel-slider">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="main">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-3">
+                {% if section.settings.title != blank %}
+                <h4>{{ section.settings.title}}</h4>
+                {% endif %}
+              </div>
+              <div class="col-md-9">
+               <div class="time-counter"> <span class="values"></span></div>
+             </div>
+           </div>
+         </div> 
+         <div class="col-md-6">
+          <div class="pull-right">
+            <h4><a href="collections/{{ section.settings.url}}">View more</a></h4>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- tabs -->
+    <section id="tabs">
+      <div class="bs-docs-example">
+       <ul class="nav nav-pills nav-stacked myTab" role="tablist">
+        <li role="presentation" class="active">
+          <a href="#tab-a{{ section.id }}" aria-controls="tab-a{{ section.id }}" role="tab" data-toggle="tab">
+            Last Minute Deals
+          </a>
+        </li>
+        <li role="presentation">
+          <a href="#tab-b{{ section.id }}" aria-controls="tab-b{{ section.id }}" role="tab" data-toggle="tab">
+            Daily Deals
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+  <!-- end tabs -->
+
+  <div class="box tab-content">
+    <div class="tab-pane active" id="tab-a{{ section.id }}">
+      <div class="carousel2 flexslider">
+       <ul class="slides">
+
+        {% for product in collection2.products %}
+        {% include 'product-grid-item' %}
+        {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="tab-pane" id="tab-b{{ section.id }}">
+    <div  class="carousel1 flexslider">
+     <ul class="slides">
+      {% for product in collection.products %}
+      {% include 'product-grid-item' %}
+      {% endfor %}
+
+    </ul>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Collection Carousel",
+  "settings": [
+  {
+  "type": "text",
+  "id": "title",
+  "label": "Heading",
+  "default": "Flash Deals"
+},  
+{
+  "type": "collection",
+  "id": "url",
+  "label": "Collection Url"
+},
+{
+  "id": "collection",
+  "type": "collection",
+  "label": "Last Minute Deals Collection"
+},
+{
+  "id": "collection2",
+  "type": "collection",
+  "label": "Daily Deals"
+}
+],
+"presets": [
+{
+  "name": "Collection Carousel with Tabs",
+  "category": "Slider"
+}
+]
+}
+{% endschema %}

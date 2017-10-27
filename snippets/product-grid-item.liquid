@@ -1,0 +1,65 @@
+{%- assign product_img_url = product.featured_image.src | img_url: '700x' -%}
+{%- if grid_width_large == 'large--one-whole' -%}
+{%- assign product_img_url = product.featured_image.src | img_url: '1200x' -%}
+{%- elsif grid_width_large == 'large--one-half' -%}
+{%- assign product_img_url = product.featured_image.src | img_url: '900x' -%}
+{%- endif -%}
+
+{% assign on_sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign on_sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+{% if product.available  %}
+{% assign sold_out = false %}
+{% endif %}
+
+
+
+
+
+
+
+<li>
+  <div class="border">
+    <div class="sliders">
+      <a href="{{ product.url | within: collection }}" class="grid__image">
+        {% comment %}<img class="img-responsive" src="{{ product_img_url }}" alt="{{ product.featured_image.alt | escape }}">{% endcomment %}
+
+        <span class="main-slider" style="background-image:url({{ product_img_url  }})">
+
+        </span>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="figcaption">
+    <a href="{{ product.url | within: collection | capitalize }}">
+      <p class="h6 name_wrapper">
+        {{ product.title | truncatewords:15 | truncate:75 }}
+      </p>
+
+      <p class="price_wrapper">
+        <span class="price{% if on_sale %} on-sale{% endif %}">
+
+          <span class="money">{{ product.price | money }}</span>
+        </span>
+        {% if sold_out %}
+        <br /><em>{{ 'products.product.sold_out' | t }}</em>
+        {% endif %}
+        {% if on_sale %}
+        <span class="compare-at">
+          <span class="money">{{ product.compare_at_price | money }}</span>
+        </span>
+        {% endif %}
+
+      </p>
+    </a>
+
+  </div><!-- figcaption -->
+
+</li>
+
+

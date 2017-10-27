@@ -14,6 +14,7 @@ window.theme = window.theme || {};
 
 // =require flexslider/jquery.flexslider-min.js
 // =require lettering/jquery.lettering.js
+// =require easytimer/easytimer.min.js
 
 
 /*================ Sections ================*/
@@ -30,9 +31,9 @@ $(document).ready(function() {
   var sections = new slate.Sections();
   sections.register('product', theme.Product);
 
-/*begin main menu*/
-$('.navbar-nav').prepend($('.dropdown .mega-dropdown'));
-/*end main menu*/
+  /*begin main menu*/
+  $('.navbar-nav').prepend($('.dropdown .mega-dropdown'));
+  /*end main menu*/
 
   // Common a11y fixes
   slate.a11y.pageLinkFocus($(window.location.hash));
@@ -55,14 +56,119 @@ $('.navbar-nav').prepend($('.dropdown .mega-dropdown'));
 
 
 /*begin flexslider*/
-$('.flexslider').flexslider({
+$('.main.flexslider').flexslider({
   animation: "slide"
 });
 /*end flexslider*/
 
+
+
+
+
 /*begin lettering*/
 $("#main-menu li>a ").lettering('words');
-  /*end lettering*/
+/*end lettering*/
+
+/*begin easytimer*/
+var timer = new Timer();
+timer.start({countdown: true, startValues: {seconds: 66}});
+$('.time-counter .values').html(timer.getTimeValues().toString());
+timer.addEventListener('secondsUpdated', function (e) {
+  $('.time-counter .values').html('Ends in: ' + timer.getTimeValues().toString());
+});
+timer.addEventListener('targetAchieved', function (e) {
+  $('.time-counter .values').html('Offer ' +  'Inactive!!');
+});
+/*end easytimer*/
+
+// begin carousel slider
+
+(function() {
+
+  // store the slider in a local variable
+  var $window = $(window),
+  flexslider = { vars:{} };
+
+  // tiny helper function to add breakpoints
+  function getGridSize() {
+    return (window.innerWidth < 600) ? 1 :
+    (window.innerWidth < 900) ? 2 : 4;
+  }
+
+  $window.load(function() {
+
+   initflexsliders();   
+ }); 
+
+$('.myTab a').click(function (e) {
+  e.preventDefault();
+  $(this).tab('show'); 
+  $('.carousel1.flexslider').flexslider({
+    animation: "slide",
+    animationLoop: true,
+    itemWidth: 300,
+    itemMargin: 0,
+    controlNav: false,
+    directionNav: true,
+    slideshow: true,
+    minItems: getGridSize(), // use function to pull in initial value
+    maxItems: getGridSize()
+  });
+  
+})  
+
+
+$(window).load(function(){
+ initflexsliders();   
+ initflexsliderstwoItems();   
+}); 
+
+
+function initflexsliders(){
+ $('.carousel2.flexslider').flexslider({
+  animation: "slide",
+  animationLoop: true,
+  itemWidth: 300,
+  itemMargin: 0,
+  controlNav: false,
+  directionNav: true,
+  slideshow: true,
+    minItems: getGridSize(), // use function to pull in initial value
+    maxItems: getGridSize()
+  });
+
+}function initflexsliderstwoItems(){
+ $('.carousel-two-items.flexslider').flexslider({
+  animation: "slide",
+  animationLoop: true,
+  itemWidth: 300,
+  itemMargin: 0,
+  controlNav: false,
+  directionNav: true,
+  slideshow: true,
+    minItems: 2, // use function to pull in initial value
+    maxItems: 2
+  });
+
+}
 
 
 
+
+
+  // check grid size on resize event
+  $window.resize(function() {
+    var gridSize = getGridSize();
+
+    flexslider.vars.minItems = gridSize;
+    flexslider.vars.maxItems = gridSize;
+  });
+}());
+
+// end carousel slider
+
+
+/*test*/
+
+
+/*end*/
