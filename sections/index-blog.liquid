@@ -1,0 +1,54 @@
+<!-- /sections/index-blog.liquid -->
+{%- assign blog = blogs[section.settings.homepage_blog] -%}
+
+<div class="homepage-blog" data-section-id="{{ section.id }}" data-section-type="index-blog">
+
+ <div class="main-top">
+  <div class="row">
+    <div class="col-md-6">
+         {% unless section.settings.title == '' %}
+        <h4 class="home__subtitle">{{ section.settings.title | escape }}</h4>
+      {% endunless %}
+    </div> 
+    <div class="col-md-6">
+      <div class="pull-right">
+        <h6><a href="">Read All Blog Posts</a></h6>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="wrapper">
+      <div class="row">
+        {% unless blog == blank or blog.empty? %}
+          {% for article in blog.articles limit:2 %}
+            {% include 'article-grid-item' %}
+          {% endfor %}
+        {% endunless %}
+      </div>
+    </div>
+  </div>
+{% schema %}
+{
+  "name": "Featured blog",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Latest Blog Posts"
+    },
+    {
+      "type": "blog",
+      "id": "homepage_blog",
+      "label": "Featured blog"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog posts",
+      "category": "Blog"
+    }
+  ]
+}
+{% endschema %}

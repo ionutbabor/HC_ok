@@ -1,0 +1,62 @@
+<div class="index-info" data-section-id="{{ section.id }}" data-section-type="services">
+
+    <div class="row">
+
+      {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'content' %}
+
+      <div class="col-md-4 col-sm-4 col-xs-6">
+        <div class="thumbnail">
+          <img src="{{ block.settings.icon-img | img_url: '110X110' }}">
+          <h3 class="icon-title">{{ block.settings.icon-title }}</h3>
+          <p>{{ block.settings.icon-description }}</p>
+        </div>
+      </div>
+      {% endcase %}
+      {% endfor %}
+
+    </div>
+
+</div>
+{% schema %}
+{
+  "blocks": [
+  {
+  "type": "content",
+  "name": "Icon and title",
+  "settings": [
+  {
+  "id": "icon-img",
+  "type": "image_picker",
+  "label": "Icon Image:"
+},  
+{
+  "id": "icon-title",
+  "type": "text",
+  "label": "Title",
+  "default": "Free Shipping"
+},  
+{
+  "id": "icon-description",
+  "type": "textarea",
+  "label": "Description",
+  "default": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor."
+}
+]
+}
+],
+"presets": [
+{
+  "name": "Our Services",
+  "category": "Our Services",
+  "blocks": [
+  {
+  "type": "content"
+}
+]
+}
+]
+}
+
+{% endschema %}

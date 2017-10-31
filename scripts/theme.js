@@ -15,6 +15,8 @@ window.theme = window.theme || {};
 // =require flexslider/jquery.flexslider-min.js
 // =require lettering/jquery.lettering.js
 // =require easytimer/easytimer.min.js
+// =require instagram/lodash.js
+// =require instagram/instafeed.min.js
 
 
 /*================ Sections ================*/
@@ -27,9 +29,47 @@ window.theme = window.theme || {};
 
 
 
+
+/*instagram*/
+theme.Instagram = (function() {
+  function Instagram(container) {
+    var $container = this.$container = $(container);
+    var id = $container.attr('data-section-id');
+    var instafeedEl = this.instagram = $('#Instafeed-' + id);
+    var instafeedId = this.instagram = 'Instafeed-' + id;
+
+    var userFeed = new Instafeed({
+      get: 'user',
+      userId: 'self',
+      target: instafeedId,
+      accessToken: instafeedEl.attr('data-access-token'),
+      sortBy: 'most-recent',
+      resolution: 'standard_resolution',
+      limit: instafeedEl.attr('data-count'),
+      template: '<a href="{{link}}" target="_blank" style="background-image: url({{image}});" class="col-md-2 col-sm-2 col-xs-6 instagram--square '+instafeedEl.attr('data-grid')+'"><span class="icon icon-instagram"></span></a>'
+    });
+    if( !_.isUndefined( userFeed.options.accessToken) ){
+      userFeed.run();
+    }
+  }
+  Instagram.prototype = _.assignIn({}, Instagram.prototype, {});
+
+  return Instagram;
+})();
+
+/*end instagram*/
+
+
+
+
+
+
+
+
 $(document).ready(function() {
   var sections = new slate.Sections();
   sections.register('product', theme.Product);
+  sections.register('instagram', theme.Instagram);
 
   /*begin main menu*/
   $('.navbar-nav').prepend($('.dropdown .mega-dropdown'));
@@ -167,8 +207,3 @@ function initflexsliders(){
 
 // end carousel slider
 
-
-/*test*/
-
-
-/*end*/

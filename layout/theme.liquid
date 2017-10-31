@@ -35,7 +35,7 @@
   {% include 'social-meta-tags' %}
 
   {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
-      {{ 'nice-select.css' | asset_url | stylesheet_tag }}
+  {{ 'nice-select.css' | asset_url | stylesheet_tag }}
 
   <script>
   document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
@@ -77,20 +77,18 @@
     </div>
   </main>
 
-  {% section 'info' %}
+
+  {% section 'index-recomandation' %}
+
+  {% section 'index-instagram' %}
+
   {% section 'footer' %}
-
-
-
 
   {{ 'jquery.js' | asset_url | script_tag }}
 
- 
-{% include 'currencies' %}
+  {% include 'currencies' %}
 
- {{ 'jquery.nice-select.js' | asset_url | script_tag }}
-
-
+  {{ 'jquery.nice-select.js' | asset_url | script_tag }}
 
 </body>
 </html>

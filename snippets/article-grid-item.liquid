@@ -1,0 +1,15 @@
+<div class="col-md-6 col-xs-12 col-sm-6">
+<div class="wall">
+  <div class="blog__image" style="background-image: url('{{ article.image | img_url: 'original' }}');">
+  </div>
+</div>
+  <div class="blog__article__content">
+    <h3 class="blog__article__title">{{ article.title }}</h3>
+    <p>
+      {{ article.content | strip_html | truncate: 200 }}
+    </p>
+    <h5><a class="blog__link" href="{{ article.url }}">Read More</a></h5>
+  </div>
+
+
+</div>

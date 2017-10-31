@@ -371,15 +371,15 @@ li+li{
       width: 60%; 
     }
   }
-   &:hover,
-    &:focus{
-      box-shadow: 0 3px 6px 0 rgba(51,51,51,.3);
-      .content {
-        h2{
-          color: #84c98b;
-        }
-      } 
-    }
+  &:hover,
+  &:focus{
+    box-shadow: 0 3px 6px 0 rgba(51,51,51,.3);
+    .content {
+      h2{
+        color: #84c98b;
+      }
+    } 
+  }
 } 
 .col-md-3,
 .col-md-4{
@@ -394,12 +394,13 @@ li+li{
       p{
         @include font($first, 600, $size:15px, $color:#333333); 
         text-align: center;
+        text-transform: capitalize;
       }
       .img-inline{
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: contain;
         background-position: center center;
-        height: 80%;
+        height: 85%;
       }
     }
     &:hover,
@@ -421,3 +422,173 @@ li+li{
  }
 }
 }
+
+
+.homepage-blog{
+  margin-bottom: 30px;
+  .main-top{
+    background: #fff;
+    padding: 15px 20px;
+    h4{
+      @include font($first, 600, $size:26px, $color:#333333); 
+      text-transform: uppercase;
+      margin: 0;
+      padding-top: 5px;
+    }
+    h6{
+      @include font($first, 600, $size:15px, $color:#fff); 
+      margin: 0;
+      a{
+        color: #fff;
+        padding: 10px 15px;
+        display: inline-block;
+        border-radius: 30px;
+        background-color: #84c98b;
+        text-transform: uppercase;
+        &:hover,
+        &:focus{
+          text-decoration:none;
+        }
+      }
+    }
+  }
+  .wrapper{
+    background-color: #fff;
+    padding: 0 20px;
+    .blog__article{
+      padding:0 20px;
+      .img-responsive{
+        display: inline-block;
+      }
+    }
+    .wall{
+      height: 320px;
+      .blog__image{ 
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+        height: 100%;
+        border-radius: 4px;
+      }
+    }
+    .blog__article__content{
+      margin-bottom: 30px;
+      .blog__article__title{
+       @include font($first, 400, $size:22px, $color:#333333); 
+       margin: 25px 0; 
+     }
+     p{
+      @include font($first, 400, $size:14px, $color:#666666); 
+    }
+    h5{
+      @include font($first, 400, $size:13px, $color:#fff); 
+      margin: 20px 0 0;
+      a{
+        color: #fff;
+        padding: 10px 15px;
+        display: inline-block;
+        border-radius: 30px;
+        background-color: #84c98b;
+        text-transform: uppercase;
+        &:hover,
+        &:focus{
+          text-decoration:none;
+        }
+      }
+    }
+  }
+
+
+}
+}
+
+.index-info{
+  margin-bottom: 30px;
+
+  .thumbnail{
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    background-color: #fff;
+    margin-bottom: 0;
+    padding: 30px;
+    margin: 1px;
+    .icon-title{
+       @include font($first, 600, $size:20px, $color:#333333); 
+       margin: 25px 0 12px;
+    }
+    p{
+      @include font($first, 400, $size:14px, $color:#666666); 
+    }
+    &:hover,
+    &:focus{
+      box-shadow: 0 3px 6px 0 rgba(51,51,51,.298039);
+      .icon-title{
+          color: #84c98b;
+        }
+    }
+
+  }
+
+
+}
+
+
+.homepage-instagram{
+  .home__subtitle{
+    text-align: center;
+    @include font($first, 600, $size:26px, $color:#333333); 
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    margin-top: 0;
+  }
+  .instagram--square {
+    display: block;
+    border: 1px solid #dddddd;
+    background-size: cover;
+    background-position: center center;
+    overflow: hidden;
+    height: 16.666vw;
+  }
+  a{
+    position: relative;
+    color: white;
+    text-align: center;
+    font-size: 2em;
+  }
+  a:hover::after{
+    content:'';
+    background-color: black;
+    position: absolute;
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+  }
+  .icon{
+    position: absolute;
+    z-index: 200;
+    bottom: 5px;
+    width: 27px;
+    height: 27px;
+    left: 50%;
+    margin-left: -12px;
+    opacity: 0;
+    &:before {
+      content: "\f16d";
+      font:normal normal normal 14px/1 'FontAwesome';
+      font-size: 1em;
+    }
+
+  }
+  a:hover .icon{
+    opacity: 1;
+    bottom: 50%;
+  }
+  a img{
+    display: block;
+  }
+
+  }/*homepage-instagram*/

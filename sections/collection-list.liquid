@@ -1,100 +1,48 @@
-{% comment %}{% if section.settings.title != blank %}
-<h2>{{ section.settings.title | escape }}</h2>
-{% endif %}
-<div class="row">
-  {% for block in section.blocks limit: section.blocks.size %}
-  <div class="col-md-4">
-    <div {{ block.shopify_attributes }}>
-      {%- assign collection = collections[block.settings.collection] -%}
-
-      <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
-        {% if collection.image != blank %}
-        {{ collection | img_url: '480x480' | img_tag: collection.title }}
-        {% elsif collection.products.first != blank %}
-        {{ collection.products.first | img_url: '480x480' | img_tag: collection.title }}
-        {% elsif collection == empty %}
-        {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
-        {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
-        {% endif %}
-
-        <p>
-          {% if collection == empty %}
-          {{ 'homepage.onboarding.collection_title' | t }}
-          {% else %}
-          {{ collection.title }}
-          {% endif %}
-        </p>
-      </a>
-    </div>
-  </div>
-  {% endfor %}
-</div>{% endcomment %}
-
-
-
-
-<div class="carousel-slider black">
- <div class="main-top">
-  <div class="row">
-    <div class="col-md-6">
-      <h4>{{section.settings.collection | upcase | replace: '-', ' '}}</h4>
-    </div> 
-    <div class="col-md-6">
-      <div class="pull-right">
-        <h4><a href="collections/{{ section.settings.collection}}">Shop Now</a></h4>
+<div class="carousel-slider black" data-section-id="{{ section.id }}">
+  <div class="main-top">
+    <div class="row">
+      <div class="col-md-6">
+        <h4>{{section.settings.collection | upcase | replace: '-', ' '}}</h4>
+      </div> 
+      <div class="col-md-6">
+        <div class="pull-right">
+          <h4><a href="collections/{{ section.settings.collection}}">Shop Now</a></h4>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
+  <div class="row">
+    <div class="col-md-6 no-padding-right">
+      <div class="main flexslider">
+        <ul class="slides">
+          {% for block in section.blocks %}
 
-<div class="row">
-  <div class="col-md-6 no-padding-right">
-    <div class="main flexslider">
-      <ul class="slides">
-       {% for block in section.blocks %}
+          {% case block.type %}
+          {% when 'content' %}
 
-       {% case block.type %}
-       {% when 'content' %}
+          {% if block.settings.img != blank %}
 
-       {% if block.settings.img != blank %}
+          <li>
+            <div class="sliders">
+              <div class="main" style="background-image:url({{ block.settings.img | img_url: 'original' }})">
 
-       <li>
-        <div class="sliders">
-          <div class="main" style="background-image:url({{ block.settings.img | img_url: 'original' }})">
+                <div class="content">
+                  <h2>{{block.settings.title}}</h2>
+                  <hr>
+                  <h3>{{block.settings.description}}</h3>
+                </div>
 
-            <div class="content">
-             <h2>{{block.settings.title}}</h2>
-             <hr>
-             <h3>{{block.settings.description}}</h3>
-           </div>
+              </div>
+            </div>
 
-         </div>
-       </div>
+          </li>
 
-     </li>
-
-     {% endif %}
-     {% endcase %}  
-     {% endfor %}
-   </ul>
- </div><!-- main flexslider -->
-
-
-  {% comment %}      <div class="row"><div class="col-md-3">
-        {% if section.settings.title != blank %}
-        <h2>{{ section.settings.title | escape }}</h2>
-        {% endif %}
-        {% assign footer_linklist = section.settings.category_link %}
-        {% if linklists[footer_linklist].links.size > 0 %}
-        <ul>
-          {% for link in linklists[footer_linklist].links %}
-          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endif %}
+          {% endcase %}  
           {% endfor %}
         </ul>
-        {% endif %}
-
-      </div> </div>{% endcomment %}
+      </div><!-- main flexslider -->
 
     </div>
     <div class="col-md-6 no-padding-left">
@@ -170,7 +118,7 @@
       </div>
 
 
-      <div class="col-md-4 no-padding abc ">
+      <div class="col-md-4 no-padding">
         {% for block in section.blocks %}
         {% case block.type %}
         {% when 'collection' %}
@@ -347,18 +295,18 @@
 ]
 },
 {
- "type": "content",
- "name": "FlexSlider",
- "settings": [
- {
- "id": "img",
- "type": "image_picker",
- "label": "Image:"
+  "type": "content",
+  "name": "FlexSlider",
+  "settings": [
+  {
+  "id": "img",
+  "type": "image_picker",
+  "label": "Image:"
 },  
 {
- "id": "title",
- "type": "text",
- "label": "Title:"
+  "id": "title",
+  "type": "text",
+  "label": "Title:"
 },  
 {
   "id": "description",
