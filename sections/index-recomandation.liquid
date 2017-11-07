@@ -1,62 +1,101 @@
 <div class="index-recomandation" data-section-id="{{ section.id }}" data-section-type="recomandation">
+  <div class="container">
 
     <div class="row">
 
-      {% for block in section.blocks %}
-      {% case block.type %}
-      {% when 'content' %}
+    
+
+      {%- assign collection = collections[section.settings.collection] -%}
+      {%- assign grid_width_large = section.settings.program -%}
+
+      <div class="col-md-12 col-xs-12">
+        <h2>{{ collection.title }}</h2>
+      </div>
+
+  
+      {% for product in collection.products limit:6 %}
 
       <div class="col-md-2 col-sm-2 col-xs-6">
         <div class="thumbnail">
-          <img src="{{ block.settings.icon-img | img_url: '110X110' }}">
-          <h3 class="icon-title">{{ block.settings.icon-title }}</h3>
-          <p>{{ block.settings.icon-description }}</p>
+
+
+          {%- assign product_img_url = product.featured_image.src | img_url: '700x' -%}
+          {%- if grid_width_large == 'large--one-whole' -%}
+          {%- assign product_img_url = product.featured_image.src | img_url: '1200x' -%}
+          {%- elsif grid_width_large == 'large--one-half' -%}
+          {%- assign product_img_url = product.featured_image.src | img_url: '900x' -%}
+          {%- endif -%}
+
+          {% assign on_sale = false %}
+          {% if product.compare_at_price > product.price %}
+          {% assign on_sale = true %}
+          {% endif %}
+
+          {% assign sold_out = true %}
+          {% if product.available  %}
+          {% assign sold_out = false %}
+          {% endif %}
+
+
+
+          <div class="border">
+            <div class="sliders">
+              <a href="{{ product.url | within: collection }}" class="grid__image">
+
+                <span class="main-slider" style="background-image:url({{ product_img_url  }})">
+
+                </span>
+              </a>
+
+            </div>
+          </div>
+
+          <div class="figcaption">
+            <a href="{{ product.url | within: collection | capitalize }}">
+              <p class="h6 name_wrapper">
+                {{ product.title | truncatewords:15 | truncate:45 }}
+              </p>
+
+              <p class="price_wrapper">
+                <span class="price{% if on_sale %} on-sale{% endif %}">
+
+                  <span class="money">{{ product.price | money }}</span>
+                </span>
+                {% if sold_out %}
+                <br /><em>{{ 'products.product.sold_out' | t }}</em>
+                {% endif %}
+                {% if on_sale %}
+                <span class="compare-at">
+                  <span class="money">{{ product.compare_at_price | money }}</span>
+                </span>
+                {% endif %}
+
+              </p>
+
+
+            </a>
+
+          </div><!-- figcaption -->
+
         </div>
       </div>
-      {% endcase %}
       {% endfor %}
+   
+  
 
     </div>
+  </div>
 
 </div>
 {% schema %}
 {
-  "blocks": [
-  {
-  "type": "content",
-  "name": "Icon and title",
+  "name": "Recommendations for you",
   "settings": [
   {
-  "id": "icon-img",
-  "type": "image_picker",
-  "label": "Icon Image:"
-},  
-{
-  "id": "icon-title",
-  "type": "text",
-  "label": "Title",
-  "default": "Free Shipping"
-},  
-{
-  "id": "icon-description",
-  "type": "textarea",
-  "label": "Description",
-  "default": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor."
+  "id": "collection",
+  "type": "collection",
+  "label": "Select a Collection"
 }
 ]
 }
-],
-"presets": [
-{
-  "name": "Our Services",
-  "category": "Our Services",
-  "blocks": [
-  {
-  "type": "content"
-}
-]
-}
-]
-}
-
 {% endschema %}

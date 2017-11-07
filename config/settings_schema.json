@@ -248,6 +248,29 @@
 ]
 },
 {
+"name": "Newsletter",
+"settings": [
+{
+"type": "checkbox",
+"id": "newsletter_enable",
+"label": "Enable newsletter",
+"default": true
+},
+{
+"type": "text",
+"id": "newsletter-title",
+"label": "Title",
+"default": "Sign up for Newsletter"
+},
+{
+"type": "text",
+"id": "newsletter-subtitle",
+"label": "Sub title",
+"default": "Register now to get updates on promotions and coupons."
+}
+]
+},
+{
 "name": "Favicon",
 "settings": [
 {

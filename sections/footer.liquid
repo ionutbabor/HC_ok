@@ -1,47 +1,59 @@
-
 <footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3">
-         {% comment %}{% include 'newsletter-form' %}{% endcomment %}
+  <div id="top">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+      
+         <h2>{{section.settings.about_us_title }}</h2>
+         <p>{{section.settings.about_us }}</p>
+
+         <ul class="nav nav-pills nav-stacked address">
+          <li> <i class="fa fa-envelope-o" aria-hidden="true"></i> <a href="mailto:{{section.settings.email}}">{{section.settings.email}}</a></li> 
+          <li> <i class="fa fa-phone" aria-hidden="true"></i> <a href="tel:+{{section.settings.phone}}">{{section.settings.phone}}</a></li> 
+          <li> <i class="fa fa-map-marker" aria-hidden="true"></i> <a href="#">{{section.settings.address}}</a></li>
+        </ul>
 
 
+        <h2>Stay Connected</h2>
         {%- assign social_accounts = 'Facebook, Twitter, Pinterest, Instagram, Snapchat, Tumblr, YouTube, Vimeo,' | split: ', ' -%}
-        <ul>
+        <ul class="nav nav-pills social">
           {% for social in social_accounts %}
           {%- assign social_handle = social | handleize -%}
           {% capture social_link %}social_{{ social_handle }}_link{% endcapture %}
           {% capture social_icon %}icon-{{ social_handle }}{% endcapture %}
 
           {% if settings[social_link] != blank %}
-          <li>
+          <li class="badge">
             <a href="{{ settings[social_link] }}" title="{{ 'layout.footer.social_platform' | t: name: shop.name, platform: social }}">
               {% include social_icon %}
-              <span class="icon-fallback-text">{{ social }}</span>
+              <span class="icon-fallback-text ">{{ social }}</span>
             </a>
           </li>
           {% endif %}
 
           {% endfor %}
         </ul>
-        
-      </div>
-      <div class="col-md-3">
-        {%- assign footer_linklist = section.settings.footer_linklist -%}
-        {% if linklists[footer_linklist].links.size > 0 %}
-        <ul>
-          {% for link in linklists[footer_linklist].links %}
-          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-          {% endfor %}
-        </ul>
-        {% endif %}
-      </div>
 
 
-    <div class="col-md-3">
+      </div>
+      <div class="col-md-2">
+       <h2>{{section.settings.footer_linklist_title}}</h2>
+       {%- assign footer_linklist = section.settings.footer_linklist -%}
+       {% if linklists[footer_linklist].links.size > 0 %}
+       <ul class="nav nav-pills nav-stacked">
+        {% for link in linklists[footer_linklist].links %}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+
+    <div class="col-md-2">
+      <h2>{{section.settings.footer_linklist_title2}}</h2>
       {%- assign footer_linklist = section.settings.footer_linklist_2 -%}
       {% if linklists[footer_linklist].links.size > 0 %}
-      <ul>
+      <ul class="nav nav-pills nav-stacked">
         {% for link in linklists[footer_linklist].links %}
         <li><a href="{{ link.url }}">{{ link.title }}</a></li>
         {% endfor %}
@@ -49,10 +61,11 @@
       {% endif %}
 
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
+      <h2>{{section.settings.footer_linklist_title3}}</h2>
       {%- assign footer_linklist = section.settings.footer_linklist_3 -%}
       {% if linklists[footer_linklist].links.size > 0 %}
-      <ul>
+      <ul class="nav nav-pills nav-stacked">
         {% for link in linklists[footer_linklist].links %}
         <li><a href="{{ link.url }}">{{ link.title }}</a></li>
         {% endfor %}
@@ -65,32 +78,40 @@
 
 
 
-  {% if section.settings.show_payment_icons %}
-  {% unless shop.enabled_payment_types == empty %}
-  {%- assign payment_icons_available = 'amazon_payments,american_express,apple_pay,bitcoin,cirrus,dankort,diners_club,discover,dogecoin,dwolla,forbrugsforeningen,interac,jcb,litecoin,maestro,master,paypal,visa' | split: ',' -%}
+{% if section.settings.show_payment_icons %}
+{% unless shop.enabled_payment_types == empty %}
+{%- assign payment_icons_available = 'amazon_payments,american_express,apple_pay,bitcoin,cirrus,dankort,diners_club,discover,dogecoin,dwolla,forbrugsforeningen,interac,jcb,litecoin,maestro,master,paypal,visa' | split: ',' -%}
 
-  <span class="visually-hidden">{{ 'layout.footer.payment_methods' | t }}</span>
-  <ul class="payment-icons">
-    {% for type in shop.enabled_payment_types %}
-    {% if payment_icons_available contains type %}
-    <li>
-      {%- assign icon_name = type | prepend: 'icon-' -%}
-      {% include icon_name %}
-      <span class="visually-hidden">{{ type | capitalize | replace: '_', ' ' }}</span>
-    </li>
-    {% endif %}
-    {% endfor %}
-  </ul>
-  {% endunless %}
+<span class="visually-hidden">{{ 'layout.footer.payment_methods' | t }}</span>
+<ul class="payment-icons">
+  {% for type in shop.enabled_payment_types %}
+  {% if payment_icons_available contains type %}
+  <li>
+    {%- assign icon_name = type | prepend: 'icon-' -%}
+    {% include icon_name %}
+    <span class="visually-hidden">{{ type | capitalize | replace: '_', ' ' }}</span>
+  </li>
   {% endif %}
+  {% endfor %}
+</ul>
+{% endunless %}
+{% endif %}
+</div>
 
 
-
-  <div class="copyright-footer">
-    <div class="container">
-      <small>{{ 'layout.footer.copyright' | t }} &copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: '/' }}. {% comment %}{{ powered_by_link }}{% endcomment %}</small>
-    </div>
+<div class="copyright-footer">
+  <div class="container">
+    <p> &copy; {{ 'now' | date: "%Y" }} {{ shop.name | link_to: '/' }} All rights reserved.</p>
+    {%- assign footer_linklist = section.settings.footer_linklist_4 -%}
+    {% if linklists[footer_linklist].links.size > 0 %}
+    <ul class="nav nav-pills">
+      {% for link in linklists[footer_linklist].links %}
+      <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {% endfor %}
+    </ul>
+    {% endif %}
   </div>
+</div>
 
 
 </footer>
@@ -100,30 +121,104 @@
   "name": "Footer",
   "settings": [
   {
-    "type": "link_list",
-    "id": "footer_linklist",
-    "label": "First menu",
-    "default": "footer"
-  },
-  {
-    "type": "link_list",
-    "id": "footer_linklist_2",
-    "label": "Second menu",
-    "default": "footer"
-  },
-   {
-    "type": "link_list",
-    "id": "footer_linklist_3",
-    "label": "Third menu",
-    "default": "footer"
-  },
-  {
-    "type": "checkbox",
-    "id": "show_payment_icons",
-    "label": "Show payment icons",
-    "default": false
-  }
-  ]
+  "type": "header",
+  "content": "First Section"
+},
+{
+  "type": "text",
+  "id": "about_us_title",
+  "label": "Title",
+  "default": "About Us"
+},
+{
+  "type": "textarea",
+  "id": "about_us",
+  "label": "About Us",
+  "default": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+},
+{
+  "type": "text",
+  "id": "email",
+  "label": "Email",
+  "default": "hello@gmail.com"
+},
+{
+  "type": "text",
+  "id": "phone",
+  "label": "Phone Number",
+  "default": "3333 222 1111"
+},
+{
+  "type": "text",
+  "id": "address",
+  "label": "Address",
+  "default": "99 Barnard St - Suite 111 United States - GA 22222"
+},
+{
+  "type": "header",
+  "content": "Second Section"
+},
+{
+  "type": "text",
+  "id": "footer_linklist_title",
+  "label": "Title",
+  "default": "Information"
+},
+{
+  "type": "link_list",
+  "id": "footer_linklist",
+  "label": "Menu",
+  "default": "footer"
+},
+{
+  "type": "header",
+  "content": "Third Section"
+},
+{
+  "type": "text",
+  "id": "footer_linklist_title2",
+  "label": "Title",
+  "default": "Store"
+},
+{
+  "type": "link_list",
+  "id": "footer_linklist_2",
+  "label": "Menu",
+  "default": "footer"
+},
+{
+  "type": "header",
+  "content": "Four Section"
+},
+{
+  "type": "text",
+  "id": "footer_linklist_title3",
+  "label": "Title",
+  "default": "My Account"
+},
+{
+  "type": "link_list",
+  "id": "footer_linklist_3",
+  "label": "Menu",
+  "default": "footer"
+},
+{
+  "type": "checkbox",
+  "id": "show_payment_icons",
+  "label": "Show payment icons",
+  "default": false
+},
+{
+  "type": "header",
+  "content": "Bottom Section"
+},
+{
+  "type": "link_list",
+  "id": "footer_linklist_4",
+  "label": "Menu Bottom",
+  "default": "footer"
+}
+]
 }
 
 {% endschema %}

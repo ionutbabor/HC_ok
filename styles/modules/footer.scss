@@ -1,11 +1,131 @@
 /*================ Site Footer ================*/
 footer{
-	background-color: $color-footer;
-	.copyright-footer{
-		background-color: $color-copyright-footer;
-		color: $color-copyright-text;
-		a{
-			color: $color-copyright-text;
+	#top{
+		background-color: #404040;
+		padding: 50px 0 ;
+		h2{
+			@include font($first, 400, $size:20px, $color:#fff); 
+			margin-bottom: 25px;
+			margin-top: 0;
 		}
-	}
-}
+		p{
+			@include font($second, 400, $size:16px, $color:#999999); 	
+		}
+
+		.social{
+			li{
+				padding: 12px;
+				border-radius: 50%;
+				margin:0 5px;
+				a{
+					padding: 0;
+					color: #fff;
+					&:hover{
+						background:transparent;
+					}
+				}
+			}
+			li:first-child{
+				margin: 0;
+				background: #415a99;
+			}
+			li:nth-child(2){
+				background: #00caff;
+			}
+			li:nth-child(3){
+				background: #cd1e20;
+				}li:nth-child(4){
+					background: #295985;
+					}li:nth-child(5){
+						background: #295985;
+						}li:nth-child(7){
+							background: #ff3029;
+						}
+					}
+					.nav-stacked{
+						li{
+
+							a{
+								padding: 5px 0;
+								@include font($second, 400, $size:16px, $color:#999999); 	
+								&:before{
+									content: "\f101";
+									font: normal normal normal 14px/1 'FontAwesome';
+									padding-right: 10px;
+									color: #84c98b;
+								}
+								&:hover,
+								&:focus{
+									background: transparent;
+								}
+
+							}
+						}
+					}
+					.address{
+						margin-bottom: 25px;
+						li{
+							i{
+								padding-right: 10px;
+								color: #84c98b;
+							}
+							a{
+								display: inline-block;
+								&:before{
+									content: none;
+								}
+							}
+						}
+					}
+				}
+				.copyright-footer{
+					text-align: center;
+					padding: 10px 0;	
+
+					background-color: $color-copyright-footer;
+					color: $color-copyright-text;
+					p{
+						display: inline-block;
+
+						@include font($second, 400, $size:13px, $color:#999999); 	
+						a{
+							color: #84c98b;
+							&:hover,
+							&:focus{
+								text-decoration: none;
+							}
+
+						}
+					}
+					.nav{
+						display: inline-block;
+						position: relative;
+						top: 5px;
+						li{
+							a{
+								padding: 0;
+								&:after{
+									content: "|";
+									padding: 0 3px;
+								}
+								&:hover,
+								&:focus{
+									background: transparent;
+									text-decoration: none;
+								}
+							}
+							&:last-child{
+								a{
+									&:after{
+										content:"initial";
+									}
+								}
+							}
+						}
+					} 
+
+					a{
+						color: $color-copyright-text;
+					}
+				}
+			}

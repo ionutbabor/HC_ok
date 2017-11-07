@@ -1,251 +1,279 @@
-<div class="carousel-slider black" data-section-id="{{ section.id }}">
-  <div class="main-top">
-    <div class="row">
-      <div class="col-md-6">
-        <h4>{{section.settings.collection | upcase | replace: '-', ' '}}</h4>
-      </div> 
-      <div class="col-md-6">
-        <div class="pull-right">
-          <h4><a href="collections/{{ section.settings.collection}}">Shop Now</a></h4>
-        </div>
+<div class="carousel-slider black" data-section-id="{{ section.id }}" data-section-type="collection-list">
+  <div class="main-top" style=" 
+  {% if section.settings.color == 'colorA' %} background-color: #f31349; 
+  {% elsif section.settings.color == 'colorB' %} background-color: #9E7D71;
+  {% elsif section.settings.color == 'colorC' %} background-color: #0059a7;
+  {% elsif section.settings.color == 'colorD' %} background-color: #5c6db;
+  {% elsif section.settings.color == 'colorE' %} background-color: #00989; 
+  {% elsif section.settings.color == 'colorF' %} background-color: #15c1d7;
+  {% elsif section.settings.color == 'colorG' %} background-color: #55c932;
+  {% elsif section.settings.color == 'colorH' %} background-color: #a9b900;
+  {% elsif section.settings.color == 'colorI' %} background-color: #f3b516;
+  {% elsif section.settings.color == 'colorJ' %} background-color: #e3521b;
+  {% elsif section.settings.color == 'colorK' %} background-color: #3BACFF;
+  {% elsif section.settings.color == 'colorL' %} background-color: #b018a9;
+  {% elsif section.settings.color == 'colorM' %} background-color: #eb63c9;
+  {% endif %}">
+  <div class="row">
+    <div class="col-md-6">
+      <h4>{{section.settings.collection | upcase | replace: '-', ' '}}</h4>
+    </div> 
+    <div class="col-md-6">
+      <div class="pull-right">
+        <h4><a href="collections/{{ section.settings.collection}}">Shop Now</a></h4>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="row">
-    <div class="col-md-6 no-padding-right">
-      <div class="main flexslider">
-        <ul class="slides">
-          {% for block in section.blocks %}
+<div class="row">
+  <div class="col-md-6 no-padding-right">
+    <div class="main flexslider">
+      <ul class="slides">
+        {% for block in section.blocks %}
 
-          {% case block.type %}
-          {% when 'content' %}
+        {% case block.type %}
+        {% when 'content' %}
 
-          {% if block.settings.img != blank %}
+        {% if block.settings.img != blank %}
 
-          <li>
-            <div class="sliders">
-              <div class="main" style="background-image:url({{ block.settings.img | img_url: 'original' }})">
+        <li>
+          <div class="sliders">
+            <div class="main" style="background-image:url({{ block.settings.img | img_url: 'original' }})">
 
-                <div class="content">
-                  <h2>{{block.settings.title}}</h2>
-                  <hr>
-                  <h3>{{block.settings.description}}</h3>
-                </div>
-
-              </div>
+              <div class="content" style=" 
+              {% if section.settings.color == 'colorA' %} background-color: rgba(243,18,74,.8); 
+              {% elsif section.settings.color == 'colorB' %} background-color: rgba(140,110,99,.8);
+              {% elsif section.settings.color == 'colorC' %} background-color: rgba(0,89,167,.8);
+              {% elsif section.settings.color == 'colorD' %} background-color: rgba(92,109,189,.8);
+              {% elsif section.settings.color == 'colorE' %} background-color: rgba(0,152,147,.8); 
+              {% elsif section.settings.color == 'colorF' %} background-color: rgba(21,193,215,.8);
+              {% elsif section.settings.color == 'colorG' %} background-color: rgba(85,201,50,.8);
+              {% elsif section.settings.color == 'colorH' %} background-color: rgba(169,185,0,.8);
+              {% elsif section.settings.color == 'colorI' %} background-color: rgba(243,181,22,.8);
+              {% elsif section.settings.color == 'colorJ' %} background-color: rgba(227,82,27,.8);
+              {% elsif section.settings.color == 'colorK' %} background-color: rgba(59,172,255,.8);
+              {% elsif section.settings.color == 'colorL' %} background-color: rgba(176,24,169,.8);
+              {% elsif section.settings.color == 'colorM' %} background-color: rgba(235,99,201,.8);
+              {% endif %}">
+              <h2>{{block.settings.title}}</h2>
+              <hr>
+              <h3>{{block.settings.description}}</h3>
             </div>
 
-          </li>
+          </div>
+        </div>
 
+      </li>
+
+      {% endif %}
+      {% endcase %}  
+      {% endfor %}
+    </ul>
+  </div><!-- main flexslider -->
+
+</div>
+<div class="col-md-6 no-padding-left">
+
+  <div class="col-md-8 no-padding">
+
+    {% for block in section.blocks %}
+    {% case block.type %}
+    {% when 'collection' %}
+    <div class="wall">
+      {%- assign collection = collections[block.settings.left-collection] -%}
+
+
+      <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
+        {% if collection.image != blank %}
+        {{ collection | img_url: '382X234' | img_tag: collection.title , 'img-responsive' }}
+        {% elsif collection.products.first != blank %}
+        {{ collection.products.first | img_url: '382X234' | img_tag: collection.title ,'img-responsive' }}
+        {% elsif collection == empty %}
+        {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+        {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+        {% endif %}
+
+        <div class="content">
+          {% if collection == empty %}
+          {{ 'homepage.onboarding.collection_title' | t }}
+          {% else %}
+          {{ collection.description }}
           {% endif %}
-          {% endcase %}  
-          {% endfor %}
-        </ul>
-      </div><!-- main flexslider -->
-
+        </div>
+      </a>
     </div>
-    <div class="col-md-6 no-padding-left">
 
-      <div class="col-md-8 no-padding">
+    {% endcase %}
+    {% endfor %}
+  </div>
+  <div class="col-md-4 no-padding">
+    {% for block in section.blocks %}
+    {% case block.type %}
+    {% when 'collection' %}
+    <div class="wall" {{ block.shopify_attributes }}>
+      {%- assign collection = collections[block.settings.right-collection] -%}
 
-        {% for block in section.blocks %}
-        {% case block.type %}
-        {% when 'collection' %}
-        <div class="wall">
-          {%- assign collection = collections[block.settings.left-collection] -%}
+      <div class="image">
 
-
-          <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
-            {% if collection.image != blank %}
-            {{ collection | img_url: 'original' | img_tag: collection.title , 'img-responsive' }}
-            {% elsif collection.products.first != blank %}
-            {{ collection.products.first | img_url: 'original' | img_tag: collection.title ,'img-responsive' }}
-            {% elsif collection == empty %}
-            {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
-            {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+        <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
+          <p>
+            {% if collection == empty %}
+            {{ 'homepage.onboarding.collection_title' | t }}
+            {% else %}
+            {{ collection.title }}
             {% endif %}
+          </p>
+          {% if collection.image != blank %}
+          {{ collection | img_url: 'original' | img_tag: collection.title , 'img-responsive' }}
+          {% elsif collection.products.first != blank %}
+          {% comment %}   {{ collection.products.first | img_url: 'original' | img_tag: collection.title , 'img-responsive'}}{% endcomment %}
+          <div class="img-inline" style="background-image:url({{ collection.products.first  | img_url: 'original' }})"> 
 
-            <div class="content">
-              {% if collection == empty %}
-              {{ 'homepage.onboarding.collection_title' | t }}
-              {% else %}
-              {{ collection.description }}
-              {% endif %}
-            </div>
-          </a>
-        </div>
-
-        {% endcase %}
-        {% endfor %}
-      </div>
-      <div class="col-md-4 no-padding">
-        {% for block in section.blocks %}
-        {% case block.type %}
-        {% when 'collection' %}
-        <div class="wall" {{ block.shopify_attributes }}>
-          {%- assign collection = collections[block.settings.right-collection] -%}
-
-          <div class="image">
-
-            <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
-              <p>
-                {% if collection == empty %}
-                {{ 'homepage.onboarding.collection_title' | t }}
-                {% else %}
-                {{ collection.title }}
-                {% endif %}
-              </p>
-              {% if collection.image != blank %}
-              {{ collection | img_url: 'original' | img_tag: collection.title , 'img-responsive' }}
-              {% elsif collection.products.first != blank %}
-              {% comment %}   {{ collection.products.first | img_url: 'original' | img_tag: collection.title , 'img-responsive'}}{% endcomment %}
-              <div class="img-inline" style="background-image:url({{ collection.products.first  | img_url: 'original' }})"> 
-
-              </div>
-
-              {% elsif collection == empty %}
-              {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
-              {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
-              {% endif %}
-            </a>
           </div>
-        </div>
 
-        {% endcase %}
-        {% endfor %}
-
+          {% elsif collection == empty %}
+          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+          {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+          {% endif %}
+        </a>
       </div>
-
-
-      <div class="col-md-4 no-padding">
-        {% for block in section.blocks %}
-        {% case block.type %}
-        {% when 'collection' %}
-
-        <div class="wall" {{ block.shopify_attributes }}>
-          {%- assign collection = collections[block.settings.left-collection] -%}
-
-          <div class="image">
-
-            <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
-              <p>
-                {% if collection == empty %}
-                {{ 'homepage.onboarding.collection_title' | t }}
-                {% else %}
-                {{ collection.title }}
-                {% endif %}
-              </p>
-              {% if collection.image != blank %}
-              {% comment %}{{ collection | img_url: 'original' | img_tag: collection.title , 'img-responsive' }}{% endcomment %}
-              <div class="img-inline" style="background-image:url({{ collection  | img_url: 'original' }})"> 
-
-              </div>
-
-              {% elsif collection.products.first != blank %}
-              {% comment %}   {{ collection.products.first | img_url: 'original' | img_tag: collection.title , 'img-responsive'}}{% endcomment %}
-              <div class="img-inline" style="background-image:url({{ collection.products.first  | img_url: 'original' }})"> 
-
-              </div>
-
-              {% elsif collection == empty %}
-              {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
-              {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
-              {% endif %}
-            </a>
-          </div>
-        </div>
-
-        {% endcase %}
-        {% endfor %}
-
-      </div>
-      <div class="col-md-4 no-padding">
-        {% for block in section.blocks %}
-        {% case block.type %}
-        {% when 'collection' %}
-
-
-        <div class="wall" {{ block.shopify_attributes }}>
-          {%- assign collection = collections[block.settings.bottom-middle-collection] -%}
-
-          <div class="image">
-
-            <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
-              <p>
-                {% if collection == empty %}
-                {{ 'homepage.onboarding.collection_title' | t }}
-                {% else %}
-                {{ collection.title }}
-                {% endif %}
-              </p>
-              {% if collection.image != blank %}
-              {{ collection | img_url: 'original' | img_tag: collection.title , 'img-responsive' }}
-              {% elsif collection.products.first != blank %}
-              {% comment %}   {{ collection.products.first | img_url: 'original' | img_tag: collection.title , 'img-responsive'}}{% endcomment %}
-              <div class="img-inline" style="background-image:url({{ collection.products.first  | img_url: 'original' }})"> 
-
-              </div>
-
-              {% elsif collection == empty %}
-              {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
-              {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
-              {% endif %}
-            </a>
-          </div>
-        </div>
-
-        {% endcase %}
-        {% endfor %}
-
-      </div>
-      <div class="col-md-4 no-padding">
-        {% for block in section.blocks %}
-        {% case block.type %}
-        {% when 'collection' %}
-
-
-
-        <div class="wall" {{ block.shopify_attributes }}>
-          {%- assign collection = collections[block.settings.right-collection] -%}
-
-          <div class="image">
-
-            <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
-              <p>
-                {% if collection == empty %}
-                {{ 'homepage.onboarding.collection_title' | t }}
-                {% else %}
-                {{ collection.title }}
-                {% endif %}
-              </p>
-              {% if collection.image != blank %}
-              {{ collection | img_url: 'original' | img_tag: collection.title , 'img-responsive' }}
-              {% elsif collection.products.first != blank %}
-              {% comment %}   {{ collection.products.first | img_url: 'original' | img_tag: collection.title , 'img-responsive'}}{% endcomment %}
-              <div class="img-inline" style="background-image:url({{ collection.products.first  | img_url: 'original' }})"> 
-
-              </div>
-
-              {% elsif collection == empty %}
-              {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
-              {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
-              {% endif %}
-            </a>
-          </div>
-        </div>
-
-
-        {% endcase %}
-        {% endfor %}
-
-      </div>
-
-
-
     </div>
 
-  </div>  
+    {% endcase %}
+    {% endfor %}
+
+  </div>
+
+
+  <div class="col-md-4 no-padding">
+    {% for block in section.blocks %}
+    {% case block.type %}
+    {% when 'collection' %}
+
+    <div class="wall" {{ block.shopify_attributes }}>
+      {%- assign collection = collections[block.settings.bottom-left-collection] -%}
+
+      <div class="image">
+
+        <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
+          <p>
+            {% if collection == empty %}
+            {{ 'homepage.onboarding.collection_title' | t }}
+            {% else %}
+            {{ collection.title }}
+            {% endif %}
+          </p>
+          {% if collection.image != blank %}
+          {% comment %}{{ collection | img_url: 'original' | img_tag: collection.title , 'img-responsive' }}{% endcomment %}
+          <div class="img-inline" style="background-image:url({{ collection  | img_url: 'original' }})"> 
+
+          </div>
+
+          {% elsif collection.products.first != blank %}
+          {% comment %}   {{ collection.products.first | img_url: 'original' | img_tag: collection.title , 'img-responsive'}}{% endcomment %}
+          <div class="img-inline" style="background-image:url({{ collection.products.first  | img_url: 'original' }})"> 
+
+          </div>
+
+          {% elsif collection == empty %}
+          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+          {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+          {% endif %}
+        </a>
+      </div>
+    </div>
+
+    {% endcase %}
+    {% endfor %}
+
+  </div>
+  <div class="col-md-4 no-padding">
+    {% for block in section.blocks %}
+    {% case block.type %}
+    {% when 'collection' %}
+
+
+    <div class="wall" {{ block.shopify_attributes }}>
+      {%- assign collection = collections[block.settings.bottom-middle-collection] -%}
+
+      <div class="image">
+
+        <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
+          <p>
+            {% if collection == empty %}
+            {{ 'homepage.onboarding.collection_title' | t }}
+            {% else %}
+            {{ collection.title }}
+            {% endif %}
+          </p>
+          {% if collection.image != blank %}
+          {{ collection | img_url: 'original' | img_tag: collection.title , 'img-responsive' }}
+          {% elsif collection.products.first != blank %}
+          {% comment %}   {{ collection.products.first | img_url: 'original' | img_tag: collection.title , 'img-responsive'}}{% endcomment %}
+          <div class="img-inline" style="background-image:url({{ collection.products.first  | img_url: 'original' }})"> 
+
+          </div>
+
+          {% elsif collection == empty %}
+          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+          {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+          {% endif %}
+        </a>
+      </div>
+    </div>
+
+    {% endcase %}
+    {% endfor %}
+
+  </div>
+  <div class="col-md-4 no-padding">
+    {% for block in section.blocks %}
+    {% case block.type %}
+    {% when 'collection' %}
+
+
+
+    <div class="wall" {{ block.shopify_attributes }}>
+      {%- assign collection = collections[block.settings.bottom-right-collection] -%}
+
+      <div class="image">
+
+        <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
+          <p>
+            {% if collection == empty %}
+            {{ 'homepage.onboarding.collection_title' | t }}
+            {% else %}
+            {{ collection.title }}
+            {% endif %}
+          </p>
+          {% if collection.image != blank %}
+          {{ collection | img_url: 'original' | img_tag: collection.title , 'img-responsive' }}
+          {% elsif collection.products.first != blank %}
+          {% comment %}   {{ collection.products.first | img_url: 'original' | img_tag: collection.title , 'img-responsive'}}{% endcomment %}
+          <div class="img-inline" style="background-image:url({{ collection.products.first  | img_url: 'original' }})"> 
+
+          </div>
+
+          {% elsif collection == empty %}
+          {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+          {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+          {% endif %}
+        </a>
+      </div>
+    </div>
+
+
+    {% endcase %}
+    {% endfor %}
+
+  </div>
+
+
+
+</div>
+
+</div>  
 </div>
 
 
@@ -260,6 +288,28 @@
   "id": "collection",
   "type": "collection",
   "label": "Select a Collection"
+},
+{
+  "id": "color",
+  "type": "radio",
+  "label": "Choose a color",
+  "options": [
+  {"value": "none", "label": "None"},
+  {"value": "colorA", "label": "Women's Clothing"},
+  {"value": "colorB", "label": "Men's Clothing"},
+  {"value": "colorC", "label": "Phones & Accessories"},
+  {"value": "colorD", "label": "Computer & Networking"},
+  {"value": "colorE", "label": "Consumer Electronics"},
+  {"value": "colorF", "label": "Jewelry & Watches"},
+  {"value": "colorG", "label": "Home & Garden"},
+  {"value": "colorH", "label": "Bags & Shoes"},
+  {"value": "colorI", "label": "Kids & Mother"},
+  {"value": "colorJ", "label": "Sports & Outdoors"}, 
+  {"value": "colorK", "label": "Automobiles & Motorcycles"},
+  {"value": "colorL", "label": "Beauty & Health"},
+  {"value": "colorM", "label": "Wedding & Events"}
+  ],
+  "default":  "none"
 }
 ],
 "blocks": [

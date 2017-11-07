@@ -8,14 +8,16 @@
 
 <header>
   <div class="top-header">
-
-{% comment %}    <div class="container-fluid">
+    <!-- begin top banner  -->
+    <div class="container-fluid">
       <div class="row">
        <div id="banner">
         <img class="img-responsive" src="{{ settings.top-banner | img_url: 'master' }}" alt="{{ settings.logo.alt | default: shop.name }}">
       </div>
     </div>
-  </div>{% endcomment %}
+  </div>
+  <!-- end -->
+
 
   <div class="container">
    <div class="row">
@@ -66,7 +68,7 @@
 
 {% comment %}<div class="currency">
         {% include 'currency-picker' %}
-        </div>{% endcomment %}
+      </div>{% endcomment %}
 
 
 
@@ -77,94 +79,95 @@
 </div>
 </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-2">
-     {% if template.name == 'index' %}
-     <h1 itemscope itemtype="http://schema.org/Organization">
-      {% else %}
-      <div class="h1" itemscope itemtype="http://schema.org/Organization">
-        {% endif %}
-        <a href="/" itemprop="url" class="site-logo{% if settings.logo != blank %} site-header__logo-image{% endif %}">
-          {% if settings.logo != blank %}
-          {% capture image_size %}{{ settings.logo_max_width }}x{% endcapture %}
-          <img class="img-responsive" src="{{ settings.logo | img_url: image_size }}"
-          srcset="{{ settings.logo | img_url: image_size }} 1x, {{ settings.logo | img_url: image_size, scale: 2 }} 2x"
-          alt="{{ settings.logo.alt | default: shop.name }}"
-          itemprop="logo">
-          {% else %}
-          {{ shop.name }}
+<div id="middle" data-offset-top="120" data-spy="affix">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2">
+       {% if template.name == 'index' %}
+       <h1 itemscope itemtype="http://schema.org/Organization">
+        {% else %}
+        <div class="h1" itemscope itemtype="http://schema.org/Organization">
           {% endif %}
-        </a>
-        {% if template.name == 'index' %}
-      </h1>
-      {% else %}
-    </div>
-    {% endif %}
-  </div><!-- col-md-2 -->
-
-  <div class="col-md-7">
-
-
-    <form action="/search" method="get" role="search">
-      <div class="form-group has-success has-feedback">
-
-       <input type="search"
-       name="q"
-       id="Search"
-       value="{{ search.terms | escape }}"
-       placeholder="Search..." class="form-control" id="inputSuccess2">
-
-       <button type="submit" class="btn">
-         {{ 'search.png' | asset_url | img_tag }}
-         <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
-       </button>
-
-
-       <div class="btn-group" role="group">
-        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          All Categories
-          <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-          <li><a href="#">Dropdown link</a></li>
-          <li><a href="#">Dropdown link</a></li>
-        </ul>
+          <a href="/" itemprop="url" class="site-logo{% if settings.logo != blank %} site-header__logo-image{% endif %}">
+            {% if settings.logo != blank %}
+            {% capture image_size %}{{ settings.logo_max_width }}x{% endcapture %}
+            <img class="img-responsive" src="{{ settings.logo | img_url: image_size }}"
+            srcset="{{ settings.logo | img_url: image_size }} 1x, {{ settings.logo | img_url: image_size, scale: 2 }} 2x"
+            alt="{{ settings.logo.alt | default: shop.name }}"
+            itemprop="logo">
+            {% else %}
+            {{ shop.name }}
+            {% endif %}
+          </a>
+          {% if template.name == 'index' %}
+        </h1>
+        {% else %}
       </div>
-    </div>
-  </form>
-
-
-</div><!-- col-md-8 -->
-<div class="col-md-3">
-  <div class="col-md-6">
-   <a href="/cart">
-    {{ 'icon-shipping.png' | asset_url | img_tag }}
-    Shopping Cart
-
-    <span class="badge">{{ cart.item_count }}</span>
-  </a>
-</div>
-<div class="col-md-6">
-  {% if shop.customer_accounts_enabled %}
-  <ul class="nav nav-pills">
-    {% if customer %}
-    <li>
-      {% if customer.first_name != blank %}
-      {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
-      {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
-      {% else %}
-      <a href="/account">{{ 'layout.customer.account' | t }}</a>
       {% endif %}
-    </li>
-    <li>
-      {{ 'layout.customer.log_out' | t | customer_logout_link }} 
-    </li>
-    {% else %}
-    <li id="sign-in">
-      {{ 'icon-signin.png' | asset_url | img_tag }}
-      {{ '<b>Sign in</b> |  Join'  | customer_login_link }}
-    </li>
+    </div><!-- col-md-2 -->
+
+    <div class="col-md-7">
+
+
+      <form action="/search" method="get" role="search">
+        <div class="form-group has-success has-feedback">
+
+         <input type="search"
+         name="q"
+         id="Search"
+         value="{{ search.terms | escape }}"
+         placeholder="Search..." class="form-control" id="inputSuccess2">
+
+         <button type="submit" class="btn">
+           {{ 'search.png' | asset_url | img_tag }}
+           <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
+         </button>
+
+
+         <div class="btn-group" role="group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            All Categories
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="#">Dropdown link</a></li>
+            <li><a href="#">Dropdown link</a></li>
+          </ul>
+        </div>
+      </div>
+    </form>
+
+
+  </div><!-- col-md-8 -->
+  <div class="col-md-3">
+    <div class="col-md-6">
+     <a href="/cart">
+      {{ 'icon-shipping.png' | asset_url | img_tag }}
+      Shopping Cart
+
+      <span class="badge">{{ cart.item_count }}</span>
+    </a>
+  </div>
+  <div class="col-md-6">
+    {% if shop.customer_accounts_enabled %}
+    <ul class="nav nav-pills">
+      {% if customer %}
+      <li>
+        {% if customer.first_name != blank %}
+        {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
+        {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
+        {% else %}
+        <a href="/account">{{ 'layout.customer.account' | t }}</a>
+        {% endif %}
+      </li>
+      <li>
+        {{ 'layout.customer.log_out' | t | customer_logout_link }} 
+      </li>
+      {% else %}
+      <li id="sign-in">
+        {{ 'icon-signin.png' | asset_url | img_tag }}
+        {{ '<b>Sign in</b> |  Join'  | customer_login_link }}
+      </li>
  <!--    <li>
    {{ 'layout.customer.create_account' | t | customer_register_link }}
  </li> -->
@@ -178,6 +181,7 @@
 </div>
 
 </div><!-- row -->
+</div>
 </div><!-- container -->
 
 

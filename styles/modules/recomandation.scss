@@ -1,0 +1,47 @@
+/*================ recomandation ================*/
+.index-recomandation{
+	margin-bottom: 30px;
+	h2{
+		@include font($first, 600, $size:20px, $color:#333333); 
+		margin: 0 0 10px;
+	}
+	.thumbnail{
+		padding: 10px;
+		border: none;
+		margin-bottom: 0;
+		.border{
+			.sliders{
+				height: 150px;
+				padding: 0;
+				.main-slider{
+					background-size: contain;
+					background-position: center center;
+					background-repeat: no-repeat;
+					height: 100%;
+					border-radius: 4px;
+					display: block;
+				}
+			}
+		}
+		.figcaption{
+			a{
+				.name_wrapper{
+					@include font($first, 400, $size:14px, $color:#333333); 
+				}
+				.price_wrapper{
+					margin-bottom: 0;
+					@include font($first, 600, $size:14px, $color:#333333); 
+					.compare-at .money{
+						@include font($second, 400, $size:13px, $color:#999); 
+						/*display: block;*/
+						text-decoration: line-through;
+					}
+				}
+				&:hover{
+					text-decoration: none;
+				}
+			}
+		}
+	}
+
+}

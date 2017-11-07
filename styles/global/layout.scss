@@ -207,6 +207,7 @@ li+li{
   border-radius: 0;
   .slides{
     li{
+
       .border{
        border: 1px solid #ccc;
        margin: 0 20px;
@@ -224,7 +225,10 @@ li+li{
      }
    }
    .figcaption{
+
+
     margin: 0 20px;
+
     .name_wrapper{
       @include font($first, 400, $size:13px, $color:#000000); 
       line-height: 20px;
@@ -243,6 +247,13 @@ li+li{
     }
   } 
 }
+}
+li:hover{
+
+  .border{
+   border: 1px solid #84c98b;
+ }
+
 }
 }
 }
@@ -340,7 +351,7 @@ li+li{
             @include font($second, 400, $size:13px, $color:#fff); 
           }
           hr{
-            border-top: 1px solid #666666;
+            border-top: 1px solid rgba(255,255,255,.3);
             margin: 13px 0; 
           }
         }
@@ -390,7 +401,7 @@ li+li{
     height: 243px; 
     border-radius: 4px;
     .image{
-      height: 100%;
+      height: 85%;
       p{
         @include font($first, 600, $size:15px, $color:#333333); 
         text-align: center;
@@ -400,7 +411,7 @@ li+li{
         background-repeat: no-repeat;
         background-size: contain;
         background-position: center center;
-        height: 85%;
+        height: 100%;
       }
     }
     &:hover,
@@ -514,21 +525,21 @@ li+li{
     padding: 30px;
     margin: 1px;
     .icon-title{
-       @include font($first, 600, $size:20px, $color:#333333); 
-       margin: 25px 0 12px;
-    }
-    p{
-      @include font($first, 400, $size:14px, $color:#666666); 
-    }
-    &:hover,
-    &:focus{
-      box-shadow: 0 3px 6px 0 rgba(51,51,51,.298039);
-      .icon-title{
-          color: #84c98b;
-        }
-    }
-
+     @include font($first, 600, $size:20px, $color:#333333); 
+     margin: 25px 0 12px;
+   }
+   p{
+    @include font($first, 400, $size:14px, $color:#666666); 
   }
+  &:hover,
+  &:focus{
+    box-shadow: 0 3px 6px 0 rgba(51,51,51,.298039);
+    .icon-title{
+      color: #84c98b;
+    }
+  }
+
+}
 
 
 }

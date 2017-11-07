@@ -60,20 +60,28 @@ theme.Instagram = (function() {
 /*end instagram*/
 
 
-
-
-
-
-
-
 $(document).ready(function() {
   var sections = new slate.Sections();
   sections.register('product', theme.Product);
   sections.register('instagram', theme.Instagram);
 
-  /*begin main menu*/
+
+
+  /*begin megamenu*/
+  $(".dropdown").hover(            
+    function() {
+      $('.dropdown-menu-open', this).not('.in .dropdown-menu').stop(true,true).slideDown("400");
+      $(this).toggleClass('open');        
+    },
+    function() {
+      $('.dropdown-menu-open', this).not('.in .dropdown-menu').stop(true,true).slideUp("400");
+      $(this).toggleClass('open');       
+    }
+    );
   $('.navbar-nav').prepend($('.dropdown .mega-dropdown'));
-  /*end main menu*/
+  /*end*/
+
+
 
   // Common a11y fixes
   slate.a11y.pageLinkFocus($(window.location.hash));
@@ -101,10 +109,6 @@ $('.main.flexslider').flexslider({
 });
 /*end flexslider*/
 
-
-
-
-
 /*begin lettering*/
 $("#main-menu li>a ").lettering('words');
 /*end lettering*/
@@ -122,7 +126,6 @@ timer.addEventListener('targetAchieved', function (e) {
 /*end easytimer*/
 
 // begin carousel slider
-
 (function() {
 
   // store the slider in a local variable
@@ -140,10 +143,33 @@ timer.addEventListener('targetAchieved', function (e) {
    initflexsliders();   
  }); 
 
-$('.myTab a').click(function (e) {
-  e.preventDefault();
-  $(this).tab('show'); 
-  $('.carousel1.flexslider').flexslider({
+  $('.myTab a').hover(function (e) {
+    e.preventDefault();
+    $(this).tab('show'); 
+    $('.carousel1.flexslider').flexslider({
+      animation: "slide",
+      animationLoop: true,
+      itemWidth: 300,
+      itemMargin: 0,
+      controlNav: false,
+      directionNav: true,
+      slideshow: true,
+    minItems: getGridSize(), // use function to pull in initial value
+    maxItems: getGridSize()
+  });
+
+  })  
+
+
+  $(window).load(function(){
+   initflexsliders();   
+   initflexsliderstwoItems();   
+
+ }); 
+
+
+  function initflexsliders(){
+   $('.carousel2.flexslider').flexslider({
     animation: "slide",
     animationLoop: true,
     itemWidth: 300,
@@ -154,43 +180,21 @@ $('.myTab a').click(function (e) {
     minItems: getGridSize(), // use function to pull in initial value
     maxItems: getGridSize()
   });
-  
-})  
 
-
-$(window).load(function(){
- initflexsliders();   
- initflexsliderstwoItems();   
-}); 
-
-
-function initflexsliders(){
- $('.carousel2.flexslider').flexslider({
-  animation: "slide",
-  animationLoop: true,
-  itemWidth: 300,
-  itemMargin: 0,
-  controlNav: false,
-  directionNav: true,
-  slideshow: true,
-    minItems: getGridSize(), // use function to pull in initial value
-    maxItems: getGridSize()
-  });
-
-}function initflexsliderstwoItems(){
- $('.carousel-two-items.flexslider').flexslider({
-  animation: "slide",
-  animationLoop: true,
-  itemWidth: 300,
-  itemMargin: 0,
-  controlNav: false,
-  directionNav: true,
-  slideshow: true,
+ }function initflexsliderstwoItems(){
+   $('.carousel-two-items.flexslider').flexslider({
+    animation: "slide",
+    animationLoop: true,
+    itemWidth: 300,
+    itemMargin: 0,
+    controlNav: false,
+    directionNav: true,
+    slideshow: true,
     minItems: 2, // use function to pull in initial value
     maxItems: 2
   });
 
-}
+ }
 
 
 
