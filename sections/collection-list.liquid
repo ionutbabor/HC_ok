@@ -87,15 +87,13 @@
       <a href="{% if collection == empty %}#{% else %}{{ collection.url }}{% endif %}">
 
         {% if collection.image != blank %}
-       <div class="img-inline" style="background-image:url({{ collection  | img_url: 'original' }})"> 
+        <div class="img-inline" style="background-image:url({{ collection  | img_url: 'original' }})"> 
         </div>
         {% elsif collection.products.first != blank %}
-       
-  <div class="img-inline" style="background-image:url({{ collection.products.first  | img_url: 'original' }})"> 
+
+        <div class="img-inline" style="background-image:url({{ collection.products.first  | img_url: 'original' }})"> 
         </div>
 
-
-       
         {% elsif collection == empty %}
         {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
         {{ 'collection-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
