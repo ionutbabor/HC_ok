@@ -13,6 +13,7 @@ window.theme = window.theme || {};
 // =require bootstrap.min.js
 
 // =require flexslider/jquery.flexslider-min.js
+// =require fancybox/jquery.fancybox.min
 // =require lettering/jquery.lettering.js
 // =require easytimer/easytimer.min.js
 // =require instagram/lodash.js
@@ -21,6 +22,7 @@ window.theme = window.theme || {};
 
 /*================ Sections ================*/
 // =require sections/product.js
+// =require fancybox/jquery.fancybox.min.js
 
 /*================ Templates ================*/
 // =require templates/customers-addresses.js
@@ -211,3 +213,61 @@ timer.addEventListener('targetAchieved', function (e) {
 
 // end carousel slider
 
+/*product  flexslider*/
+
+
+ $(window).load(function(){
+
+//   $('.product_gallery').flexslider({
+//   animation: "slide",
+//         controlNav: false,
+//         animationLoop: false,
+//         slideshow: false,
+//         controlNav: "thumbnails",
+//         sync: "#carousel"
+// });
+
+      $('#carousel').flexslider({
+       animation: "slide",
+       controlNav: false,
+       animationLoop: false,
+       direction: "vertical",
+       slideshow: false,
+       itemWidth: 80,
+       itemMargin: 5,
+       asNavFor: '#product-slider'
+     });
+
+     //  $('#carousel-2').flexslider({
+     //   animation: "slide",
+     //   controlNav: false,
+     //   animationLoop: false,
+     //   direction: "vertical",
+     //   slideshow: false,
+     //   itemWidth: 210,
+     //   itemMargin: 5,
+     //   asNavFor: '#slider'
+     // });
+
+      $('#product-slider').flexslider({
+        animation: "slide",
+        controlNav: false,
+        animationLoop: false,
+        slideshow: false,
+        controlNav: "thumbnails",
+        sync: "#carousel"
+      });
+
+    });
+/*end flexslider*/
+
+/*begin fancybox*/
+$(document).ready(function() {
+$().fancybox({
+  selector : '[data-fancybox="filter"]:visible',
+  thumbs   : {
+    autoStart : true
+  }
+});
+});
+/*end fancybox*/

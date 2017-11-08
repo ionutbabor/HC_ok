@@ -1,4 +1,35 @@
 /*================ product ================*/
 .template-product{
-background: green;	
+	.no-padding{
+		padding-left: 0;
+		padding-right: 0;
+	}
+	.form-background{
+		background: #fff;
+	}
+	.slides_carousel{
+		width: 100% !important;
+		li {
+			width: 56px !important;
+			margin-bottom: 5px;
+			margin-right: 2px !important;
+			cursor: pointer;
+			.thumbnail {
+				width: 76px;
+				height: 100px;
+				-webkit-transition: all 0.5s;
+				transition: all 0.5s;
+				border: 1px solid #ccc;
+				background-repeat: no-repeat;
+				background-position: 50% 50%;
+			}
+		}
+	} 
+	#product-slider{
+		.flex-control-thumbs{
+			display: none;
+		}
+	}
+	
+
 }
