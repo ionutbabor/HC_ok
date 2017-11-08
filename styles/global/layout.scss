@@ -365,8 +365,12 @@ li:hover{
     position: relative;
     height: 243px;
     margin: 4px;
-    .img-responsive{
-      display: inline-block;
+
+    .img-inline{
+      background-repeat: no-repeat;
+      background-size: 100%;
+      background-position: center center;
+      height: 100%;
     }
 
     .content{

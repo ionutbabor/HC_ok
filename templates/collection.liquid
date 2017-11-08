@@ -1,4 +1,9 @@
-<div class="container">
+
+
+
+  {% include 'breadcrumbs' %}
+
+
 
 {% paginate collection.products by 12 %}
   <header role="banner">
@@ -98,4 +103,4 @@
     {% include 'pagination' %}
   {% endif %}
 {% endpaginate %}
-</div>
+
