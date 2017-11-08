@@ -1,4 +1,16 @@
 /*================ collection ================*/
 .template-collection{
-	background: red;
+	.breadcrumb{
+		background: #fff;
+		padding: 10px;
+		border-radius: 0;
+		@include font($second, 400, $size:14px, $color:#000);
+		a{
+			@include font($second, 700, $size:16px, $color:#000);
+			&:hover,
+			&:focus{
+				text-decoration: underline;	
+			}
+		}
+	}
 }

@@ -23,7 +23,8 @@
 @import url('global/links-buttons.scss');
 /*@import url('global/forms.scss');*/
 @import url('global/blank-states.scss');
-
+@import url('global/jquery.fancybox.scss');
+@import url('global/flexslider.scss');
 
 
 /*================ MODULES ================*/
@@ -33,4 +34,5 @@
 @import url('modules/footer.scss');
 @import url('modules/newsletter-form.scss');
 @import url('modules/recomandation.scss');
-
+@import url('modules/collection.scss');
+@import url('modules/product.scss');

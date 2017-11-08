@@ -1,4 +1,11 @@
+subcollection 
 {% include 'breadcrumbs' %}
+
+
+
+
+
+
 
 
 {% paginate collection.products by 12 %}
@@ -26,6 +33,18 @@
       </ul>
     {% endif %}
   </header>{% endcomment %}
+
+
+
+{{ collection.title }}
+{% assign collection_handle = "collection-" | append: collection.handle %}
+<ul>
+  {% for link in linklists[collection_handle].links %}
+   {% assign sub_collection = link.object %}
+   <li><a href="{{ link.url | within: collection }} ">{{ link.title }}</a></li>
+  {% endfor %}
+</ul>
+
 
   <div>
     {% for product in collection.products %}
