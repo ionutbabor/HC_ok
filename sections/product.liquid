@@ -9,9 +9,9 @@
   <meta itemprop="image" content="{{ featured_image | img_url: '600x600' }}">
   <meta itemprop="description" content="{{ product.description | strip_html | escape }}">
 
-<div class="form-background">
-  <div class="row">
-    
+  <div class="form-background">
+    <div class="row">
+
       <div class="col-md-6">
        {% if featured_image != blank %}
        {% include 'product-images' %}
@@ -22,7 +22,23 @@
 
      <div class="col-md-6">
       <h1>{{ product.title }}</h1>
-      <p>{{ product.vendor }}</p>
+
+      <div data-price-wrapper>
+        <label>Price</label>
+        <span data-product-price>
+          {{ current_variant.price | money }}
+        </span>
+
+        {% if product.compare_at_price_max > product.price %}
+        <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
+        <s data-compare-price>
+          {% if current_variant.compare_at_price > current_variant.price %}
+          {{ current_variant.compare_at_price | money }}
+          {% endif %}
+        </s>
+        {% endif %}
+      </div>
+      {% comment %}<p>{{ product.vendor }}</p>{% endcomment %}
 
       <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
         <meta itemprop="priceCurrency" content="{{ shop.currency }}">
@@ -30,6 +46,9 @@
         <link itemprop="availability" href="http://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}">
 
         <form action="/cart/add" method="post" enctype="multipart/form-data">
+
+
+
           {% unless product.has_only_default_variant %}
           {% for option in product.options_with_values %}
           <div class="selector-wrapper js">
@@ -39,6 +58,7 @@
 
             <select
             id="SingleOptionSelector-{{ forloop.index0 }}"
+            class="single-option-selector"
             data-single-option-selector
             data-index="option{{ option.position }}">
             {% for value in option.values %}
@@ -53,7 +73,7 @@
       {% endfor %}
       {% endunless %}
 
-      <select name="id" class="no-js" data-product-select>
+      <select name="id" class="no-js hidden" data-product-select>
         {% for variant in product.variants %}
         <option
         {% if variant == current_variant %}selected="selected"{% endif %}
@@ -63,45 +83,52 @@
       </option>
       {% endfor %}
     </select>
+    {% if product.available and product.variants.size > 1 %}
+    {% include 'swatch' with 'Color' %}
+    {% endif %}
+
+    <label>Shipping</label>
+    <span>Lorem ipsum dolor sit amet.</span>
 
     <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
     <input type="number" id="Quantity" name="quantity" value="1" min="1">
 
-    <div data-price-wrapper>
-      <span data-product-price>
-        {{ current_variant.price | money }}
-      </span>
+    <label>Contact</label>
+    <span>Contact seller now</span>
+    
 
-      {% if product.compare_at_price_max > product.price %}
-      <span class="visually-hidden" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
-      <s data-compare-price>
-        {% if current_variant.compare_at_price > current_variant.price %}
-        {{ current_variant.compare_at_price | money }}
-        {% endif %}
-      </s>
-      {% endif %}
-    </div>
+    {% assign product_qty = 0 %}
+    {% for variant in product.variants %}
+    {% if variant.inventory_quantity > 0 %}
+    {% assign product_qty = product_qty | plus: variant.inventory_quantity %}
+    {% endif %}
+    {% endfor %}
 
-    <button
-    type="submit"
-    name="add"
-    data-add-to-cart
-    {% unless current_variant.available %}disabled="disabled"{% endunless %}>
-    <span data-add-to-cart-text>
-      {% if current_variant.available %}
-      {{ 'products.product.add_to_cart' | t }}
-      {% else %}
-      {{ 'products.product.sold_out' | t }}
-      {% endif %}
-    </span>
-  </button>
+    {% if product_qty > 0 %}
+    <span>piece ( <b>{{ product_qty }}</b> pieces available)</span>
+{% comment %}{% else %}
+In Stock Soon. Usually Ships in 3-5 Business Days. {% endcomment %}
+{% endif %}
+
+
+<button
+type="submit"
+name="add"
+data-add-to-cart
+{% unless current_variant.available %}disabled="disabled"{% endunless %}>
+<span data-add-to-cart-text>
+  {% if current_variant.available %}
+  {{ 'products.product.add_to_cart' | t }}
+  {% else %}
+  {{ 'products.product.sold_out' | t }}
+  {% endif %}
+</span>
+</button>
 </form>
 
 </div>
 
-<div class="rte">
-  {{ product.description }}
-</div>
+
 
 {% if section.settings.show_share_buttons %}
 {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
@@ -121,6 +148,34 @@
 
 </div>{% comment %}row{% endcomment %}
 
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <p>Collumn 1</p>
+  </div>
+  <div class="col-md-10">
+    <div class="rte">
+      
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#tab1" aria-controls="home" role="tab" data-toggle="tab">Product Details</a></li>
+        <li role="presentation"><a href="#tab2" aria-controls="profile" role="tab" data-toggle="tab">Feedback</a></li>
+        <li role="presentation"><a href="#tab3" aria-controls="messages" role="tab" data-toggle="tab">Shipping and Payment</a></li>
+        <li role="presentation"><a href="#tab4" aria-controls="settings" role="tab" data-toggle="tab">Seller Guarantees</a></li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="tab1">{{ product.description }}</div>
+        <div role="tabpanel" class="tab-pane" id="tab2">yotpo reviews</div>
+        <div role="tabpanel" class="tab-pane" id="tab3">{{ pages.shipping-policy.content }}</div>
+        <div role="tabpanel" class="tab-pane" id="tab4">{{ pages.seller-guarantees.content }}</div>
+      </div>
+
+    </div>
+    
+  </div>
 </div>
 
 </div>

@@ -23,6 +23,7 @@ window.theme = window.theme || {};
 /*================ Sections ================*/
 // =require sections/product.js
 // =require fancybox/jquery.fancybox.min.js
+// =require cloudzoom/cloudzoom.js
 
 /*================ Templates ================*/
 // =require templates/customers-addresses.js
@@ -215,9 +216,6 @@ timer.addEventListener('targetAchieved', function (e) {
 
 /*product  flexslider*/
 
-
- $(window).load(function(){
-
 //   $('.product_gallery').flexslider({
 //   animation: "slide",
 //         controlNav: false,
@@ -258,16 +256,36 @@ timer.addEventListener('targetAchieved', function (e) {
         sync: "#carousel"
       });
 
-    });
+
 /*end flexslider*/
 
 /*begin fancybox*/
-$(document).ready(function() {
+
 $().fancybox({
   selector : '[data-fancybox="filter"]:visible',
   thumbs   : {
     autoStart : true
   }
 });
-});
+
 /*end fancybox*/
+
+/*begin product zoom image*/ 
+ CloudZoom.quickStart();
+ /*end product zoom image*/ 
+
+
+ /*swatches*/
+ jQuery(function() {
+  jQuery('.swatch :radio').change(function() {
+    var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
+    var optionValue = jQuery(this).val();
+    jQuery(this)
+      .closest('form')
+      .find('.single-option-selector')
+      .eq(optionIndex)
+      .val(optionValue)
+      .trigger('change');
+  });
+});
+
