@@ -91,13 +91,13 @@ $(document).ready(function() {
 
 
 
-/*custom select currencies*/
+  /*custom select currencies*/
   var showText = false;
   showText = true;
   $('#currencies').customSelect({
     showText: showText
   });
-/*end*/
+  /*end*/
 
   // Common a11y fixes
   slate.a11y.pageLinkFocus($(window.location.hash));
@@ -223,57 +223,59 @@ timer.addEventListener('targetAchieved', function (e) {
 // end carousel slider
 
 /*product  flexslider*/
-      $('#product-slider').flexslider({
-        animation: "slide",
-        controlNav: false,
-        animationLoop: false,
-        slideshow: false,
-        controlNav: "thumbnails"
-        // sync: "#carousel"
+$('#product-slider').flexslider({
+  animation: "fade",
+  controlNav: false,
+  animationLoop: false,
+  pauseOnHover: true,
+  slideshow: false,
+  touch: "false",
+  controlNav: "thumbnails",
+  start: function(slider){
+$('.loading-gif').remove();;
+}
       });
 /*end flexslider*/
 
 /*begin fancybox*/
-
 $().fancybox({
   selector : '[data-fancybox="filter"]:visible',
   thumbs   : {
     autoStart : true
   }
 });
-
 /*end fancybox*/
 
 /*begin product zoom image*/ 
- CloudZoom.quickStart();
- /*end product zoom image*/ 
+CloudZoom.quickStart();
+/*end product zoom image*/ 
 
 
- /*swatches*/
- jQuery(function() {
+/*swatches*/
+jQuery(function() {
   jQuery('.swatch :radio').change(function() {
     var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
     var optionValue = jQuery(this).val();
     jQuery(this)
-      .closest('form')
-      .find('.single-option-selector')
-      .eq(optionIndex)
-      .val(optionValue)
-      .trigger('change');
+    .closest('form')
+    .find('.single-option-selector')
+    .eq(optionIndex)
+    .val(optionValue)
+    .trigger('change');
   });
 });
 
 $('.single-option-selector').trigger('change');
- /*end swatches*/
+/*end swatches*/
 
 // Find the current product ID
 var currentProductID = $('#AddToCartForm').attr("data-productid"),
-  isStickerProduct =  currentProductID;
+isStickerProduct =  currentProductID;
 
- $('.product-details__qty-adjust').on('click', function(e) {
+$('.product-details__qty-adjust').on('click', function(e) {
   e.preventDefault();
   var currentValue = parseFloat($('.product-details__qty-input').val()),
-    qtyInput = $('.product-details__qty-input');
+  qtyInput = $('.product-details__qty-input');
 
   if($(this).hasClass('product-details__qty-adjust--minus')) {
     if((currentValue - 1) == 0){

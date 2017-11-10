@@ -21,8 +21,9 @@
      </div>
 
      <div class="col-md-7">
-  
       <h1>{{ product.title }}</h1>
+
+      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
 
       <div data-price-wrapper>
         <label>Price</label>
@@ -201,7 +202,7 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane fade in active" id="tab1">{{ product.description }}</div>
-        <div role="tabpanel" class="tab-pane fade" id="tab2">yotpo reviews</div>
+        <div role="tabpanel" class="tab-pane fade" id="tab2"><div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div></div>
         <div role="tabpanel" class="tab-pane fade" id="tab3">{{ pages.shipping-policy.content }}</div>
         <div role="tabpanel" class="tab-pane fade" id="tab4">{{ pages.seller-guarantees.content }}</div>
       </div>
