@@ -26,6 +26,7 @@ window.theme = window.theme || {};
 /*================ Sections ================*/
 // =require sections/product.js
 // =require fancybox/jquery.fancybox.min.js
+// =require cloudzoom/cloudzoom.js
 
 /*================ Templates ================*/
 // =require templates/customers-addresses.js
