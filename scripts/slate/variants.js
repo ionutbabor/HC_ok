@@ -9,14 +9,14 @@
  * @namespace variants
  */
 
-slate.Variants = (function() {
+ slate.Variants = (function() {
 
   /**
    * Variant constructor
    *
    * @param {object} options - Settings from `product.js`
    */
-  function Variants(options) {
+   function Variants(options) {
     this.$container = options.$container;
     this.product = options.product;
     this.singleOptionSelector = options.singleOptionSelector;
@@ -35,7 +35,7 @@ slate.Variants = (function() {
      *
      * @return {array} options - Values of currently selected variants
      */
-    _getCurrentOptions: function() {
+     _getCurrentOptions: function() {
       var currentOptions = $.map($(this.singleOptionSelector, this.$container), function(element) {
         var $element = $(element);
         var type = $element.attr('type');
@@ -70,7 +70,7 @@ slate.Variants = (function() {
      * @param  {array} selectedValues - Values of variant inputs
      * @return {object || undefined} found - Variant object from product.variants
      */
-    _getVariantFromOptions: function() {
+     _getVariantFromOptions: function() {
       var selectedValues = this._getCurrentOptions();
       var variants = this.product.variants;
       var found = false;
@@ -92,12 +92,11 @@ slate.Variants = (function() {
       return found || null;
     },
 
-    /**
+   /**
      * Event handler for when a variant input changes.
      */
-    _onSelectChange: function() {
+     _onSelectChange: function() {
       var variant = this._getVariantFromOptions();
-
       this.$container.trigger({
         type: 'variantChange',
         variant: variant
@@ -107,14 +106,41 @@ slate.Variants = (function() {
         return;
       }
 
-      this._updateMasterSelect(variant);
-      this._updateImages(variant);
-      this._updatePrice(variant);
-      this.currentVariant = variant;
-
-      if (this.enableHistoryState) {
-        this._updateHistoryState(variant);
+      if (variant) {
+        if (variant.inventory_management == "shopify" && variant.inventory_policy != "continue") {
+          if (variant.inventory_quantity > 0) {
+           jQuery('#variant-inventory').text(variant.inventory_quantity);
+         }
+        else {
+          jQuery('#variant-inventory').text("0");
+        }
+      } else {
+        jQuery('#variant-inventory').text("This product is available");
       }
+    } else {
+      jQuery('#variant-inventory').text("");
+    }
+
+    this._updateMasterSelect(variant);
+    this._updateImages(variant);
+    this._updatePrice(variant);
+    this.currentVariant = variant;
+
+    if (this.enableHistoryState) {
+      this._updateHistoryState(variant);
+    }
+      // BEGIN SWATCHES
+      var selector = this.originalSelectorId;
+      if (variant) {
+        var form = $(selector).closest('form');
+        for (var i=0,length=variant.options.length; i<length; i++) {
+          var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
+          if (radioButton.size()) {
+            radioButton.get(0).checked = true;
+          }
+        }
+      }
+      // END SWATCHES
     },
 
     /**
@@ -123,7 +149,7 @@ slate.Variants = (function() {
      * @param  {object} variant - Currently selected variant
      * @return {event}  variantImageChange
      */
-    _updateImages: function(variant) {
+     _updateImages: function(variant) {
       var variantImage = variant.featured_image || {};
       var currentVariantImage = this.currentVariant.featured_image || {};
 
@@ -143,7 +169,7 @@ slate.Variants = (function() {
      * @param  {object} variant - Currently selected variant
      * @return {event} variantPriceChange
      */
-    _updatePrice: function(variant) {
+     _updatePrice: function(variant) {
       if (variant.price === this.currentVariant.price && variant.compare_at_price === this.currentVariant.compare_at_price) {
         return;
       }
@@ -160,7 +186,7 @@ slate.Variants = (function() {
      * @param  {variant} variant - Currently selected variant
      * @return {k}         [description]
      */
-    _updateHistoryState: function(variant) {
+     _updateHistoryState: function(variant) {
       if (!history.replaceState || !variant) {
         return;
       }
@@ -174,10 +200,10 @@ slate.Variants = (function() {
      *
      * @param  {variant} variant - Currently selected variant
      */
-    _updateMasterSelect: function(variant) {
+     _updateMasterSelect: function(variant) {
       $(this.originalSelectorId, this.$container)[0].value = variant.id;
     }
   });
 
-  return Variants;
+return Variants;
 })();
