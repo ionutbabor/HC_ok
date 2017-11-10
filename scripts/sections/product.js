@@ -124,7 +124,7 @@ theme.Product = (function() {
       var variant = evt.variant;
       var sizedImgUrl = slate.Image.getSizedImageUrl(variant.featured_image.src, this.settings.imageSize);
 
-      this.$featuredImage.attr('src', sizedImgUrl);
+       this.$featuredImage.attr('src', sizedImgUrl);
     },
 
     /**
@@ -137,3 +137,8 @@ theme.Product = (function() {
 
   return Product;
 })();
+
+
+
+ 
+

@@ -1,4 +1,4 @@
-<div data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" itemscope itemtype="http://schema.org/Product">
+<div data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" itemscope itemtype="http://schema.org/Product" class="product-description">
 
   {%- assign current_variant = product.selected_or_first_available_variant -%}
   {%- assign featured_image = current_variant.featured_image | default: product.featured_image -%}
@@ -12,7 +12,7 @@
   <div class="form-background">
     <div class="row">
 
-      <div class="col-md-6">
+      <div class="col-md-5">
        {% if featured_image != blank %}
        {% include 'product-images' %}
        {% endif %}
@@ -20,7 +20,8 @@
 
      </div>
 
-     <div class="col-md-6">
+     <div class="col-md-7">
+  
       <h1>{{ product.title }}</h1>
 
       <div data-price-wrapper>
@@ -50,8 +51,9 @@
 
 
           {% unless product.has_only_default_variant %}
+
           {% for option in product.options_with_values %}
-          <div class="selector-wrapper js">
+          <div class="selector-wrapper js hidden">
             <label for="SingleOptionSelector-{{ forloop.index0 }}">
               {{ option.name }}
             </label>
@@ -83,52 +85,84 @@
       </option>
       {% endfor %}
     </select>
+
     {% if product.available and product.variants.size > 1 %}
-    {% include 'swatch' with 'Color' %}
+    {% for option in product.options %}
+    {% include 'swatch' with option %}
+    {% endfor %}
     {% endif %}
+    <div>
+      <label>Shipping</label>
+      <span>Estimated Delivery Time: 3 days</span>
+    </div>
+    
+    <div>
+      <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
+      {% comment %}<input type="number" id="Quantity" name="quantity" value="1" min="1">{% endcomment %}
+      <div class="product-details__qty-input-wrap">
+        <button type="button" class="product-details__qty-adjust product-details__qty-adjust--minus">
+          <span class="product-details__text-icon fallback-text" aria-hidden="true">&minus;</span>
 
-    <label>Shipping</label>
-    <span>Lorem ipsum dolor sit amet.</span>
+        </button>
+        <input type="number" id="Quantity" name="quantity" value="1" min="1" class="product-details__qty-input">
+        <button type="button" class="product-details__qty-adjust product-details__qty-adjust--plus"">
+          <span class="product-details__text-icon fallback-text" aria-hidden="true">+</span>
 
-    <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
-    <input type="number" id="Quantity" name="quantity" value="1" min="1">
+        </button>
+      </div>
+      {% comment %}<div id="variant-inventory">
+       {% if product.variants.first.inventory_management == "shopify" %}
+       {% if product.variants.first.inventory_quantity > 0 %}
+       We currently have {{ product.variants.first.inventory_quantity }} in stock.
+       {% else %}
+       The product is out of stock
+       {% endif %}
+       {% else %}
+       This product is available
+       {% endif %}
+     </div>{% endcomment %}
 
+      <span>piece 
+         
+           {% if product.variants.first.inventory_management == "shopify" %}
+       {% if product.variants.first.inventory_quantity > 0 %}
+       ( <span id="variant-inventory">{{ product.variants.first.inventory_quantity }}</span> pieces available )
+        {% else %}
+       ( The product is out of stock )
+       {% endif %}
+        {% else %}
+       ( This product is available )
+       {% endif %}
+ 
+      </span>
+
+
+   </div>
+
+
+   <div>
     <label>Contact</label>
     <span>Contact seller now</span>
-    
+  </div>
 
-    {% assign product_qty = 0 %}
-    {% for variant in product.variants %}
-    {% if variant.inventory_quantity > 0 %}
-    {% assign product_qty = product_qty | plus: variant.inventory_quantity %}
+  <a href="#" class="btn"> Add to Wish list</a>
+
+  <button
+  type="submit"
+  name="add"
+  data-add-to-cart
+  {% unless current_variant.available %}disabled="disabled"{% endunless %}>
+  <span data-add-to-cart-text>
+    {% if current_variant.available %}
+    {{ 'products.product.add_to_cart' | t }}
+    {% else %}
+    {{ 'products.product.sold_out' | t }}
     {% endif %}
-    {% endfor %}
-
-    {% if product_qty > 0 %}
-    <span>piece ( <b>{{ product_qty }}</b> pieces available)</span>
-{% comment %}{% else %}
-In Stock Soon. Usually Ships in 3-5 Business Days. {% endcomment %}
-{% endif %}
-
-
-<button
-type="submit"
-name="add"
-data-add-to-cart
-{% unless current_variant.available %}disabled="disabled"{% endunless %}>
-<span data-add-to-cart-text>
-  {% if current_variant.available %}
-  {{ 'products.product.add_to_cart' | t }}
-  {% else %}
-  {{ 'products.product.sold_out' | t }}
-  {% endif %}
-</span>
+  </span>
 </button>
 </form>
 
 </div>
-
-
 
 {% if section.settings.show_share_buttons %}
 {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
@@ -143,9 +177,6 @@ data-add-to-cart
 </div>
 
 
-
-
-
 </div>{% comment %}row{% endcomment %}
 
 </div>
@@ -156,22 +187,25 @@ data-add-to-cart
   </div>
   <div class="col-md-10">
     <div class="rte">
-      
+
       <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist">
+      
+      <ul class="nav nav-tabs" role="tablist" data-offset-top="930" data-spy="affix">
         <li role="presentation" class="active"><a href="#tab1" aria-controls="home" role="tab" data-toggle="tab">Product Details</a></li>
         <li role="presentation"><a href="#tab2" aria-controls="profile" role="tab" data-toggle="tab">Feedback</a></li>
         <li role="presentation"><a href="#tab3" aria-controls="messages" role="tab" data-toggle="tab">Shipping and Payment</a></li>
         <li role="presentation"><a href="#tab4" aria-controls="settings" role="tab" data-toggle="tab">Seller Guarantees</a></li>
       </ul>
+    
 
       <!-- Tab panes -->
       <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="tab1">{{ product.description }}</div>
-        <div role="tabpanel" class="tab-pane" id="tab2">yotpo reviews</div>
-        <div role="tabpanel" class="tab-pane" id="tab3">{{ pages.shipping-policy.content }}</div>
-        <div role="tabpanel" class="tab-pane" id="tab4">{{ pages.seller-guarantees.content }}</div>
+        <div role="tabpanel" class="tab-pane fade in active" id="tab1">{{ product.description }}</div>
+        <div role="tabpanel" class="tab-pane fade" id="tab2">yotpo reviews</div>
+        <div role="tabpanel" class="tab-pane fade" id="tab3">{{ pages.shipping-policy.content }}</div>
+        <div role="tabpanel" class="tab-pane fade" id="tab4">{{ pages.seller-guarantees.content }}</div>
       </div>
+   
 
     </div>
     

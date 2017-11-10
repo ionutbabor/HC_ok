@@ -18,6 +18,9 @@ window.theme = window.theme || {};
 // =require easytimer/easytimer.min.js
 // =require instagram/lodash.js
 // =require instagram/instafeed.min.js
+// =require currencies/currencies.js
+// =require currencies/jquery.currencies.min.js
+// =require currencies/jquery-customselect.js
 
 
 /*================ Sections ================*/
@@ -199,10 +202,6 @@ timer.addEventListener('targetAchieved', function (e) {
 
  }
 
-
-
-
-
   // check grid size on resize event
   $window.resize(function() {
     var gridSize = getGridSize();
@@ -211,52 +210,17 @@ timer.addEventListener('targetAchieved', function (e) {
     flexslider.vars.maxItems = gridSize;
   });
 }());
-
 // end carousel slider
 
 /*product  flexslider*/
-
-//   $('.product_gallery').flexslider({
-//   animation: "slide",
-//         controlNav: false,
-//         animationLoop: false,
-//         slideshow: false,
-//         controlNav: "thumbnails",
-//         sync: "#carousel"
-// });
-
-      $('#carousel').flexslider({
-       animation: "slide",
-       controlNav: false,
-       animationLoop: false,
-       direction: "vertical",
-       slideshow: false,
-       itemWidth: 80,
-       itemMargin: 5,
-       asNavFor: '#product-slider'
-     });
-
-     //  $('#carousel-2').flexslider({
-     //   animation: "slide",
-     //   controlNav: false,
-     //   animationLoop: false,
-     //   direction: "vertical",
-     //   slideshow: false,
-     //   itemWidth: 210,
-     //   itemMargin: 5,
-     //   asNavFor: '#slider'
-     // });
-
       $('#product-slider').flexslider({
         animation: "slide",
         controlNav: false,
         animationLoop: false,
         slideshow: false,
-        controlNav: "thumbnails",
-        sync: "#carousel"
+        controlNav: "thumbnails"
+        // sync: "#carousel"
       });
-
-
 /*end flexslider*/
 
 /*begin fancybox*/
@@ -288,4 +252,36 @@ $().fancybox({
       .trigger('change');
   });
 });
+
+$('.single-option-selector').trigger('change');
+ /*end swatches*/
+
+// Find the current product ID
+var currentProductID = $('#AddToCartForm').attr("data-productid"),
+  isStickerProduct =  currentProductID;
+
+ $('.product-details__qty-adjust').on('click', function(e) {
+  e.preventDefault();
+  var currentValue = parseFloat($('.product-details__qty-input').val()),
+    qtyInput = $('.product-details__qty-input');
+
+  if($(this).hasClass('product-details__qty-adjust--minus')) {
+    if((currentValue - 1) == 0){
+      return;
+    } else {
+      qtyInput.val(currentValue -1);
+    }
+  }
+  else if($(this).hasClass('product-details__qty-adjust--plus')) {
+    if(isStickerProduct && (currentValue >= 2)){
+      // Limit stickers input to 2 maximum
+      console.log('Stickers input limited on adjust button');
+      qtyInput.val(2);
+    } else {
+      qtyInput.val(currentValue + 1);
+    }
+  }
+  qtyInput.trigger('change');
+});
+
 
