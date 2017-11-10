@@ -18,6 +18,9 @@ window.theme = window.theme || {};
 // =require easytimer/easytimer.min.js
 // =require instagram/lodash.js
 // =require instagram/instafeed.min.js
+// =require currencies/currencies.js
+// =require currencies/jquery.currencies.min.js
+// =require currencies/jquery-customselect.js
 
 
 /*================ Sections ================*/
@@ -27,7 +30,6 @@ window.theme = window.theme || {};
 /*================ Templates ================*/
 // =require templates/customers-addresses.js
 // =require templates/customers-login.js
-
 
 
 
@@ -62,6 +64,9 @@ theme.Instagram = (function() {
 /*end instagram*/
 
 
+
+
+
 $(document).ready(function() {
   var sections = new slate.Sections();
   sections.register('product', theme.Product);
@@ -84,6 +89,14 @@ $(document).ready(function() {
   /*end*/
 
 
+
+/*custom select currencies*/
+  var showText = false;
+  showText = true;
+  $('#currencies').customSelect({
+    showText: showText
+  });
+/*end*/
 
   // Common a11y fixes
   slate.a11y.pageLinkFocus($(window.location.hash));

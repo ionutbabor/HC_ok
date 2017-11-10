@@ -13,4 +13,79 @@
 			}
 		}
 	}
+
+
+
+	.sidebar{
+		background: #fff;
+		h3{
+			@include font($second, 700, $size:16px, $color:#000);
+			border-bottom: 1px solid #333333;
+			padding: 10px;
+			margin: 0;
+		}
+		.menu{
+			position: static;
+			display: block;
+			border-radius: 0;
+			box-shadow: none;
+			width: 100%;
+			border: none;
+			margin: 0;
+			padding: 0;
+
+			.dropdown-menu{
+				border-top:1px solid #333333;
+				border-bottom:1px solid #333333;
+				border-right:1px solid #333333;
+				box-shadow: none;
+				padding: 0;
+				border-left: 1px solid #333333;
+			}
+
+		}
+		.dropdown-submenu{position:relative;}
+		.dropdown-submenu>.dropdown-menu
+		{
+			top:0;
+			left:100%;
+			margin-top:0px;
+			margin-left:0px;
+			border-radius: 0;
+		}
+		.dropdown-submenu:hover>.dropdown-menu{
+			display:block;
+		}
+
+		.dropdown-submenu{
+			float:none; 	
+			border-bottom: 1px solid #eee;
+
+			a{
+				padding: 10px;
+				margin: 0;
+				z-index: 9999;
+				position: relative;
+
+				&:hover,
+				&:focus{
+					border-left:5px solid #333333;
+					border-top:1px solid #333333;
+					border-bottom:1px solid #333333;
+					border-right: 1px solid #fff;
+					background: #fff;
+				}
+			}
+
+		}
+		.dropdown-submenu>.dropdown-menu{
+			right:-100%;
+			margin-right:0;
+			left: 99.5%;
+		}
+
+	}
+
+
+
 }

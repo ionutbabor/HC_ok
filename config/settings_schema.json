@@ -325,5 +325,25 @@
 "default": "USD"
 }
 ]
+},
+{
+"name": "Flags for Currency Converter",
+"settings": [
+{
+"type": "checkbox",
+"id": "customselect_use",
+"label": "Use Custom Select?"
+},
+{
+"type": "checkbox",
+"id": "customselect_show_label",
+"label": "Show Label?"
+},
+{
+"type": "checkbox",
+"id": "customselect_show_text",
+"label": "Show Text?"
+}
+]
 }
 ]

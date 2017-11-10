@@ -8,7 +8,7 @@
 	.thumbnail{
 		padding: 10px;
 		border: none;
-		margin-bottom: 0;
+		margin-bottom: 5px;
 		.border{
 			.sliders{
 				height: 150px;
@@ -41,6 +41,11 @@
 					text-decoration: none;
 				}
 			}
+		}
+
+		&:hover,
+		&:focus{
+			box-shadow: 0 3px 6px 0 rgba(51,51,51,0.3);
 		}
 	}
 

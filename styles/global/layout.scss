@@ -248,13 +248,13 @@ li+li{
   } 
 }
 }
-li:hover{
+/*li:hover{
 
   .border{
-   border: 1px solid #84c98b;
+   border: 1px solid #000;
  }
 
-}
+}*/
 }
 }
 }
@@ -537,7 +537,8 @@ li:hover{
   }
   &:hover,
   &:focus{
-    box-shadow: 0 3px 6px 0 rgba(51,51,51,.298039);
+    box-shadow: 0 3px 6px 0 rgba(51,51,51,0.3);
+    index-info
     .icon-title{
       color: #84c98b;
     }

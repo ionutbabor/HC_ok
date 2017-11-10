@@ -32,11 +32,25 @@ header{
 				&:last-child{
 					border:none; 
 				}
+
+				.custom-select-wrap{
+					padding: 3px 0 0;
+					 .selected-option{
+					 	background-color: transparent;
+					 }
+					 .custom-select-arrow{
+					 	    top: 12px;
+					 }
+				}
+
+
 			}
 			li+li{
 				margin-left: auto;
-
 			}
+
+
+
 			.dropdown{
 
 

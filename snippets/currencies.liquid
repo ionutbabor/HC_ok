@@ -1,9 +1,7 @@
 {% if settings.show_multiple_currencies %}
 
-{{ "//cdn.shopify.com/s/javascripts/currencies.js" | script_tag }}
-{{ "jquery.currencies.min.js" | asset_url | script_tag }}
-
 <script>
+window.onload = function() {  
 Currency.format = '{{ settings.currency_format | default: 'money_with_currency_format' }}';
 var shopCurrency = '{{ shop.currency }}';
 /* Sometimes merchants change their shop currency, let's tell our JavaScript file */
@@ -32,6 +30,9 @@ if (cookieCurrency == null) {
     Currency.currentCurrency = defaultCurrency;
   }
 }
+  
+/* For currency drop-down menu */
+  
 // If the cookie value does not correspond to any value in the currency dropdown.
 else if (jQuery('[name=currencies]').size() && jQuery('[name=currencies] option[value=' + cookieCurrency + ']').size() === 0) {
   Currency.currentCurrency = shopCurrency;
@@ -59,6 +60,32 @@ $('body').on('ajaxCart.afterCartLoad', function(cart) {
   jQuery('.selected-currency').text(Currency.currentCurrency);  
 });
 jQuery('.selected-currency').text(Currency.currentCurrency);
+  
+/* For currency button */ 
+  
+// Select all your currencies buttons.
+var buttons = jQuery('#currencies span');
+// When customer clicks on a currency button.
+buttons.click(function() {
+  buttons.removeClass('selected');
+  jQuery(this).addClass('selected');
+  var newCurrency =  jQuery(this).attr('data-currency');
+  Currency.convertAll(Currency.currentCurrency, newCurrency);
+});
+// For options.
+var original_selectCallback = window.selectCallback;
+var selectCallback = function(variant, selector) {
+  original_selectCallback(variant, selector);
+  Currency.convertAll(shopCurrency, jQuery('#currencies span.selected').attr('data-currency'));
+  jQuery('.selected-currency').text(Currency.currentCurrency);
+};
+$('body').on('ajaxCart.afterCartLoad', function(cart) {
+  Currency.convertAll(shopCurrency, jQuery('#currencies span.selected').attr('data-currency'));
+  jQuery('.selected-currency').text(Currency.currentCurrency);
+});
+jQuery('.selected-currency').text(Currency.currentCurrency);
+  
+}
 </script>
 
 {% endif %}
