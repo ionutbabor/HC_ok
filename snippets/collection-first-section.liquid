@@ -1,0 +1,96 @@
+<div class="row">
+  <div class="col-md-3 col-sm-3 col-xs-12">
+    <div class="sidebar">
+      <h3>Categories</h3>
+
+      {% assign menu = linklists.[collection.handle] %}
+
+      <ul class="dropdown-menu menu">  
+        {% for link in menu.links %}
+        <li class="dropdown-submenu {% if link.active %}active{% endif %}">
+          <a href="{{ link.url }}">
+            {{ link.title }}
+          </a>
+          {% if link.links != blank %}
+          <ul class="dropdown-menu">
+            {% for sub_link in link.links %}
+            <li>
+             <a href="{{ sub_link.url }}">
+              {{ sub_link.title }}
+            </a>
+            {% endfor %}
+          </li>
+        </ul>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<div class="col-md-9 col-sm-9 col-xs-12">
+  <div class="wall">
+    <div class="row">
+
+      <ul class="nav nav-pills nav-stacked">
+        {% for link in linklists.[collection.handle].links %}
+        <li>
+
+
+          <div class="col-md-4">
+
+            <div class="col-md-12">
+             <div class="title">
+              <p class="categ-title">  
+                <a href="{{ link.url }}" class="menu-link"> {{ link.title }} 
+                  <span><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+                </a>
+              </p>  
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            {% assign collection = link.object %}
+            {% if collection.image %}
+            <a href="{{ link.url }}" class="thumbnail"> 
+              <img class="img-responsive" src="{{ collection | img_url: 'grande' }}"  alt="{{ collection.title | escape }}" />
+            </a>
+            {% else %}
+            <a href="{{ link.url }}" class="thumbnail">
+              <img class="img-responsive" src="{{ collection.products.first | img_url: 'grande' }}"  alt="{{ collection.title | escape }}"  />
+            </a>
+            {% endif %}
+          </div>
+
+          <div class="col-md-6">
+
+            {% for sub_link in link.links %}
+            <p class="content">
+             <a href="{{ sub_link.url }}">
+              {{ sub_link.title }}
+            </a>
+          </p>
+          {% endfor %}
+
+          <p class="content all">
+            <a href="{{ link.url }}">
+             Shop All
+           </a>
+         </p>
+
+       </div>
+
+     </div>
+
+   </li>
+
+   {% endfor %}
+ </ul>
+
+
+
+</div>
+</div>
+</div>
+
+</div><!-- row -->
