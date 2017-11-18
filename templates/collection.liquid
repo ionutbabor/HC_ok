@@ -1,155 +1,20 @@
+<div class="container">
 {% include 'breadcrumbs' %}
 
 
 {% paginate collection.products by 12 %}
-{% comment %}  <header role="banner">
-    <h1>{{ collection.title }}</h1>
-    {% if collection.description != blank %}
-      <div class="rte">
-        {{ collection.description }}
-      </div>
-    {% endif %}
 
-    {% if collection.all_tags.size > 0 %}
-      <ul>
-        {% for tag in collection.all_tags %}
-          {% if current_tags contains tag %}
-            <li class="active">
-              {{ tag | link_to_remove_tag: tag }}
-            </li>
-          {% else %}
-            <li>
-              {{ tag | link_to_tag: tag }}
-            </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    {% endif %}
-  </header>{% endcomment %}
+{% include  'collection-first-section'  %}
 
-  <div class="row">
-    <div class="col-md-3">
-      <div class="sidebar">
-        <h3>Categories</h3>
+</div><!-- container -->
 
 
-        {% assign menu = linklists.[collection.handle] %}
-        {% comment %}  {{ menu.title }}{% endcomment %}
-        <ul class="dropdown-menu menu">  
-          {% for link in menu.links %}
-          <li class="dropdown-submenu">
-            <a href="{{ link.url }}">
-              {{ link.title }}
-            </a>
-            <ul class="dropdown-menu">
-              {% for sub_link in link.links %}
-              <li>
-               <a href="{{ sub_link.url }}">
-                {{ sub_link.title }}
-              </a>
-       
-          {% endfor %}
-               </li>
-          </ul>
-        </li>
-        {% endfor %}
-      </ul>
+<!-- begin nav -->
 
+<!-- end nav -->
 
-
-
-    </div>
-
-  </div>
-</div>
-
-
-
-
-
-{% comment %} <ul>
-             {% for link in linklists.[ collection.handle ].links %}
-             {% assign child_list_handle = link.title | handle %}
-             {% if linklists[child_list_handle] and linklists[child_list_handle].links.size > 0 %}
-             {% for child_link in linklists[child_list_handle].links %}
-             {% assign grand_child_list_handle = child_link.title | handle %}      
-             {% if linklists[grand_child_list_handle] and linklists[grand_child_list_handle].links.size > 0 %}      
-             <li class="dropdown-header">
-               <a href="{{ child_link.url }}" class="dropdown-toggle" data-toggle="dropdown">{{ child_link.title }}</a>
-             </li>
-             <li class="dropdown-menu">
-              {% for grand_child_link in linklists[grand_child_list_handle].links %}  
-              <li>
-                {{ grand_child_link.title | link_to: grand_child_link.url }}
-              </li>
-              {% endfor %}
-            </li>
-
-            {% else %}
-            <li>
-              {{ child_link.title | link_to: child_link.url }}
-            </li>
-            {% endif %}
-            {% endfor %}
-
-
-            {% else %}
-            <li class="{% if link.active %}active{% endif %}">
-             <a href="{{ link.url }}">{{ link.title }}</a>
-           </li>
-           {% endif %}
-           {% endfor %}
-         </ul>{% endcomment %}
-
-
-
-
-         <!-- test -->
-       {% comment %} <ul class="nav nav-pills nav-stacked">
-          {% for link in linklists.[collection.handle].links %}
-          <li {% if link.active %} class="hidden" {% endif %}>
-            <a href="{{ link.url }}" class="menu-link">
-             {{ link.title }}
-
-           </a>
-         </li>
-         {% endfor %}
-       </ul>{% endcomment %}
-       <!-- end -->
-
- 
-
-
-{% comment %}<div class="col-md-9">
-<ul class="nav nav-pills nav-stacked">
-{% for link in linklists.[collection.handle].links %}
-    <li {% if link.active %} class="hidden" {% endif %}>
-      <a href="{{ link.url }}" class="menu-link">
-     
-          <div class="grid__item large--one-quarter medium--one-quarter small--one-quarter">
-
-            {% assign collection = link.object %}
-            {% if collection.image %}
-            <img src="{{ collection | img_url: 'grande' }}"  alt="{{ collection.title | escape }}" />
-            {% else %}
-            <img src="{{ collection.products.first | img_url: 'grande' }}"  alt="{{ collection.title | escape }}"  />
-            {% endif %}
-
-          </div>
-          <div class="grid__item large--three-quarters medium--three-quarters small--three-quarters">
-           
-            <p class="categ-title">{{ link.title }} <span><i class="fa fa-arrow-right" aria-hidden="true"></i></span></p>
-         </div>
-     </a>
-   </li>
-
-   {% endfor %}
- </ul>
-</div>{% endcomment %}
-
-
-
-
+{% comment %}begin collection products{% endcomment %}
+{% comment %}
 <div>
   {% for product in collection.products %}
   <div class="col-md-3">
@@ -217,9 +82,34 @@
 
   {% endfor %}
 </div>
+{% endcomment %}
+{% comment %}end collection products{% endcomment %}
+
+
+
+{% comment %}test{% endcomment %}
+
+
+<div class="row products masonry">
+  {% for link in linklists.[collection.handle].links %}
+  {% if link.type == "collection_link" %}
+  {% assign collection = link.object %}
+  {% include 'collection-loop' %}
+  {% endif %}
+  {% endfor %}
+</div> <!-- /#collection.row -->
+
+
 
 {% if paginate.pages > 1 %}
 {% include 'pagination' %}
 {% endif %}
 {% endpaginate %}
 
+
+
+
+
+<!-- test  -->
+
+<!-- end -->

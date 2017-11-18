@@ -35,20 +35,20 @@
   {% include 'social-meta-tags' %}
 
   {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
-{% comment %}  {{ 'nice-select.css' | asset_url | stylesheet_tag }}{% endcomment %}
+  {% comment %}  {{ 'nice-select.css' | asset_url | stylesheet_tag }}{% endcomment %}
   {{ 'customselect.css' | asset_url | stylesheet_tag }}
 
   <script>
-    document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+  document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
 
-    window.theme = {
-      strings: {
-        addToCart: {{ 'products.product.add_to_cart' | t | json }},
-        soldOut: {{ 'products.product.sold_out' | t | json }},
-        unavailable: {{ 'products.product.unavailable' | t | json }}
-      },
-      moneyFormat: {{ shop.money_format | json }}
-    };
+  window.theme = {
+    strings: {
+      addToCart: {{ 'products.product.add_to_cart' | t | json }},
+      soldOut: {{ 'products.product.sold_out' | t | json }},
+      unavailable: {{ 'products.product.unavailable' | t | json }}
+    },
+    moneyFormat: {{ shop.money_format | json }}
+  };
   </script>
 
   {% if template.directory == 'customers' %}
@@ -65,7 +65,7 @@
   {{ content_for_header }}
 </head>
 
-<body data-spy="scroll" data-target="#middle" id="{{ page_title | handle }}" class="template-{{ template.name | handle }}">
+<body data-spy="scroll" data-target="#middle"  id="{{ page_title | handle }}" class="template-{{ template.name | handle }}">
 
   {% comment %}<a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>{% endcomment %}
 
@@ -73,17 +73,22 @@
   {% include 'header' %}
 
   <main role="main" id="MainContent">
+    {% if template contains 'collection' %} 
+    {{ content_for_layout }}
+    {% else %}
     <div class="container">
       {{ content_for_layout }}
     </div>
+    {% endif %}
   </main>
 
+  {% if template contains == 'template-index' %}
+
   {% section 'index-recomandation' %}
-
   {% section 'index-instagram' %}
-
   {% include 'newsletter-form' %}
 
+  {% endif %}
   {% section 'footer' %}
 
   {% include 'currencies' %}

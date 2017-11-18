@@ -176,6 +176,11 @@ timer.addEventListener('targetAchieved', function (e) {
 
   })  
 
+$( '.template-collection .dropdown-submenu .dropdown-menu' ).hover(function() {
+    $('.dropdown-submenu').addClass("current");
+});
+ 
+
 
   $(window).load(function(){
    initflexsliders();   
