@@ -179,6 +179,15 @@ timer.addEventListener('targetAchieved', function (e) {
 $( '.template-collection .dropdown-submenu .dropdown-menu' ).hover(function() {
     $('.dropdown-submenu').addClass("current");
 });
+
+
+
+
+$('.template-collection #nav-second').affix({ offset: { top: 720 } });
+$(".template-collection").scrollspy({target: "#nav-second"});
+
+// hidden li in collection 
+$(".template-collection .subnav li:contains('popular')").remove();
  
 
 

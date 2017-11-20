@@ -1,14 +1,21 @@
-subcollection 
+
+<div class="container">
+  
+
+
+
+
 {% include 'breadcrumbs' %}
 
 
 
 
 
-
-
-
-{% paginate collection.products by 12 %}
+<div class="col-md-3">
+  sidebar
+</div>
+<div class="col-md-9">
+  {% paginate collection.products by 12 %}
  {% comment %} <header role="banner">
     <h1>{{ collection.title }}</h1>
     {% if collection.description != blank %}
@@ -48,7 +55,7 @@ subcollection
 
   <div>
     {% for product in collection.products %}
-      <div class="col-md-3">
+      <div class="col-md-4">
         {% if product.featured_image != blank %}
           <a href="{{ product.url | within: collection }}">
             <img class="img-responsive" src="{{ product.featured_image.src | img_url: '480x480'}}" alt="{{product.featured_image.alt}}">
@@ -90,7 +97,7 @@ subcollection
           {% endunless %}
         </p>
       </div>
-
+{% comment %}
     {% else %}
       {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0 %}
         {% for i in (1..8) %}
@@ -109,7 +116,7 @@ subcollection
         {% endfor %}
       {% else %}
         <p>{{ 'collections.general.no_matches' | t }}</p>
-      {% endif %}
+      {% endif %}{% endcomment %}
 
     {% endfor %}
   </div>
@@ -118,4 +125,8 @@ subcollection
     {% include 'pagination' %}
   {% endif %}
 {% endpaginate %}
+</div>
 
+
+
+</div><!-- container -->

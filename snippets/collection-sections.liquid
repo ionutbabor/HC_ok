@@ -1,0 +1,199 @@
+<!-- /snippets/collection-sections.liquid -->
+<div id="nav-second">
+  <div class="container">
+
+   {% assign menu = linklists.[collection.handle] %}
+
+   <ul class="nav nav-pills" data-spy="scroll">  
+    {% for link in menu.links  %}
+
+    <li {% if forloop.first == true %} class="active"{% endif %}>
+      <a href="#section{% increment |plus: 1 %}">
+        {{ link.title }}
+      </a>
+    </li>
+
+    {% endfor %}
+  </ul>
+
+</div><!-- container -->
+</div>
+
+
+
+
+
+<div class="container">
+
+  {% for link in linklists.[collection.handle].links %}
+
+  {% if forloop.first %}
+
+  <!-- begin Shop By Brands -->
+  <div class="large-wall" id="section{% increment %}">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="title">
+
+         <p class="categ-title">  
+          <a href="{{ link.url }}" class="menu-link"> {{ link.title }} </a>
+        </p> 
+
+      </div><!-- title -->
+    </div><!-- col-md-12 -->
+  </div><!-- row -->
+  <div class="row no-margin">
+
+
+    <ul class="nav nav-tabs">
+
+      {% for sub_link in link.links %}
+
+      <li class="col-md-2">
+       <div class="wall">
+        <div class="image">
+
+         <a href="{{ sub_link.url }}">
+          {% assign collection_sublink = sub_link.object %}
+          {% if collection_sublink.image %}
+          <div class="img-inline" style="background-image:url({{ collection_sublink | img_url: 'small'  }})">
+
+          </div>
+          {% else %}
+          <div class="img-inline" style="background-image:url({{  collection_sublink.products.first | img_url: 'small'  }})">
+
+          </div>
+
+          {% endif %}
+
+        </a>
+
+      </div><!-- image -->  
+    </div><!-- wall -->
+
+  </li>
+
+  {% endfor %}  
+
+</ul>
+
+
+</div><!-- row -->
+</div>
+<!-- end Shop By Brands -->
+
+
+{% elsif forloop.index >= 1 %}
+
+<div class="large-wall" id="section{% increment %}">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="title">
+
+       <p class="categ-title">  
+        <a href="{{ link.url }}" class="menu-link"> {{ link.title }} </a>
+      </p> 
+
+    </div><!-- title -->
+  </div><!-- col-md-12 -->
+</div><!-- row -->
+<hr>
+<div class="row">
+
+ <div {% cycle 'class="col-md-4"', 'class="col-md-4 pull-right"', 'class="col-md-4"' %}>
+
+  <div class="box-left">
+   {% comment %}here show last 8 collection selected from sub-menu {% endcomment %}
+   {% assign collection = link.object %}
+   <h2>What's hot now </h2>
+   <ul class="subnav clearfix">
+    {% for sub_link in link.links offset:8 %}
+
+    <li><a href="{{ sub_link.url }}" class="menu-link"> {{ sub_link.title  }}</a></li>
+
+    {% endfor %}
+  </ul>
+
+</div><!-- box-left -->
+<hr>
+
+<div class="box-left">
+  {% comment %}begin product.tags contains 'popular'{% endcomment %}
+
+  <h2>What's popular now </h2>
+  <div class="row">
+    {% for product in collection.products %}
+    {% if product.tags contains 'popular' %}
+
+    {% assign collection_tag = link.object %}
+
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <a class="thumbnail" href="{{ product.url | within: collection_tag }}" title="{{ product.featured_image.alt | escape }}">
+        <img class="img-responsive" src="{{ product.images.first | product_img_url: 'small' }}" alt="{{ product.featured_image.alt | escape }}" />
+      </a>
+      <p class="content text-center">
+        {{ product.title | truncatewords:2, "" }}
+      </p>
+    </div>
+
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% comment %}end product.tags contains 'popular'{% endcomment %}
+
+</div><!-- box-left -->
+
+
+</div> <!-- col-md-4 -->
+
+<div {% cycle ' class="col-md-8 no-padding-left"', 'class="col-md-8 no-padding-right"', 'class="col-md-8 no-padding-left"' %}>
+
+  <ul class="nav nav-pills nav-stacked">
+    <li>
+      {% for sub_link in link.links limit:8  %}
+
+      <div class="col-md-3">
+        <div class="box">
+
+         <a class="thumbnail" href="{{ sub_link.url }}">
+
+          {% assign collection_sublink = sub_link.object %}
+
+          {% if collection_sublink.image %}
+          <img class="img-responsive" src="{{ collection_sublink | img_url: 'small' }}"  alt="{{ collection_sublink.title | escape }}" />
+          {% else %}
+          <img class="img-responsive" src="{{ collection_sublink.products.first | img_url: 'small' }}"  alt="{{ collection_sublink.title | escape }}" />
+          {% endif %}
+        </a>
+
+        {% assign items = 'Items' %}
+
+        <p class="content text-center">  
+          <a href="{{ sub_link.url }}" class="menu-link"> 
+            {{ sub_link.title | truncatewords:2, "" }} 
+            <span>{{ sub_link.object.products_count  }} {{items }}</span>
+          </a>
+        </p>  
+
+
+      </div><!-- box -->
+    </div><!-- col-md-3 -->
+
+    {% endfor %}  
+
+
+  </li>
+
+</ul>
+
+</div>
+
+
+</div><!-- row -->
+
+</div><!-- wall -->
+{% endif %}
+{% endfor %}
+
+
+</div><!-- container -->
