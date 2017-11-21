@@ -7,6 +7,10 @@
 
       <ul class="dropdown-menu menu">  
         {% for link in menu.links %}
+        {% if forloop.first %}
+        
+        {% elsif forloop.index <= 7  %}
+
         <li class="dropdown-submenu {% if link.active %}active{% endif %}">
           <a href="{{ link.url }}">
             {{ link.title }}
@@ -23,6 +27,7 @@
         </ul>
         {% endif %}
       </li>
+      {% endif %}
       {% endfor %}
     </ul>
   </div>
@@ -34,8 +39,10 @@
 
       <ul class="nav nav-pills nav-stacked">
         {% for link in linklists.[collection.handle].links | limit:6 %}
-        <li>
+        {% if forloop.first %}
 
+        {% elsif forloop.index >= 1 %}
+        <li>
 
           <div class="col-md-4">
 
@@ -49,11 +56,8 @@
             </div>
           </div>
 
-
-
-
           <div class="col-md-6">
-            {% assign collectiontop = link.object %}
+      {% comment %}      {% assign collectiontop = link.object %}
             {% if collectiontop.image %}
             <a href="{{ link.url }}" class="thumbnail"> 
               <img class="img-responsive" src="{{ collectiontop | img_url: 'small' }}"  alt="{{ collectiontop.title | escape }}" />
@@ -62,33 +66,52 @@
             <a href="{{ link.url }}" class="thumbnail">
               <img class="img-responsive" src="{{ collectiontop.products.first | img_url: 'small' }}"  alt="{{ collectiontop.title | escape }}"  />
             </a>
-            {% endif %}
-          </div>
+            {% endif %}{% endcomment %}
+            <div class="wall">
+              <div class="image">
 
-          <div class="col-md-6">
+                <a href="{{ link.url }}">
+                 {% assign collectiontop = link.object %}
+                 {% if collectiontop.image %}
+                 <div class="img-inline" style="background-image:url({{ collectiontop | img_url: 'small'  }})">
 
-            {% for sub_link in link.links | limit:4 %}
-            <p class="content">
-             <a href="{{ sub_link.url }}">
-              {{ sub_link.title }}
-            </a>
-          </p>
-          {% endfor %}
+                 </div>
+                 {% else %}
+                 <div class="img-inline" style="background-image:url({{  collectiontop.products.first | img_url: 'small'  }})">
 
-          <p class="content all">
-            <a href="{{ link.url }}">
-             Shop All
-           </a>
-         </p>
+                 </div>
 
-       </div>
+                 {% endif %}
+               </a>
+
+             </div>   
+           </div>   
+         </div>
+
+         <div class="col-md-6">
+
+          {% for sub_link in link.links | limit:4 %}
+          <p class="content">
+           <a href="{{ sub_link.url }}">
+            {{ sub_link.title }}
+          </a>
+        </p>
+        {% endfor %}
+
+        <p class="content all">
+          <a href="{{ link.url }}">
+           Shop All
+         </a>
+       </p>
 
      </div>
 
-   </li>
+   </div>
 
-   {% endfor %}
- </ul>
+ </li>
+ {% endif %}
+ {% endfor %}
+</ul>
 
 
 
