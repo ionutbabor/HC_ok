@@ -402,7 +402,7 @@
 							border: none;
 							padding: 0;
 							a{
-								@include font($second, 700, $size:14px, $color:#333);
+								@include font($second, 500, $size:14px, $color:#333);
 								padding: 5px 10px;
 								&:hover,
 								&:focus{
