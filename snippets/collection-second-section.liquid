@@ -1,0 +1,23 @@
+<!-- /snippets/collection-second-section.liquid -->
+<div class="container">
+
+  {% for link in linklists.[collection.handle].links %}
+  {% if forloop.first == true %}
+
+  <div class="large-wall" id="section{% increment %}">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="title">
+
+         <p class="categ-title">  
+          <a href="{{ link.url }}" class="menu-link"> {{ link.title }} </a>
+        </p> 
+
+      </div><!-- title -->
+    </div><!-- col-md-12 -->
+  </div><!-- row -->
+</div>
+
+{% endif %}
+{% endfor %}
+</div>

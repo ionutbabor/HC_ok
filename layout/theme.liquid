@@ -65,7 +65,9 @@
   {{ content_for_header }}
 </head>
 
-<body data-spy="scroll" data-target="#middle"  id="{{ page_title | handle }}" class="template-{{ template.name | handle }}">
+
+
+<body data-spy="scroll" data-target="{% if template.name == 'collection' %}#nav-second {% else %} #middle {% endif %}" id="{{ page_title | handle }}" class="template-{{ template.name | handle }}">
 
   {% comment %}<a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>{% endcomment %}
 
@@ -91,7 +93,12 @@
   {% endif %}
   {% section 'footer' %}
 
-  {% include 'currencies' %}
+  {% include 'currencies' %} 
+
+
+
+
+
 
 </body>
 </html>

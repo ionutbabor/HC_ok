@@ -1,0 +1,147 @@
+ <div class="container">
+ {% for link in linklists.[collection.handle].links %}
+  {% if forloop.index <= 3 %}
+
+  <div class="large-wall" id="section{% increment %}">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="title">
+
+         <p class="categ-title">  
+          <a href="{{ link.url }}" class="menu-link"> {{ link.title }} </a>
+        </p> 
+
+      </div><!-- title -->
+    </div><!-- col-md-12 -->
+  </div><!-- row -->
+  <hr>
+  <div class="row">
+
+   <div {% cycle ' class="col-md-4"', 'class="col-md-4 pull-right"', 'class="col-md-4"' %}>
+
+    <div class="box-left">
+
+      <h2>What's hot now </h2>
+
+
+{% comment %} 
+{% for product_vendor in shop.vendors %}
+{% if collections[product_vendor].url != '' %}
+<li>{{ product_vendor | link_to:collections[product_vendor].url  }}</li>
+{% else %}
+<li>{{ product_vendor | link_to_vendor | remove_first: 'vendors?q=' }}</li>
+{% endif %}
+{% endfor %}{% endcomment %}
+
+
+<ul class="subnav clearfix">
+  {% for vendor in collections.[collection.handle].all_vendors  %}
+  <li>{{ vendor | link_to_vendor | remove_first: 'vendors?q='  }}</li>
+  {% endfor %}
+</ul>
+
+
+
+
+{% comment %}
+{% assign collection = link.object %}
+<ul class="subnav clearfix">
+         
+        <li{% unless current_tags %} class="active"{% endunless %}>
+        {% if collection.handle %}
+       <a href="/collections/{{ collection.handle }}{% if collection.sort_by %}?sort_by={{ collection.sort_by }}{% endif %}">All</a>
+        {% elsif collection.current_type %}
+        <a href="{{ collection.current_type | url_for_type | sort_by: collection.sort_by }}">All</a>
+        {% elsif collection.current_vendor %}
+        <a href="{{ collection.current_vendor | url_for_vendor | sort_by: collection.sort_by }}">All</a>
+        {% endif %}
+      </li>
+      
+      {% for tag in collection.all_tags %}
+      {% if current_tags contains tag %}
+      <li class="active">
+        {{ tag | link_to_remove_tag: tag }}
+      </li>  
+      {% else %}
+      <li>
+        {{ tag | link_to_tag: tag }}
+      </li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+    {% endcomment %}
+  </div><!-- box-left -->
+  <hr>
+  <div class="box-left">
+    <h2>What's popular now </h2>
+
+    {% comment %}begin product.tags contains 'popular'{% endcomment %}
+
+  <div class="row">
+    {% for product in collection.products %}
+    {% if product.tags contains 'popular' %}
+
+    {% assign collection = link.object %}
+
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <a class="thumbnail" href="{{ product.url | within: collection }}" title="{{ product.featured_image.alt | escape }}">
+        <img class="img-responsive" src="{{ product.images.first | product_img_url: 'small' }}" alt="{{ product.featured_image.alt | escape }}" />
+      </a>
+      <p class="content text-center">
+        {{ product.title | truncatewords:2, "" }}
+      </p>
+    </div>
+
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% comment %}end product.tags contains 'popular'{% endcomment %}
+
+</div><!-- box-left -->
+
+</div> <!-- col-md-4 -->
+
+<div {% cycle ' class="col-md-8 no-padding-left"', 'class="col-md-8 no-padding-right"', 'class="col-md-8 no-padding-left"' %}>
+
+
+
+
+
+
+
+
+
+
+
+ {% assign collection = link.object %}
+ {% tablerow product in collection.products limit: 8  %}
+ {% assign items = 'Items' %}
+ <div class="col-md-3">
+  <div class="box">
+    <a class="thumbnail" href="{{ product.url | within: collection }}" title="{{ product.featured_image.alt | escape }}">
+      <img class="img-responsive" src="{{ product.images.first | product_img_url: 'small' }}" alt="{{ product.featured_image.alt | escape }}" />
+    </a>
+
+    <p class="content text-center">
+      {{ product.title | truncatewords:2, "" }}
+      <span>{{ product.variants.first.inventory_quantity }} {{items}}</span>  
+    </p>
+
+  </div><!-- col-md-3 -->
+</div>
+
+{% endtablerow %}
+
+
+
+</div>
+
+
+</div><!-- row -->
+
+</div><!-- wall -->
+{% endif %}
+{% endfor %}
+
+
+</div><!-- container -->

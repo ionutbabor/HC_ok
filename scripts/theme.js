@@ -179,6 +179,15 @@ timer.addEventListener('targetAchieved', function (e) {
 $( '.template-collection .dropdown-submenu .dropdown-menu' ).hover(function() {
     $('.dropdown-submenu').addClass("current");
 });
+
+
+
+
+$('.template-collection #nav-second').affix({ offset: { top: 720 } });
+$(".template-collection").scrollspy({target: "#nav-second"});
+
+// hidden li in collection 
+$(".template-collection .subnav li:contains('popular')").remove();
  
 
 
@@ -189,6 +198,58 @@ $( '.template-collection .dropdown-submenu .dropdown-menu' ).hover(function() {
  }); 
 
 
+/*begin subcollection sort*/
+Shopify.queryParams = {};
+if (location.search.length) {
+  for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+    aKeyValue = aCouples[i].split('=');
+    if (aKeyValue.length > 1) {
+      Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+    }
+  }
+}
+jQuery('#sort-by')
+  .val('{{ collection.sort_by | default: collection.default_sort_by | escape }}')
+  .bind('change', function() {
+    Shopify.queryParams.sort_by = jQuery(this).val();
+    location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
+  });
+
+/*end subcollection sort*/
+
+/*begin  */
+  $('.item-swatch li label').hover(function(){
+            var newImage = $(this).parent().find('.hidden a').attr('href');
+            $(this).parents('.product-item').find('.product-grid-image img').attr({ src: newImage }); 
+            return false;
+          });
+/*end */
+
+
+/*begin subcollection grid/list view */
+  function replaceUrlParam(url, paramName, paramValue) {
+    var pattern = new RegExp('('+paramName+'=).*?(&|$)'),
+        newUrl = url.replace(pattern,'$1' + paramValue + '$2');
+    if ( newUrl == url ) {
+      newUrl = newUrl + (newUrl.indexOf('?')>0 ? '&' : '?') + paramName + '=' + paramValue;
+    }
+    return newUrl;
+  }
+
+  $(function() {
+    $('.change-view').on('click', function() {
+      var view = $(this).data('view'),
+          url = document.URL,
+          hasParams = url.indexOf('?') > -1;
+
+      if (hasParams) {
+        window.location = replaceUrlParam(url, 'view', view);
+      } else {
+        window.location = url + '?view=' + view;
+      }
+    });
+  });
+/*end subcollection grid/list view */
   function initflexsliders(){
    $('.carousel2.flexslider').flexslider({
     animation: "slide",
@@ -256,8 +317,21 @@ CloudZoom.quickStart();
 /*end product zoom image*/ 
 
 
+<<<<<<< HEAD
 /*swatches*/
 jQuery(function() {
+=======
+
+
+
+
+
+
+
+
+ /*swatches*/
+ jQuery(function() {
+>>>>>>> andre
   jQuery('.swatch :radio').change(function() {
     var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
     var optionValue = jQuery(this).val();

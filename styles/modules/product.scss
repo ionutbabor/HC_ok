@@ -1,4 +1,7 @@
 /*================ product ================*/
+.spr-icon-star:before,.spr-icon-star-empty:before{
+	color: orange;
+}
 .template-product{
 
 	.product-description{
@@ -11,8 +14,8 @@
 			color: #f60;
 			font-size: 24px;
 			font-weight: 700;
-			position: relative;
-			left: 10px;
+			/*position: relative;
+			left: 10px;*/
 		}
 	.swatch{
 		.header{
