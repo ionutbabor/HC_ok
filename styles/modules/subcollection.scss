@@ -1,0 +1,27 @@
+/*================ subcollection ================*/
+#subcollection{
+	background: #fff;
+
+
+
+	.item-swatch { 
+		list-style: none; 
+		padding: 0; 
+		margin: 0; 
+		line-height: 0; 
+		li {
+			display: inline-block;
+			margin: 0 2px; 
+			label { 
+				cursor:pointer; 
+				margin: 0; 
+				width: 15px; 
+				height: 15px; 
+				-webkit-border-radius: 100%; 
+				-moz-border-radius: 100%; 
+				border-radius: 100%; 
+			}
+		}
+	}
+
+}/* #subcollection */
