@@ -2,7 +2,16 @@
 #subcollection{
 	background: #fff;
 
-
+.collection-view{
+	padding-left: 15px;
+	.btn-default{
+		background: transparent;
+		padding: 0px 2px;
+	}
+	.active-filter{
+		color: #84c98b;
+	}
+}
 
 	.item-swatch { 
 		list-style: none; 
