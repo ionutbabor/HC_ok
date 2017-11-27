@@ -3,6 +3,11 @@
 	color: orange;
 }
 .template-product{
+	.form-box{
+		background: #fafafa;
+		margin-bottom: 10px;
+		padding: 10px 0 0;
+	}
 
 	.product-description{
 		background: #fff;
@@ -17,123 +22,123 @@
 			/*position: relative;
 			left: 10px;*/
 		}
-	.swatch{
-		.header{
-			font-weight: 700;
-			font-family: "Roboto",sans-serif;
+		.swatch{
+			.header{
+				font-weight: 700;
+				font-family: "Roboto",sans-serif;
+			}
+			input:checked + label{
+				box-shadow: none;
+				outline-color: #f60;
+				outline-style: solid;
+			}
 		}
-	input:checked + label{
-		box-shadow: none;
-		outline-color: #f60;
-		outline-style: solid;
-	}
-	}
-	.rte{
-		position: relative;
-		.affix{
-			top:106px;
-			z-index: 1000;
+		.rte{
+			position: relative;
+			.affix{
+				top:106px;
+				z-index: 1000;
+			} 
+		}
+		.product-details__qty-input-wrap{
+			border:1px solid #ccc;
+			padding: 6px 0;
+			display: inline;
+			.product-details__qty-adjust{
+				background: none;
+				border: none;
+				padding: 0 10px;
+			}
+			input[type=number]::-webkit-inner-spin-button, 
+			input[type=number]::-webkit-outer-spin-button { 
+				-webkit-appearance: none; 
+				margin: 0; 
+			}
+
+			.product-details__qty-input{
+				text-align: center;
+				background: none;
+				border: none;
+				width: 35px;
+			}
+		}
+		.no-padding{
+			padding-left: 0;
+			padding-right: 0;
+		}
+		.form-background{
+			background: #fff;
+		}
+		.slides_carousel{
+			width: 100% !important;
+			li {
+				width: 56px !important;
+				margin-bottom: 5px;
+				margin-right: 2px !important;
+				cursor: pointer;
+				.thumbnail {
+					width: 76px;
+					height: 100px;
+					-webkit-transition: all 0.5s;
+					transition: all 0.5s;
+					border: 1px solid #ccc;
+					background-repeat: no-repeat;
+					background-position: 50% 50%;
+				}
+			}
 		} 
-	}
-	.product-details__qty-input-wrap{
-		border:1px solid #ccc;
-		padding: 6px 0;
-		display: inline;
-		.product-details__qty-adjust{
-			background: none;
-			border: none;
-			padding: 0 10px;
-		}
-		input[type=number]::-webkit-inner-spin-button, 
-		input[type=number]::-webkit-outer-spin-button { 
-			-webkit-appearance: none; 
-			margin: 0; 
-		}
+		#product-slider{
+			.flex-direction-nav a{
+				top:42%;
+			}
+			.flex-control-thumbs{
+				li{
+					width: 60px;
+					height: 60px;
+					margin: 3px;
+				}
 
-		.product-details__qty-input{
-			text-align: center;
-			background: none;
-			border: none;
-			width: 35px;
-		}
-	}
-	.no-padding{
-		padding-left: 0;
-		padding-right: 0;
-	}
-	.form-background{
-		background: #fff;
-	}
-	.slides_carousel{
-		width: 100% !important;
-		li {
-			width: 56px !important;
-			margin-bottom: 5px;
-			margin-right: 2px !important;
-			cursor: pointer;
-			.thumbnail {
-				width: 76px;
-				height: 100px;
-				-webkit-transition: all 0.5s;
-				transition: all 0.5s;
-				border: 1px solid #ccc;
-				background-repeat: no-repeat;
-				background-position: 50% 50%;
 			}
 		}
-	} 
-	#product-slider{
-		.flex-direction-nav a{
-			top:42%;
-		}
-		.flex-control-thumbs{
-			li{
-				width: 60px;
-				height: 60px;
-				margin: 3px;
-			}
 
-		}
 	}
 
-}
 
-
-.cloudzoom-lens {
-	border:none;
-	border:1px solid #888;
-	width:225px;
-	height:175px;
-	box-shadow: -0px -0px 10px rgba(0,0,0,0.40);
-	cursor:pointer;
-	z-index: 11;
-}
-.cloudzoom-zoom {
-	border:1px solid #888;
-	box-shadow: -0px -0px 10px rgba(0,0,0,0.40);
-	background-color: #fff;
-}
-.cloudzoom-zoom-inside {
-	border:none;
-	box-shadow:none;
-}
-.cloudzoom-caption {
-	display:none; 
-	text-align: left;
-	background-color:#000;
-	color:#fff;
-	font-weight:bold;
-	padding:10px;
-	font-family: sans-serif;
-	font-size:11px;
-}
-.cloudzoom-blank {
-	background-image:url('{{ 'blank.gif' | asset_url }}');
-}
-div.cloudzoom-ajax-loader {
-	display: none;
-}
-.cloudzoom-lens + div { display: none !important ;}
+	.cloudzoom-lens {
+		border:none;
+		border:1px solid #888;
+		width:225px;
+		height:175px;
+		box-shadow: -0px -0px 10px rgba(0,0,0,0.40);
+		cursor:pointer;
+		z-index: 11;
+	}
+	.cloudzoom-zoom {
+		border:1px solid #888;
+		box-shadow: -0px -0px 10px rgba(0,0,0,0.40);
+		background-color: #fff;
+	}
+	.cloudzoom-zoom-inside {
+		border:none;
+		box-shadow:none;
+	}
+	.cloudzoom-caption {
+		display:none; 
+		text-align: left;
+		background-color:#000;
+		color:#fff;
+		font-weight:bold;
+		padding:10px;
+		font-family: sans-serif;
+		font-size:11px;
+	}
+	.cloudzoom-blank {
+		background-image:url('{{ 'blank.gif' | asset_url }}');
+	}
+	div.cloudzoom-ajax-loader {
+		display: none;
+	}
+	.cloudzoom-lens + div { display: none !important ;}
 
 
 }
