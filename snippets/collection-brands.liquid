@@ -1,0 +1,55 @@
+<div class="container">
+  <!-- begin Shop By Brands -->
+  <div class="large-wall" id="brands">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="title">
+
+         <p class="categ-title">  
+          <a href="#brands" class="menu-link"> Shop By Brands </a>
+        </p> 
+
+      </div>
+    </div>
+  </div>
+  <div class="row no-margin">
+
+    {% assign my_subcollection = collection.handle | replace:'-clothing-accessories','' %}
+
+    <ul class="nav nav-pills nav-tabs">
+      {% for vendor in collections.[my_subcollection].all_vendors %}
+      {% capture collection_sublink1 %}/collections/{{my_subcollection}}/{{vendor}} {% endcapture %}
+
+
+      <li class="col-md-2">
+       <div class="wall">
+        <div class="image">
+
+          <a href="{{collection_sublink1}}">
+
+           {% assign collection1 = collections.[vendor] %}
+           {% if collection1.image %}
+           <div class="img-inline" style="background-image:url({{ collection1 | img_url: 'small' }})"></div>
+           {% else %}
+           <div class="img-inline text-center">
+              {{vendor}}
+           </div>
+           {% endif %}
+
+         </a>
+
+       </div>  
+     </div>
+   </li>
+
+
+   {% endfor %}
+ </ul>
+
+
+
+</div>
+</div>
+
+<!-- end Shop By Brands -->
+</div>

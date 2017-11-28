@@ -190,6 +190,7 @@
 			background: #fff;
 			.col-md-4,.col-md-3{
 				border-right:1px solid #eee;
+				
 				padding: 10px;
 				.categ-title a{
 					@include font($second, 700, $size:16px, $color:#333);
@@ -214,6 +215,9 @@
 					}
 					
 				}
+			}
+			.nav-pills .col-md-4{
+				height: 168px;
 			}
 			li:nth-child(3n) .col-md-4  {
 				border-right: none;
