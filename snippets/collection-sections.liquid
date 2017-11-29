@@ -5,16 +5,18 @@
    {% assign menu = linklists.[collection.handle] %}
 
    <ul class="nav nav-pills" data-spy="scroll">  
-    {% for link in menu.links | limit:4  %}
+     <li><a href="#brands">Shop By Brands</a></li>
 
-    <li {% if forloop.first == true %} class="active"{% endif %}>
-      <a href="#section{% increment | plus: 1 %}">
+     {% for link in menu.links   %}
+
+     <li {% if forloop.first == true %} class="active"{% endif %}>
+      <a href="{% if link.title == 'More Category' %}#section-more{% else %}#section{% increment | plus: 1 %}{%endif%} ">
         {{ link.title }}
       </a>
     </li>
 
     {% endfor %}
-    <li><a href="#section-more">More Category</a></li>
+    
   </ul>
 
 </div><!-- container -->
@@ -22,16 +24,18 @@
 
 
 
-
+{% include 'collection-brands' %} 
 
 <div class="container">
 
   {% for link in linklists.[collection.handle].links %}
 
-  {% if forloop.first %}
 
-  <!-- begin Shop By Brands -->
-  <div class="large-wall" id="section{% increment %}">
+  {% if link.title == 'More Category' %} 
+
+  {% comment %}begin More Category{% endcomment %}
+
+  <div class="large-wall" id="section-more">
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="title">
@@ -53,7 +57,6 @@
       <li class="col-md-2">
        <div class="wall">
         <div class="image">
-
          <a href="{{ sub_link.url }}">
           {% assign collection_sublink = sub_link.object %}
           {% if collection_sublink.image %}
@@ -72,6 +75,18 @@
       </div><!-- image -->  
     </div><!-- wall -->
 
+    <h4 class="text-center">{{ sub_link.title | link_to: sub_link.url  }} </h4>
+
+    {% assign grand_child_list_handle = sub_link.title | handle %}
+
+    <ul class="nav nav-pills nav-stacked">
+      {% for sub_sub_link in linklists[grand_child_list_handle].links %}
+      <li>
+        {{ sub_sub_link.title | link_to: sub_sub_link.url }}
+      </li>
+      {% endfor %}
+    </ul>
+
   </li>
 
   {% endfor %}  
@@ -80,11 +95,11 @@
 
 
 </div><!-- row -->
-</div>
-<!-- end Shop By Brands -->
+</div> 
 
+{% comment %}end More Category{% endcomment %}
 
-{% elsif forloop.index <= 4   %}
+{% else %}
 
 <div class="large-wall" id="section{% increment %}">
   <div class="row">
@@ -92,13 +107,15 @@
       <div class="title">
 
        <p class="categ-title">  
-        <a href="{{ link.url }}" class="menu-link"> {{ link.title }} </a>
+        <a href="{{ link.url }}" class="menu-link"> {{ link.title }} {% if link.title == 'More Category' %} {% endif %} </a>
       </p> 
 
     </div><!-- title -->
   </div><!-- col-md-12 -->
 </div><!-- row -->
 <hr>
+
+
 <div class="row">
 
  <div {% cycle 'class="col-md-4"', 'class="col-md-4 pull-right"', 'class="col-md-4"' %}>
@@ -158,47 +175,59 @@
 
   <ul class="nav nav-pills nav-stacked">
     <li>
-      {% for sub_link in link.links limit:8  %}
-
-      <div class="col-md-3">
-        <div class="box">
-
-         <div class="wall">
-          <div class="image">
-
-            <a href="{{ sub_link.url }}">
-             {% assign collection_sublink = sub_link.object %}
-             {% if collection_sublink.image %}
-             <div class="img-inline" style="background-image:url({{ collection_sublink | img_url: 'small'  }})">
-
-             </div>
-             {% else %}
-             <div class="img-inline" style="background-image:url({{  collection_sublink.products.first | img_url: 'small'  }})">
-
-             </div>
-
-             {% endif %}
-           </a>
-
-         </div>   
-       </div> 
 
 
+<!-- {% for tag in collection.all_tags %}
+    {% if current_tags contains tag %}
+    <option value="{{ tag | handle }}" selected>{{ tag }}</option>
+    {% else %}
+    <option value="{{ tag | handle }}">{{ tag }}</option>
+    {% endif %}
+    {% endfor %} -->
 
-       {% assign items = 'Items' %}
+    {% for sub_link in link.links limit:8  %}
 
-       <p class="content text-center">  
+    <div class="col-md-3 ">
+      <div class="box">
 
-        {{ sub_link.title | truncatewords:2, "" }} 
-        <span>{{ sub_link.object.products_count  }} {{items }}</span>
-        
-      </p>  
+       <div class="wall">
+        <div class="image">
+
+          <!-- extract handle from link title -->
+
+          {% assign newtag = sub_link.title | downcase | replace:' ','-' %}
+          {% assign collection_new = collections.[newtag] %}
+
+          <a href="{{ sub_link.url }}">
+
+           {% if collection_new.image %}
+           <div class="img-inline" style="background-image:url({{ collection_new | img_url: 'small'  }})">
+
+           </div>
+           {% else %}
+           <div class="img-inline" style="background-image:url({{  collection_new.products.first | img_url: 'small'  }})">
+
+           </div>
+
+           {% endif %} 
+         </a>
+         <!-- end -->
+       </div>   
+     </div> 
+
+     <p class="content text-center">  
+
+      {{ sub_link.title | truncatewords:2, "" }} 
+      <!--   <span>{{ sub_link.object.products_count  }} {{items }}</span> -->
+
+      <span>{{  collection_new.products_count }}{% if collection_new.products_count == 1 %} Item {%else %} Items {%endif%}</span>
+    </p>  
 
 
-    </div><!-- box -->
-  </div><!-- col-md-3 -->
+  </div><!-- box -->
+</div><!-- col-md-3 -->
 
-  {% endfor %}  
+{% endfor %}  
 
 
 </li>
@@ -213,74 +242,11 @@
 </div><!-- wall -->
 
 
-
-{% elsif forloop.last %}
-{% comment %}begin More Category{% endcomment %}
-
-<div class="large-wall" id="section-more">
-  <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-      <div class="title">
-
-       <p class="categ-title">  
-        <a href="{{ link.url }}" class="menu-link"> {{ link.title }} </a>
-      </p> 
-
-    </div><!-- title -->
-  </div><!-- col-md-12 -->
-</div><!-- row -->
-<div class="row no-margin">
+{%endif%}
 
 
-  <ul class="nav nav-tabs">
-
-    {% for sub_link in link.links %}
-
-    <li class="col-md-2">
-     <div class="wall">
-      <div class="image">
-       <a href="{{ sub_link.url }}">
-        {% assign collection_sublink = sub_link.object %}
-        {% if collection_sublink.image %}
-        <div class="img-inline" style="background-image:url({{ collection_sublink | img_url: 'small'  }})">
-
-        </div>
-        {% else %}
-        <div class="img-inline" style="background-image:url({{  collection_sublink.products.first | img_url: 'small'  }})">
-
-        </div>
-
-        {% endif %}
-
-      </a>
-
-    </div><!-- image -->  
-  </div><!-- wall -->
-
-  <h4 class="text-center">{{ sub_link.title | link_to: sub_link.url  }} </h4>
-
-  {% assign grand_child_list_handle = sub_link.title | handle %}
-
-  <ul class="nav nav-pills nav-stacked">
-    {% for sub_sub_link in linklists[grand_child_list_handle].links %}
-    <li>
-      {{ sub_sub_link.title | link_to: sub_sub_link.url }}
-    </li>
-    {% endfor %}
-  </ul>
-
-</li>
-
-{% endfor %}  
-
-</ul>
 
 
-</div><!-- row -->
-</div>
-
-{% comment %}end More Category{% endcomment %}
-{% endif %}
 {% endfor %}
 
 

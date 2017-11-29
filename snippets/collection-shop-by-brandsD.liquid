@@ -1,8 +1,8 @@
  <div class="container">
- {% for link in linklists.[collection.handle].links %}
-  {% if forloop.index <= 3 %}
+   {% for link in linklists.[collection.handle].links %}
+   {% if forloop.index <= 3 %}
 
-  <div class="large-wall" id="section{% increment %}">
+   <div class="large-wall" id="section{% increment %}">
     <div class="row">
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="title">
@@ -77,41 +77,31 @@
 
     {% comment %}begin product.tags contains 'popular'{% endcomment %}
 
-  <div class="row">
-    {% for product in collection.products %}
-    {% if product.tags contains 'popular' %}
+    <div class="row">
+      {% for product in collection.products %}
+      {% if product.tags contains 'popular' %}
 
-    {% assign collection = link.object %}
+      {% assign collection = link.object %}
 
-    <div class="col-md-6 col-sm-6 col-xs-12">
-      <a class="thumbnail" href="{{ product.url | within: collection }}" title="{{ product.featured_image.alt | escape }}">
-        <img class="img-responsive" src="{{ product.images.first | product_img_url: 'small' }}" alt="{{ product.featured_image.alt | escape }}" />
-      </a>
-      <p class="content text-center">
-        {{ product.title | truncatewords:2, "" }}
-      </p>
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <a class="thumbnail" href="{{ product.url | within: collection }}" title="{{ product.featured_image.alt | escape }}">
+          <img class="img-responsive" src="{{ product.images.first | product_img_url: 'small' }}" alt="{{ product.featured_image.alt | escape }}" />
+        </a>
+        <p class="content text-center">
+          {{ product.title | truncatewords:2, "" }}
+        </p>
+      </div>
+
+      {% endif %}
+      {% endfor %}
     </div>
+    {% comment %}end product.tags contains 'popular'{% endcomment %}
 
-    {% endif %}
-    {% endfor %}
-  </div>
-  {% comment %}end product.tags contains 'popular'{% endcomment %}
-
-</div><!-- box-left -->
+  </div><!-- box-left -->
 
 </div> <!-- col-md-4 -->
 
 <div {% cycle ' class="col-md-8 no-padding-left"', 'class="col-md-8 no-padding-right"', 'class="col-md-8 no-padding-left"' %}>
-
-
-
-
-
-
-
-
-
-
 
  {% assign collection = link.object %}
  {% tablerow product in collection.products limit: 8  %}
@@ -131,8 +121,6 @@
 </div>
 
 {% endtablerow %}
-
-
 
 </div>
 

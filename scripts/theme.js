@@ -208,13 +208,14 @@ if (location.search.length) {
     }
   }
 }
-jQuery('#sort-by')
+$('#sort-by')
   .val('{{ collection.sort_by | default: collection.default_sort_by | escape }}')
   .bind('change', function() {
-    Shopify.queryParams.sort_by = jQuery(this).val();
-    location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
+    Shopify.queryParams.sort_by = $(this).val();
+    location.search = $.param(Shopify.queryParams).replace(/\+/g, '%20');
   });
 
+ $('#sort-by').val($('#sort-by').data('default-sort'));
 /*end subcollection sort*/
 
 /*begin  */
@@ -250,6 +251,10 @@ jQuery('#sort-by')
     });
   });
 /*end subcollection grid/list view */
+
+
+
+
   function initflexsliders(){
    $('.carousel2.flexslider').flexslider({
     animation: "slide",

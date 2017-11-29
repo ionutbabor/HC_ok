@@ -7,9 +7,9 @@
 
       <ul class="dropdown-menu menu">  
         {% for link in menu.links %}
-        {% if forloop.first %}
         
-        {% elsif forloop.index <= 7  %}
+        
+        
 
         <li class="dropdown-submenu {% if link.active %}active{% endif %}">
           <a href="{{ link.url }}">
@@ -27,7 +27,7 @@
         </ul>
         {% endif %}
       </li>
-      {% endif %}
+      
       {% endfor %}
     </ul>
   </div>
@@ -39,9 +39,7 @@
 
       <ul class="nav nav-pills nav-stacked">
         {% for link in linklists.[collection.handle].links | limit:6 %}
-        {% if forloop.first %}
-
-        {% elsif forloop.index >= 1 %}
+        
         <li>
 
           <div class="col-md-4">
@@ -109,7 +107,7 @@
    </div>
 
  </li>
- {% endif %}
+
  {% endfor %}
 </ul>
 

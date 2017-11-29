@@ -21,7 +21,10 @@
      </div>
 
      <div class="col-md-7">
-      <h1>{{ product.title }}</h1>
+
+      
+      <h1>{{ product.title }} </h1>
+
       
       <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
 
@@ -123,19 +126,19 @@
        {% endif %}
      </div>{% endcomment %}
 
-      <span>piece 
-         
-           {% if product.variants.first.inventory_management == "shopify" %}
+     <span>piece 
+       
+       {% if product.variants.first.inventory_management == "shopify" %}
        {% if product.variants.first.inventory_quantity > 0 %}
        ( <span id="variant-inventory">{{ product.variants.first.inventory_quantity }}</span> pieces available )
-        {% else %}
+       {% else %}
        ( The product is out of stock )
        {% endif %}
-        {% else %}
+       {% else %}
        ( This product is available )
        {% endif %}
- 
-      </span>
+       
+     </span>
 
 
    </div>
@@ -173,7 +176,7 @@
 
 {% unless product == empty %}
 <script type="application/json" data-product-json>
-  {{ product | json }}
+{{ product | json }}
 </script>
 {% endunless %}
 
@@ -199,7 +202,7 @@
         <li role="presentation"><a href="#tab3" aria-controls="messages" role="tab" data-toggle="tab">Shipping and Payment</a></li>
         <li role="presentation"><a href="#tab4" aria-controls="settings" role="tab" data-toggle="tab">Seller Guarantees</a></li>
       </ul>
-    
+      
 
       <!-- Tab panes -->
       <div class="tab-content">
@@ -208,7 +211,7 @@
         <div role="tabpanel" class="tab-pane fade" id="tab3">{{ pages.shipping-policy.content }}</div>
         <div role="tabpanel" class="tab-pane fade" id="tab4">{{ pages.seller-guarantees.content }}</div>
       </div>
-   
+      
 
     </div>
     
@@ -222,11 +225,11 @@
   "name": "Product pages",
   "settings": [
   {
-    "type": "checkbox",
-    "id": "show_share_buttons",
-    "label": "Show social sharing buttons",
-    "default": true
-  }
-  ]
+  "type": "checkbox",
+  "id": "show_share_buttons",
+  "label": "Show social sharing buttons",
+  "default": true
+}
+]
 }
 {% endschema %}
