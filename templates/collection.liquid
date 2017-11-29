@@ -2,11 +2,17 @@
 	<div class="container">
 		{% include 'breadcrumbs' %}
 
-		<div class="col-md-3">
+		<div class="col-md-2 col-sm-2 col-xs-12">
 			sidebar
 
+<!--  
+<ul>
+{% for vendor in collections.[handle].all_vendors %}
+  <li >{{ vendor }}</li>
+{% endfor %}
+</ul>
 
-  <!--     <header role="banner">
+     <header role="banner">
     {% if collection.all_tags.size > 0 %}
     <ul>
       {% for tag in collection.all_tags %}
@@ -28,152 +34,143 @@
 
 
 </div>
-<div class="col-md-9 col-sm-9 col-xs-12">
+<div class="col-md-10 col-sm-10 col-xs-12">
 
 
+<div class="row">
+
+	<div class="col-md-12 col-xs-12 col-sm-12">
+
+		<div class="row">
 
 
-
-
-
-
-
-<!-- <ul>
-{% for vendor in collections.[handle].all_vendors %}
-  <li >{{ vendor }}</li>
-{% endfor %}
-</ul>
-
-
-brands top -->
-
-<div class="col-md-12 col-xs-12 col-sm-12">
-
-	<div class="row">
-		<div class="col-md-6 col-md-offset-6">
-			<div class="filter_c">
-				<!-- begin collection views -->
-				<div class="collection-view pull-right hidden-xs">
-					<a title="Grid view" class="btn btn-default change-view{% unless template contains 'list' %} active-filter{% endunless %} ml5 mr5" data-view="grid">
-						<i class="fa fa-lg fa-th"></i>
-					</a>
-					<a title="{{ 'collections.general.list_view'  }}" class="btn btn-default change-view{% if template contains 'list' %} active-filter{% endif %} mr5" data-view="list">
-						<i class="fa fa-lg fa-list"></i>
-					</a>
-				</div>
-				<!-- end collection views -->
-
-				<!-- begin collection sorting -->
-				<div class="form-inline">
-					<div class="form-group pull-right">
-						<label for="sort-by">Sort By</label>
-						<select class="form-control" id="sort-by">
-							<option value="manual">Featured</option>
-							<option value="price-ascending">Price: Low to High</option>
-							<option value="price-descending">Price: High to Low</option>
-							<option value="title-ascending">A-Z</option>
-							<option value="title-descending">Z-A</option>
-							<option value="created-ascending">Oldest to Newest</option>
-							<option value="created-descending">Newest to Oldest</option>
-							<option value="best-selling">Best Selling</option>
-						</select>
+			<div class="col-md-6 col-md-offset-6 col-sm-6 col-sm-offset-6">
+				<div class="filter_c">
+					<!-- begin collection views -->
+					<div class="collection-view pull-right hidden-xs">
+						<a title="Grid view" class="btn btn-default change-view{% unless template contains 'list' %} active-filter{% endunless %} ml5 mr5" data-view="grid">
+							<i class="fa fa-lg fa-th"></i>
+						</a>
+						<a title="{{ 'collections.general.list_view'  }}" class="btn btn-default change-view{% if template contains 'list' %} active-filter{% endif %} mr5" data-view="list">
+							<i class="fa fa-lg fa-list"></i>
+						</a>
 					</div>
+					<!-- end collection views -->
+
+					<!-- begin collection sorting -->
+					<div class="form-inline">
+						<div class="form-group pull-right">
+							<label for="sort-by">Sort By</label>
+							<select class="form-control" id="sort-by" data-default-sort="{{ collection.sort_by | default: collection.default_sort_by }}">
+								<option value="manual">Featured</option>
+								<option value="price-ascending">Price: Low to High</option>
+								<option value="price-descending">Price: High to Low</option>
+								<option value="title-ascending">A-Z</option>
+								<option value="title-descending">Z-A</option>
+								<option value="created-ascending">Oldest to Newest</option>
+								<option value="created-descending">Newest to Oldest</option>
+								<option value="best-selling">Best Selling</option>
+							</select>
+						</div>
+					</div>
+					<!-- end collection sorting -->
+
+				</div><!-- filter -->
+			</div>
+		</div>
+
+		<hr>
+	</div>
+</div>
+
+	{% paginate collection.products by 12 %}
+
+
+
+
+
+
+	<ul class="nav nav-pills nav-tabs">
+		{% for product in collection.products %}
+		<li class="col-md-3 col-sm-3 col-xs-6 product-item">
+
+			<div class="item">
+				<div class="product-grid-image">
+					{% if product.featured_image != blank %}
+					<a href="{{ product.url | within: collection }}">
+						<img class="img-responsive" src="{{ product.featured_image.src | img_url: '480x480'}}" alt="{{product.featured_image.alt}}">
+					</a>
+					{% endif %}
 				</div>
-				<!-- end collection sorting -->
+				<p class="title">
+					<a href="{{ product.url | within: collection }}">{{ product.title | truncatewords:8 | truncate:70 }}</a>
+				</p>
 
-			</div><!-- filter -->
-		</div>
+				<!-- product tags contains 'top-rated' -->
+				{% if product.tags contains 'top-rated' %}
+				<p >
+					<img src="{{'top-rated.png' | asset_url}}" title="Top Rated" alt="Top Rated" class="tag-rated" />
+				</p>
+				{%endif%} 
+
+
+				<!-- review -->
+				<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+
+				<p class="price">
+					{% if product.compare_at_price > product.price %}
+
+					{% if product.price_varies %}
+					{%- assign sale_price = product.price | money -%}
+					{{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+					{% else %}
+					{{ 'products.product.on_sale' | t }}
+					{{ product.price | money }}
+					{% endif %}
+
+					{% else %}
+
+					{% if product.price_varies %}
+					{%- assign price = product.price | money -%}
+					{{ 'products.product.from_text_html' | t: price: price }}
+					{% else %}
+					{{ product.price | money }}
+					{% endif %}
+
+					{% endif %}
+
+					{% if product.compare_at_price > product.price %}
+					<span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
+					<s>{{ product.compare_at_price | money }}</s>
+					{% endif %}
+
+					{% unless product.available %}
+					{{ 'products.product.sold_out' | t }}
+					{% endunless %}
+				</p>
+
+
+				{% include 'item-swatch' %}
+			</div><!-- item -->
+		</li><!-- col-md-3 col-sm-3 col-xs-6 product-item -->
+
+		{% endfor %}
+
+
+
+
+
+
+
+	</ul>
+
+	<div class="col-md-12 text-center col-xs-12 col-sm-12">
+		{% if paginate.pages > 1 %}
+		{% include 'pagination' %}
+		{% endif %}
 	</div>
-
-	<hr>
-</div>
-
-
-
-
-
-
-
-
-{% paginate collection.products by 12 %}
-
-
-
-
-
-<div>
-	{% for product in collection.products %}
-	<div class="col-md-3 col-sm-3 col-xs-6 product-item">
-
-		<div class="product-grid-image">
-			{% if product.featured_image != blank %}
-			<a href="{{ product.url | within: collection }}">
-				<img class="img-responsive" src="{{ product.featured_image.src | img_url: '480x480'}}" alt="{{product.featured_image.alt}}">
-			</a>
-			{% endif %}
-		</div>
-		<p>
-			<a href="{{ product.url | within: collection }}">{{ product.title }}</a>
-		</p>
-
-		<!-- product tags contains 'top' -->
-		{% if product.tags contains 'top' %}
-		<p>
-			<img src="{{'top-rated.png' | asset_url}}" title="Top Rated" alt="Top Rated" class="tag-rated" />
-		</p>
-		{%endif%} 
-
-
-		<!-- review -->
-		<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
-
-		<p>
-			{% if product.compare_at_price > product.price %}
-
-			{% if product.price_varies %}
-			{%- assign sale_price = product.price | money -%}
-			{{ 'products.product.on_sale_from_html' | t: price: sale_price }}
-			{% else %}
-			{{ 'products.product.on_sale' | t }}
-			{{ product.price | money }}
-			{% endif %}
-
-			{% else %}
-
-			{% if product.price_varies %}
-			{%- assign price = product.price | money -%}
-			{{ 'products.product.from_text_html' | t: price: price }}
-			{% else %}
-			{{ product.price | money }}
-			{% endif %}
-
-			{% endif %}
-
-			{% if product.compare_at_price > product.price %}
-			<span class="visually-hidden">{{ 'products.product.regular_price' | t }}</span>
-			<s>{{ product.compare_at_price | money }}</s>
-			{% endif %}
-
-			{% unless product.available %}
-			{{ 'products.product.sold_out' | t }}
-			{% endunless %}
-		</p>
-
-
-		{% include 'item-swatch' %}
-	</div>
-
-
-	{% endfor %}
-</div>
-
-<div class="col-md-12 text-center col-xs-12 col-sm-12">
-	{% if paginate.pages > 1 %}
-	{% include 'pagination' %}
-	{% endif %}
-</div>
-{% endpaginate %}
-</div>
+	{% endpaginate %}
+</div><!-- col-md-9 col-sm-9 col-xs-12 -->
 
 </div><!-- container -->
 </div><!-- subcollection -->

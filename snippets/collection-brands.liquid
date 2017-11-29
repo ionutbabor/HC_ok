@@ -14,42 +14,51 @@
   </div>
   <div class="row no-margin">
 
-    {% assign my_subcollection = collection.handle | replace:'-clothing-accessories','' %}
+    {% assign my_subcollection = collection.handle %}
+    {% assign stringSplit = my_subcollection | split:'-' %}
+
+    {% for stringPart in stringSplit %}
+    {%if forloop.first == true %}
+
+    {% comment %}  <span>{{ stringPart  | strip }}</span>{% endcomment %}
+
+    {% assign result =  stringPart | strip %}
+
+
+    {%endif%}
+    {% endfor %}
 
     <ul class="nav nav-pills nav-tabs">
-      {% for vendor in collections.[my_subcollection].all_vendors %}
-      {% capture collection_sublink1 %}/collections/{{my_subcollection}}/{{vendor}} {% endcapture %}
+      {% for vendor in collections.[result].all_vendors %}
+      {% capture collection_sublink1 %}/collections/{{result}}/{{vendor}} {% endcapture %}
 
 
-      <li class="col-md-2">
+      <li class="col-md-2 col-sm-2 col-xs-6">
        <div class="wall">
         <div class="image">
 
           <a href="{{collection_sublink1}}">
-
            {% assign collection1 = collections.[vendor] %}
            {% if collection1.image %}
            <div class="img-inline" style="background-image:url({{ collection1 | img_url: 'small' }})"></div>
            {% else %}
-           <div class="img-inline text-center">
+           <div class="ext-box text-center">
+            <div class="int-box">
               {{vendor}}
-           </div>
-           {% endif %}
+            </div>
+          </div>
+          {% endif %}
+        </a>
 
-         </a>
+      </div><!-- image --> 
+    </div><!-- wall -->
+  </li>
 
-       </div>  
-     </div>
-   </li>
+  {% endfor %}
+</ul>
 
-
-   {% endfor %}
- </ul>
-
-
-
-</div>
-</div>
+</div><!-- row no-margin -->
+</div><!-- large-wall -->
 
 <!-- end Shop By Brands -->
-</div>
+</div><!-- container -->
