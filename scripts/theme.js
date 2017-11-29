@@ -316,22 +316,9 @@ $().fancybox({
 CloudZoom.quickStart();
 /*end product zoom image*/ 
 
-
-<<<<<<< HEAD
-/*swatches*/
-jQuery(function() {
-=======
-
-
-
-
-
-
-
-
  /*swatches*/
  jQuery(function() {
->>>>>>> andre
+
   jQuery('.swatch :radio').change(function() {
     var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
     var optionValue = jQuery(this).val();
