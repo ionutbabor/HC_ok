@@ -1,9 +1,17 @@
+{% if collection.image %}
+<div id="top-banner">
+	<div class="img-inline" style="background-image:url({{ collection.image.src | collection_img_url: 'original' }})">
+		<div class="container">
+			<h2>{{ collection.title }}</h2>
+		</div>
+	</div>
+</div>
+{% endif %}
+
 <div class="container">
-  {% include 'breadcrumbs' %}
+	{% include 'breadcrumbs' %}
 
-  {% include  'collection-first-section'  %} 
+	{% include  'collection-first-section'  %} 
 </div><!-- container -->
-
-
 
 {% include  'collection-sections'  %}

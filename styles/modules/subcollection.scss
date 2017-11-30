@@ -105,6 +105,19 @@
 				}/* item */
 				}/* product-item */
 				}/* .nav-tabs */
+
+
+				.pagination{
+					>li>a{
+						@include font($second, 700, $size:12.5px, $color:#333);
+					}
+					>.active>a{
+						background: #84c98b;
+						border-color: #84c98b;
+						color: #fff;
+					}
+				}
+
 				}/* #subcollection */
 
 				.list-view{
@@ -117,7 +130,10 @@
 							display: inline-block;
 						}
 					}
-					 .nav-tabs .product-item .item .title a{
-					 	font-size: 16px !important;
-					 }
+					.nav-tabs .product-item .item .title a{
+						font-size: 16px !important;
+					}
+
 				}
+
+

@@ -70,7 +70,7 @@
 
 
 
-     
+
 
 
 
@@ -84,7 +84,7 @@
 <div id="middle" data-offset-top="120" data-spy="affix">
   <div class="container">
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-2 col-sm-2 col-xs-12">
        {% if template.name == 'index' %}
        <h1 itemscope itemtype="http://schema.org/Organization">
         {% else %}
@@ -108,8 +108,7 @@
       {% endif %}
     </div><!-- col-md-2 -->
 
-    <div class="col-md-7">
-
+    <div class="col-md-7 col-sm-6 col-xs-12">
 
       <form action="/search" method="get" role="search">
         <div class="form-group has-success has-feedback">
@@ -125,51 +124,48 @@
            <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
          </button>
 
-
-         <div class="btn-group" role="group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            All Categories
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a href="#">Dropdown link</a></li>
-            <li><a href="#">Dropdown link</a></li>
-          </ul>
-        </div>
-      </div>
-    </form>
-
-
-  </div><!-- col-md-8 -->
-  <div class="col-md-3">
-    <div class="col-md-6">
-     <a href="/cart">
-      {{ 'icon-shipping.png' | asset_url | img_tag }}
-      Shopping Cart
-
-      <span class="badge">{{ cart.item_count }}</span>
-    </a>
+     <!--     <div class="btn-group" role="group">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        All Categories
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="#">Dropdown link</a></li>
+        <li><a href="#">Dropdown link</a></li>
+      </ul>
+    </div> -->
   </div>
-  <div class="col-md-6">
-    {% if shop.customer_accounts_enabled %}
-    <ul class="nav nav-pills">
-      {% if customer %}
-      <li>
-        {% if customer.first_name != blank %}
-        {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
-        {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
-        {% else %}
-        <a href="/account">{{ 'layout.customer.account' | t }}</a>
-        {% endif %}
-      </li>
-      <li>
-        {{ 'layout.customer.log_out' | t | customer_logout_link }} 
-      </li>
+</form>
+</div><!-- col-md-8 -->
+<div class="col-md-3 col-sm-4 col-xs-12">
+  <div class="col-md-6 col-sm-6 col-xs-6">
+   <a href="/cart">
+    {{ 'icon-shipping.png' | asset_url | img_tag }}
+    Shopping Cart
+
+    <span class="badge">{{ cart.item_count }}</span>
+  </a>
+</div>
+<div class="col-md-6 col-sm-6 col-xs-6">
+  {% if shop.customer_accounts_enabled %}
+  <ul class="nav nav-pills">
+    {% if customer %}
+    <li>
+      {% if customer.first_name != blank %}
+      {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
+      {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
       {% else %}
-      <li id="sign-in">
-        {{ 'icon-signin.png' | asset_url | img_tag }}
-        {{ '<b>Sign in</b> |  Join'  | customer_login_link }}
-      </li>
+      <a href="/account">{{ 'layout.customer.account' | t }}</a>
+      {% endif %}
+    </li>
+    <li>
+      {{ 'layout.customer.log_out' | t | customer_logout_link }} 
+    </li>
+    {% else %}
+    <li id="sign-in">
+      {{ 'icon-signin.png' | asset_url | img_tag }}
+      {{ '<b>Sign in</b> |  Join'  | customer_login_link }}
+    </li>
  <!--    <li>
    {{ 'layout.customer.create_account' | t | customer_register_link }}
  </li> -->
