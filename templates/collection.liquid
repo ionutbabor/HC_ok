@@ -4,168 +4,69 @@
 
 		<div class="col-md-2 col-sm-2 col-xs-12">
 			sidebar
-
-<!--  
-<ul>
-{% for vendor in collections.[handle].all_vendors %}
-  <li >{{ vendor }}</li>
-{% endfor %}
-</ul>
-
-     <header role="banner">
-    {% if collection.all_tags.size > 0 %}
-    <ul>
-      {% for tag in collection.all_tags %}
-      {% if current_tags contains tag %}
-      <li class="active">
-        {{ tag | link_to_remove_tag: tag }}
-      </li>
-      {% else %}
-      <li>
-        {{ tag | link_to_tag: tag }}
-      </li>
-      {% endif %}
-      {% endfor %}
-    </ul>
-    {% endif %}
-  </header>
-  
-  {% include 'sidebar-collection' %} -->
-
-
-</div>
-<div class="col-md-10 col-sm-10 col-xs-12">
-
-	<div class="row">
-
-		<div class="col-md-12 col-xs-12 col-sm-12">
+		</div>
+		<div class="col-md-10 col-sm-10 col-xs-12">
 
 			<div class="row">
 
-				<div class="col-md-6 col-md-offset-6 col-sm-6 col-sm-offset-6">
-					<div class="filter_c">
-						<!-- begin collection views -->
-						<div class="collection-view pull-right hidden-xs">
-							<a title="Grid view" class="btn btn-default change-view{% unless template contains 'list' %} active-filter{% endunless %} ml5 mr5" data-view="grid">
-								<i class="fa fa-lg fa-th"></i>
-							</a>
-							<a title="List view" class="btn btn-default change-view{% if template contains 'list' %} active-filter{% endif %} mr5" data-view="list">
-								<i class="fa fa-lg fa-list"></i>
-							</a>
-						</div>
-						<!-- end collection views -->
+				<div class="col-md-12 col-xs-12 col-sm-12">
 
-						<!-- begin collection sorting -->
-						<div class="form-inline">
-							<div class="form-group pull-right">
-								<label for="sort-by">Sort By</label>
-								<select class="form-control" id="sort-by" data-default-sort="{{ collection.sort_by | default: collection.default_sort_by }}">
-									<option value="manual">Featured</option>
-									<option value="price-ascending">Price: Low to High</option>
-									<option value="price-descending">Price: High to Low</option>
-									<option value="title-ascending">A-Z</option>
-									<option value="title-descending">Z-A</option>
-									<option value="created-ascending">Oldest to Newest</option>
-									<option value="created-descending">Newest to Oldest</option>
-									<option value="best-selling">Best Selling</option>
-								</select>
-							</div>
-						</div>
-						<!-- end collection sorting -->
+					<div class="row">
 
-					</div><!-- filter -->
+						<div class="col-md-6 col-md-offset-6 col-sm-6 col-sm-offset-6">
+							<div class="filter_c">
+								<!-- begin collection views -->
+								<div class="collection-view pull-right hidden-xs">
+									<a title="Grid view" class="btn btn-default change-view{% unless template contains 'list' %} active-filter{% endunless %} ml5 mr5" data-view="grid">
+										<i class="fa fa-lg fa-th"></i>
+									</a>
+									<a title="List view" class="btn btn-default change-view{% if template contains 'list' %} active-filter{% endif %} mr5" data-view="list">
+										<i class="fa fa-lg fa-list"></i>
+									</a>
+								</div>
+								<!-- end collection views -->
+
+								<!-- begin collection sorting -->
+								<div class="form-inline">
+									<div class="form-group pull-right">
+										<label for="sort-by">Sort By</label>
+										<select class="form-control" id="sort-by" data-default-sort="{{ collection.sort_by | default: collection.default_sort_by }}">
+											<option value="manual">Featured</option>
+											<option value="price-ascending">Price: Low to High</option>
+											<option value="price-descending">Price: High to Low</option>
+											<option value="title-ascending">A-Z</option>
+											<option value="title-descending">Z-A</option>
+											<option value="created-ascending">Oldest to Newest</option>
+											<option value="created-descending">Newest to Oldest</option>
+											<option value="best-selling">Best Selling</option>
+										</select>
+									</div>
+								</div>
+								<!-- end collection sorting -->
+
+							</div><!-- filter -->
+						</div>
+					</div>
+
+					<hr id="separator">
 				</div>
 			</div>
 
-			<hr id="separator">
-		</div>
-	</div>
+			{% paginate collection.products by 12 %}
 
-	{% paginate collection.products by 12 %}
+			<ul class="nav nav-pills nav-tabs">
+				{% for product in collection.products %}
+				{% include 'collection-products'%}
+				{% endfor %}
+			</ul>
 
+			<div class="col-md-12 text-center col-xs-12 col-sm-12">
+				{% if paginate.pages > 1 %}
+				{% include 'pagination' %}
+				{% endif %}
+			</div>
+			{% endpaginate %}
+		</div><!-- col-md-9 col-sm-9 col-xs-12 -->
 
-	<ul class="nav nav-pills nav-tabs">
-		{% for product in collection.products %}
-		<li class="col-md-3 col-sm-3 col-xs-6 product-item">
-
-			<div class="item">
-				<div class="product-grid-image">
-					{% if product.featured_image != blank %}
-					<a href="{{ product.url | within: collection }}">
-						<img class="img-responsive" src="{{ product.featured_image.src | img_url: '480x480'}}" alt="{{product.featured_image.alt}}">
-					</a>
-					{% endif %}
-				</div>
-				<p class="title">
-					<a href="{{ product.url | within: collection }}">{{ product.title | truncatewords:8 | truncate:70 }}</a>
-				</p>
-
-				<!-- product tags contains 'top-rated' -->
-				{% if product.tags contains 'top-rated' %}
-				<p>
-					<img src="{{'top-rated.png' | asset_url}}" title="Top Rated" alt="Top Rated" class="tag-rated" />
-				</p>
-				{%endif%} 
-
-
-				<!-- review -->
-				<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
-
-				<p class="price">
-					{% if product.compare_at_price > product.price %}
-
-					{% if product.price_varies %}
-					{%- assign sale_price = product.price | money -%}
-					{{ 'products.product.on_sale_from_html' | t: price: sale_price }}
-					{% else %}
-					{{ 'products.product.on_sale' | t }}
-					{{ product.price | money }}
-					{% endif %}
-
-					{% else %}
-
-					{% if product.price_varies %}
-					{%- assign price = product.price | money -%}
-					{{ 'products.product.from_text_html' | t: price: price }}
-					{% else %}
-					{{ product.price | money }}
-					{% endif %}
-
-					{% endif %}
-
-					{% if product.compare_at_price > product.price %}
-
-					<span class="save">
-						SAVE <!-- {{ product.compare_at_price_max | minus:product.price | difference:product.compare_at_price_max | money }} -->
-						{{ product.compare_at_price_max | minus:product.price | times:100 | divided_by:product.compare_at_price_max }}%
-					</span>
-
-					<span class="visually-hidden">Was</span>
-					<s>{{ product.compare_at_price | money }}</s>
-
-					
-					{% endif %}
-
-					{% unless product.available %}
-					{{ 'products.product.sold_out' | t }}
-					{% endunless %}
-				</p>
-
-
-				{% include 'item-swatch' %}
-			</div><!-- item -->
-		</li><!-- col-md-3 col-sm-3 col-xs-6 product-item -->
-
-		{% endfor %}
-	</ul>
-
-	<div class="col-md-12 text-center col-xs-12 col-sm-12">
-		{% if paginate.pages > 1 %}
-		{% include 'pagination' %}
-		{% endif %}
-	</div>
-	{% endpaginate %}
-</div><!-- col-md-9 col-sm-9 col-xs-12 -->
-
-</div><!-- container -->
+	</div><!-- container -->
 </div><!-- subcollection -->

@@ -1,0 +1,65 @@
+{% comment %} Width of results box {% endcomment %}
+{% assign results_box_width = '100%' %}
+{% comment %} Background color of results box {% endcomment %}
+{% assign results_box_background_color = '#ffffff' %}
+{% comment %} Border color of results box {% endcomment %}
+{% assign results_box_border_color = '#d4d4d4' %}
+
+<script>
+
+</script>
+
+<!-- Some styles to get you started. -->
+<style>
+.search-results {
+  z-index: 8889;
+  list-style-type: none;   
+  width: {{ results_box_width }};
+  margin: 0;
+  padding: 0;
+  background: {{ results_box_background_color }};
+  border-left: 1px solid {{ results_box_border_color }}; 
+  border-right: 1px solid {{ results_box_border_color }};
+/*  border-radius: 3px;
+  -webkit-box-shadow: 0px 4px 7px 0px rgba(0,0,0,0.1);
+  box-shadow: 0px 4px 7px 0px rgba(0,0,0,0.1);*/
+  overflow: hidden;
+}
+.search-results li {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid {{ results_box_border_color }};
+  overflow: hidden;
+}
+.search-results li:first-child {
+  border-top: none;
+}
+.search-results .title {
+  float: left;
+  width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  /* The text-overflow property is supported in all major browsers. */
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-align: left;
+  font-family: "Poppins",sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #333;
+  padding: 15px 10px;
+}
+.search-results .thumbnail {
+  float: left;
+  display: block;
+  width: 50px;
+  height: 50px;    
+  margin: 3px;
+  padding: 0;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 0;
+}
+</style>
