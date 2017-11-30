@@ -1,4 +1,4 @@
-<div id="subcollection">
+<div id="subcollection" class="list-view">
 	<div class="container">
 		{% include 'breadcrumbs' %}
 
@@ -86,73 +86,77 @@
 
 	<ul class="nav nav-pills nav-tabs">
 		{% for product in collection.products %}
-		<li class="col-md-3 col-sm-3 col-xs-6 product-item">
+		<li class="col-md-12 col-sm-12 col-xs-12 product-item">
 
 			<div class="item">
-				<div class="product-grid-image">
-					{% if product.featured_image != blank %}
-					<a href="{{ product.url | within: collection }}">
-						<img class="img-responsive" src="{{ product.featured_image.src | img_url: '480x480'}}" alt="{{product.featured_image.alt}}">
-					</a>
-					{% endif %}
-				</div>
-				<p class="title">
-					<a href="{{ product.url | within: collection }}">{{ product.title | truncatewords:8 | truncate:70 }}</a>
-				</p>
 
-				<!-- product tags contains 'top-rated' -->
-				{% if product.tags contains 'top-rated' %}
-				<p>
-					<img src="{{'top-rated.png' | asset_url}}" title="Top Rated" alt="Top Rated" class="tag-rated" />
-				</p>
-				{%endif%} 
+				<div class="row">
+					<div class="col-md-6">
+						<div class="product-grid-image">
+							{% if product.featured_image != blank %}
+							<a href="{{ product.url | within: collection }}">
+								<img class="img-responsive" src="{{ product.featured_image.src | img_url: '280x280'}}" alt="{{product.featured_image.alt}}">
+							</a>
+							{% endif %}
+						</div>
+					</div>
+					<div class="col-md-6">
+						<p class="title">
+							<a href="{{ product.url | within: collection }}">{{ product.title}}</a>
+						</p>
 
+						<!-- product tags contains 'top-rated' -->
+						{% if product.tags contains 'top-rated' %}
+						<p>
+							<img src="{{'top-rated.png' | asset_url}}" title="Top Rated" alt="Top Rated" class="tag-rated" />
+						</p>
+						{%endif%} 
+						<!-- review -->
+						<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+						
 
-				<!-- review -->
-				<span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+						<p class="price">
+							{% if product.compare_at_price > product.price %}
 
-				<p class="price">
-					{% if product.compare_at_price > product.price %}
+							{% if product.price_varies %}
+							{%- assign sale_price = product.price | money -%}
+							{{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+							{% else %}
+							{{ 'products.product.on_sale' | t }}
+							{{ product.price | money }}
+							{% endif %}
 
-					{% if product.price_varies %}
-					{%- assign sale_price = product.price | money -%}
-					{{ 'products.product.on_sale_from_html' | t: price: sale_price }}
-					{% else %}
-					{{ 'products.product.on_sale' | t }}
-					{{ product.price | money }}
-					{% endif %}
+							{% else %}
 
-					{% else %}
+							{% if product.price_varies %}
+							{%- assign price = product.price | money -%}
+							{{ 'products.product.from_text_html' | t: price: price }}
+							{% else %}
+							{{ product.price | money }}
+							{% endif %}
 
-					{% if product.price_varies %}
-					{%- assign price = product.price | money -%}
-					{{ 'products.product.from_text_html' | t: price: price }}
-					{% else %}
-					{{ product.price | money }}
-					{% endif %}
+							{% endif %}
 
-					{% endif %}
+							{% if product.compare_at_price > product.price %}
 
-					{% if product.compare_at_price > product.price %}
+							<span class="save">
+								SAVE <!-- {{ product.compare_at_price_max | minus:product.price | difference:product.compare_at_price_max | money }} -->
+								{{ product.compare_at_price_max | minus:product.price | times:100 | divided_by:product.compare_at_price_max }}%
+							</span>
 
-					<span class="save">
-						SAVE <!-- {{ product.compare_at_price_max | minus:product.price | difference:product.compare_at_price_max | money }} -->
-						{{ product.compare_at_price_max | minus:product.price | times:100 | divided_by:product.compare_at_price_max }}%
-					</span>
-
-					<span class="visually-hidden">Was</span>
-					<s>{{ product.compare_at_price | money }}</s>
-
-					
-					{% endif %}
-
-					{% unless product.available %}
-					{{ 'products.product.sold_out' | t }}
-					{% endunless %}
-				</p>
+							<span class="visually-hidden">Was</span>
+							<s>{{ product.compare_at_price | money }}</s>
 
 
-				{% include 'item-swatch' %}
+							{% endif %}
+
+							{% unless product.available %}
+							{{ 'products.product.sold_out' | t }}
+							{% endunless %}
+						</p>
+						{% include 'item-swatch' %}
+					</div>
+				</div><!-- row -->
 			</div><!-- item -->
 		</li><!-- col-md-3 col-sm-3 col-xs-6 product-item -->
 
