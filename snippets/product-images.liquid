@@ -24,7 +24,7 @@
       </div>
       {% else %}
       <a href="{{ image | product_img_url: 'master' }}" data-fancybox="{{ product.id }}" data-caption="{{ image.alt | escape }}" title="{{ image.alt | escape }}">
-        <img src="{{ image | product_img_url: 'large' }}" data-product-featured-image data-src-retina="{{ image | product_img_url: '1024x1024' }}" alt="{{ image.alt | escape }}" data-index="{{ forloop.index0 }}" data-image-id="{{ image.id }}" data-cloudzoom="zoomImage: '{{ image | product_img_url: 'master' }}', zoomPosition: 'inside', zoomOffsetX: 0, hoverIntentDelay: 100, touchStartDelay: 250" class="cloudzoom {% if featured_image.id == image.id %}featured_image{% endif %}" />
+        <img src="{{ image | product_img_url: 'master' }}" data-product-featured-image data-src-retina="{{ image | product_img_url: '1024x1024' }}" alt="{{ image.alt | escape }}" data-index="{{ forloop.index0 }}" data-image-id="{{ image.id }}"  data-cloudzoom="zoomImage: '{{ image | product_img_url: 'master' }}', tintColor: '#fff', zoomPosition: 'inside', zoomOffsetX: 0, hoverIntentDelay: 100, touchStartDelay: 250" class="cloudzoom {% if featured_image.id == image.id %}featured_image{% endif %}"/>
 
       </a>
       
@@ -32,7 +32,8 @@
     </li>
     {% endfor %}
   </ul>
-  
+   
+
 
 
 {% comment %}{% if featured_image != blank %}
@@ -51,8 +52,8 @@
     </ul>
     {% endif %}{% endcomment %}
   </div>
-  
-  <p class="text-center">Roll over image to zoom in</p>
+{% comment %}  <p class="text-center">Roll over image to zoom in</p>{% endcomment %}
+ 
 
 
 

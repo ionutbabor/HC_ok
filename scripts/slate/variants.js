@@ -153,9 +153,16 @@
       var variantImage = variant.featured_image || {};
       var currentVariantImage = this.currentVariant.featured_image || {};
 
+
+
       if (!variant.featured_image || variantImage.src === currentVariantImage.src) {
         return;
       }
+
+      // var original_image = $(".flex-active-slide img"), new_image = currentVariantImage ;
+      // Shopify.Image.switchImage(new_image, original_image[0], function (new_image_src, original_image, element) {
+      //   $slider.flexslider($('[data-image-id="' + variant.featured_image.id + '"]').data('index'));
+      // });
 
       this.$container.trigger({
         type: 'variantImageChange',

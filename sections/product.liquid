@@ -12,7 +12,7 @@
   <div class="form-background">
     <div class="row">
 
-      <div class="col-md-5">
+      <div class="col-md-6">
        {% if featured_image != blank %}
        {% include 'product-images' %}
        {% endif %}
@@ -20,9 +20,11 @@
 
      </div>
 
-     <div class="col-md-7">
-      
+     <div class="col-md-6">
+
+
       <h1>{{ product.title }} </h1>
+
       
       <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
 
@@ -51,67 +53,67 @@
         <form action="/cart/add" method="post" enctype="multipart/form-data">
 
 
+          <div class="form-box">
+            {% unless product.has_only_default_variant %}
 
-          {% unless product.has_only_default_variant %}
+            {% for option in product.options_with_values %}
+            <div class="selector-wrapper js hidden">
+              <label for="SingleOptionSelector-{{ forloop.index0 }}">
+                {{ option.name }}
+              </label>
 
-          {% for option in product.options_with_values %}
-          <div class="selector-wrapper js hidden">
-            <label for="SingleOptionSelector-{{ forloop.index0 }}">
-              {{ option.name }}
-            </label>
+              <select
+              id="SingleOptionSelector-{{ forloop.index0 }}"
+              class="single-option-selector"
+              data-single-option-selector
+              data-index="option{{ option.position }}">
+              {% for value in option.values %}
+              <option
+              value="{{ value | escape }}"
+              {% if option.selected_value == value %}selected="selected"{% endif %}>
+              {{ value }}
+            </option>
+            {% endfor %}
+          </select>
+        </div>
+        {% endfor %}
+        {% endunless %}
 
-            <select
-            id="SingleOptionSelector-{{ forloop.index0 }}"
-            class="single-option-selector"
-            data-single-option-selector
-            data-index="option{{ option.position }}">
-            {% for value in option.values %}
-            <option
-            value="{{ value | escape }}"
-            {% if option.selected_value == value %}selected="selected"{% endif %}>
-            {{ value }}
-          </option>
-          {% endfor %}
-        </select>
-      </div>
+        <select name="id" class="no-js hidden" data-product-select>
+          {% for variant in product.variants %}
+          <option
+          {% if variant == current_variant %}selected="selected"{% endif %}
+          {% unless variant.available %}disabled="disabled"{% endunless %}
+          value="{{ variant.id }}">
+          {{ variant.title }}
+        </option>
+        {% endfor %}
+      </select>
+
+      {% if product.available and product.variants.size > 1 %}
+      {% for option in product.options %}
+      {% include 'swatch' with option %}
       {% endfor %}
-      {% endunless %}
-
-      <select name="id" class="no-js hidden" data-product-select>
-        {% for variant in product.variants %}
-        <option
-        {% if variant == current_variant %}selected="selected"{% endif %}
-        {% unless variant.available %}disabled="disabled"{% endunless %}
-        value="{{ variant.id }}">
-        {{ variant.title }}
-      </option>
-      {% endfor %}
-    </select>
-
-    {% if product.available and product.variants.size > 1 %}
-    {% for option in product.options %}
-    {% include 'swatch' with option %}
-    {% endfor %}
-    {% endif %}
-    <div>
-      <label>Shipping</label>
-      <span>Estimated Delivery Time: 3 days</span>
-    </div>
-    
-    <div>
-      <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
-      {% comment %}<input type="number" id="Quantity" name="quantity" value="1" min="1">{% endcomment %}
-      <div class="product-details__qty-input-wrap">
-        <button type="button" class="product-details__qty-adjust product-details__qty-adjust--minus">
-          <span class="product-details__text-icon fallback-text" aria-hidden="true">&minus;</span>
-
-        </button>
-        <input type="number" id="Quantity" name="quantity" value="1" min="1" class="product-details__qty-input">
-        <button type="button" class="product-details__qty-adjust product-details__qty-adjust--plus">
-          <span class="product-details__text-icon fallback-text" aria-hidden="true">+</span>
-
-        </button>
+      {% endif %}
+      <div>
+        <label>Shipping</label>
+        <span>Estimated Delivery Time: 3 days</span>
       </div>
+
+      <div>
+        <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
+        {% comment %}<input type="number" id="Quantity" name="quantity" value="1" min="1">{% endcomment %}
+        <div class="product-details__qty-input-wrap">
+          <button type="button" class="product-details__qty-adjust product-details__qty-adjust--minus">
+            <span class="product-details__text-icon fallback-text" aria-hidden="true">&minus;</span>
+
+          </button>
+          <input type="number" id="Quantity" name="quantity" value="1" min="1" class="product-details__qty-input">
+          <button type="button" class="product-details__qty-adjust product-details__qty-adjust--plus">
+            <span class="product-details__text-icon fallback-text" aria-hidden="true">+</span>
+
+          </button>
+        </div>
       {% comment %}<div id="variant-inventory">
        {% if product.variants.first.inventory_management == "shopify" %}
        {% if product.variants.first.inventory_quantity > 0 %}
@@ -125,7 +127,7 @@
      </div>{% endcomment %}
 
      <span>piece 
-       
+
        {% if product.variants.first.inventory_management == "shopify" %}
        {% if product.variants.first.inventory_quantity > 0 %}
        ( <span id="variant-inventory">{{ product.variants.first.inventory_quantity }}</span> pieces available )
@@ -147,20 +149,22 @@
     <span>Contact seller now</span>
   </div>
 
-  <a href="#" class="btn"> Add to Wish list</a>
+</div>
 
-  <button
-  type="submit"
-  name="add"
-  data-add-to-cart
-  {% unless current_variant.available %}disabled="disabled"{% endunless %}>
-  <span data-add-to-cart-text>
-    {% if current_variant.available %}
-    {{ 'products.product.add_to_cart' | t }}
-    {% else %}
-    {{ 'products.product.sold_out' | t }}
-    {% endif %}
-  </span>
+<a href="#" class="btn"> Add to Wish list</a>
+
+<button
+type="submit"
+name="add"
+data-add-to-cart
+{% unless current_variant.available %}disabled="disabled"{% endunless %}>
+<span data-add-to-cart-text>
+  {% if current_variant.available %}
+  {{ 'products.product.add_to_cart' | t }}
+  {% else %}
+  {{ 'products.product.sold_out' | t }}
+  {% endif %}
+</span>
 </button>
 </form>
 
@@ -172,7 +176,7 @@
 
 {% unless product == empty %}
 <script type="application/json" data-product-json>
-{{ product | json }}
+  {{ product | json }}
 </script>
 {% endunless %}
 
@@ -214,6 +218,8 @@
   </div>
 </div>
 
+{% include 'related-products' %}
+
 </div>
 
 {% schema %}
@@ -221,11 +227,11 @@
   "name": "Product pages",
   "settings": [
   {
-  "type": "checkbox",
-  "id": "show_share_buttons",
-  "label": "Show social sharing buttons",
-  "default": true
-}
-]
+    "type": "checkbox",
+    "id": "show_share_buttons",
+    "label": "Show social sharing buttons",
+    "default": true
+  }
+  ]
 }
 {% endschema %}
