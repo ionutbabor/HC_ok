@@ -2,8 +2,8 @@
    Swatches Styles
 */
 
-{% assign width = '50px' %}
-{% assign height = '50px' %}
+{% assign width = '30px' %}
+{% assign height = '30px' %}
 .swatch { 
   margin:1em 0; 
 }
@@ -28,15 +28,19 @@
   /* No extra spacing between them */
   margin:0;
   /* The border when the button is not selected */
-  border:#ccc 1px solid;
+  border:#e9e9e9 1px solid;
   /* Background color */
-  background-color:#ddd;
+  background-color:#fff;
   /* Styling text */
   font-size:13px;
   text-align:center;
   line-height:{{ height }};
   white-space:nowrap;
   text-transform:uppercase;
+}
+.swatch .img-thumbnails{
+ min-width:50px !important; 
+  height:50px !important;
 }
 .swatch-element label { padding:0 10px; }
 .color.swatch-element label { padding:0; }
