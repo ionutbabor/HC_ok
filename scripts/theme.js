@@ -288,6 +288,15 @@ jQuery('#sort-by')
 }());
 // end carousel slider
 
+/*begin product zoom image*/ 
+
+    CloudZoom.quickStart({
+        zoomPosition: 'inside',
+        autoInside: true
+    });
+
+/*end product zoom image*/ 
+
 /*product  flexslider*/
 $('#product-slider').flexslider({
   animation: "fade",
@@ -298,9 +307,9 @@ $('#product-slider').flexslider({
   touch: "false",
   controlNav: "thumbnails",
   start: function(slider){
-$('.loading-gif').remove();;
+$('.loading-gif').remove();
 }
-      });
+});
 /*end flexslider*/
 
 /*begin fancybox*/
@@ -312,9 +321,7 @@ $().fancybox({
 });
 /*end fancybox*/
 
-/*begin product zoom image*/ 
-CloudZoom.quickStart();
-/*end product zoom image*/ 
+
 
  /*swatches*/
  jQuery(function() {
